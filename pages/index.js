@@ -1,10 +1,11 @@
 import React from "react";
+import { PedidosPendentes } from "../src/routes"
 
 function Home() {
     return (
         <div>
             <p>HOME</p>
-            <button>
+            <button onClick={PedidosPendentes}>
                 Teste
             </button>
         </div>

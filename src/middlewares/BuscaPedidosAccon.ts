@@ -109,7 +109,9 @@ export async function BuscaPedidosAccon(request: Request, response: Response, ne
             }); //FECHANDO FOR ITEM
         }); // FECHANDO FOR PEDIDOS
     }); // FECHANDO FOR APLICATIVOS
-    return response.status(200).json({
-        message: "Itens Gravados!"
-    });;
+    console.log("Foi")
+    return response.status(200).end;
+    // return response.status(200).json({
+    //     message: "Itens Gravados!"
+    // });;
 }

@@ -22,4 +22,11 @@ Rotas.post("/InsPedidoOptimus",
 Rotas.post("/InsUsuario", VerificaUsuario, Autoriza, insereUsuario.handle)
 Rotas.get("/ConsApp", VerificaUsuario, consultaApps.handle)
 
-export { Rotas }
+async function PedidosPendentes() {
+    return (
+        Rotas.post("/InsPedidoOptimus",
+            BuscaPedidosAccon)
+    )
+}
+
+export { Rotas, PedidosPendentes }

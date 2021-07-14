@@ -3,7 +3,6 @@ import { ExecuteSQL } from "../../BancoSql";
 import { getCustomRepository } from "typeorm";
 import { Request, Response, NextFunction } from "express";
 import { PedidoRep } from "../../src/repositories/PedidoRep"
-import { NowRequest, NowResponse } from "@vercel/node"
 import { UsuarioRep } from "../../src/repositories/UsuarioRep";
 import { ServiceConsultaApp } from "../../src/services/ServiceConsApp";
 
@@ -12,7 +11,7 @@ interface IUsuarioAutorizado {
 }
 
 // IMPORTANDO ARQUIVOS DA ACCON
-export async function BuscaPedidosAccon(request: NowRequest, response: NowResponse) {
+export async function BuscaPedidosAccon(request: Request, response: Response, next: NextFunction) {
     //BUSCANDO APLICATIVOS CADASTRADOS NO BANCO ON-LINE
     const consultaApp = new ServiceConsultaApp();
     const apps = await consultaApp.execute();

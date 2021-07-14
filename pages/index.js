@@ -5,7 +5,7 @@ function Home() {
     return (
         <div>
             <p>HOME</p>
-            <button onClick={PedidosPendentes}>
+            <button >
                 Teste
             </button>
         </div>

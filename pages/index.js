@@ -1,6 +1,13 @@
+import React from "react";
+
 function Home() {
     return (
-        <div>HOME</div>
+        <div>
+            <p>HOME</p>
+            <button>
+                Teste
+            </button>
+        </div>
     )
 }
 

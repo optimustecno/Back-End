@@ -2,11 +2,11 @@ import mysql from 'serverless-mysql'
 
 export const bancoSQL = mysql({
     config: {
-        host: "localhost",
+        host: process.env.HOST_MY_SQL,
         database: process.env.BD_MY_SQL,
-        user: "root",
+        user: process.env.USR_MY_SQL,
         password: process.env.PSW_MY_SQL,
-        port: 3306,
+        port: parseInt(process.env.PORT_MY_SQL),
     },
 })
 

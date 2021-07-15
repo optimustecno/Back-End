@@ -6,6 +6,7 @@ import { Rotas } from './routes';
 import express, { NextFunction, Request, Response } from "express";
 
 const Api = express();
+Api.use(cors());
 
 Api.use(express.json())
 

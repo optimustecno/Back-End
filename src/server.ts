@@ -25,4 +25,4 @@ Api.use((err: Error, request: Request, response: Response, next: NextFunction) =
     })
 })
 
-Api.listen(8080, () => console.log("Servidor Iniciado na porta 8080"));
+Api.listen(process.env.PORT || 8080, () => console.log("Servidor Iniciado na porta 8080"));

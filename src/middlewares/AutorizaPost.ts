@@ -6,9 +6,9 @@ export async function Autoriza(request: Request, response: Response, next: NextF
 
     const { opt_codigo_usu } = request;
 
-    const Usuarios = getCustomRepository(UsuarioRep);
+    const usuariosR = getCustomRepository(UsuarioRep);
 
-    const { opt_nivel } = await Usuarios.findOne(opt_codigo_usu);
+    const { opt_nivel } = await usuariosR.findOne(opt_codigo_usu);
 
     if (opt_nivel === "0") {
         return next();

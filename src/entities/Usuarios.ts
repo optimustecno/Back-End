@@ -1,7 +1,7 @@
 import { Entity, PrimaryColumn, Column } from "typeorm";
 
 @Entity("opt_cad_usu")
-class Usuarios {
+class usuarios {
     @PrimaryColumn()
     readonly opt_codigo_usu: string;
     @Column()
@@ -14,4 +14,4 @@ class Usuarios {
     opt_nivel: string;
 }
 
-export { Usuarios };
+export { usuarios };

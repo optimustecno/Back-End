@@ -10,14 +10,14 @@ export function VerificaUsuario(request: Request, response: Response, next: Next
     console.log(request.headers.authorization)
 
     const token = request.headers.authorization.split(" ")[1];
-
+    console.log(token)
     if (!token) {
         return response.status(401).json({
             error: "Não Autorizado"
         });
     }
     try {
-        const { sub } = verify(token, process.env.secret) as IUsuarioAutorizado;
+        const { sub } = verify(token, process.env.SECRET) as IUsuarioAutorizado;
         request.opt_codigo_usu = sub
         return next();
     } catch (error) {

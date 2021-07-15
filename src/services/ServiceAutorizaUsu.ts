@@ -1,6 +1,6 @@
 import { compare } from "bcryptjs";
-import { getCustomRepository } from "typeorm";
 import { sign } from "jsonwebtoken";
+import { getCustomRepository } from "typeorm";
 import { UsuarioRep } from "../repositories/UsuarioRep";
 
 interface iAutenticaUsu {
@@ -29,7 +29,7 @@ class AutorizaUsu {
         const token = sign({
             codigo: user.opt_codigo_usu,
             nome: user.opt_usuario
-        }, "e0496023510e7440d8d1544ec468e8f5",
+        }, process.env.SECRET,
             {
                 subject: cCodigo,
                 expiresIn: "1d"

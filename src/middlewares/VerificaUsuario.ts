@@ -6,13 +6,13 @@ interface IUsuarioAutorizado {
 }
 
 export function VerificaUsuario(request: Request, response: Response, next: NextFunction) {
-    var tempo = new Date()
-    console.log(`Verifica Usuario ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)
+    // var tempo = new Date()
+    // console.log(`Verifica Usuario ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)
     const token = request.headers.authorization.split(" ")[1];
     console.log(token)
     if (!token) {
-        var tempo = new Date()
-        console.log(`FIM Verifica Usuario naut ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)
+        // var tempo = new Date()
+        // console.log(`FIM Verifica Usuario naut ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)
         return response.status(401).json({
             error: "Não Autorizado"
         });
@@ -20,12 +20,12 @@ export function VerificaUsuario(request: Request, response: Response, next: Next
     try {
         const { sub } = verify(token, process.env.SECRET) as IUsuarioAutorizado;
         request.opt_codigo_usu = sub
-        var tempo = new Date()
-        console.log(`FIM Verifica Usuario ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)
+        // var tempo = new Date()
+        // console.log(`FIM Verifica Usuario ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)
         return next();
     } catch (error) {
-        var tempo = new Date()
-        console.log(`FIM Verifica Usuario ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)
+        // var tempo = new Date()
+        // console.log(`FIM Verifica Usuario ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)
         return response.status(401).json({
             error: "Não Autorizado"
         });

@@ -6,14 +6,14 @@ import { getCustomRepository } from "typeorm";
 
 export async function BuscaPedidosAccon(request: Request, response: Response, next: NextFunction) {
     //BUSCANDO APLICATIVOS CADASTRADOS NO BANCO ON-LINE
-    var tempo = new Date()
-    console.log(`Coleta APPs ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)
+    // var tempo = new Date()
+    // console.log(`Coleta APPs ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)
     const consultaApp = new ServiceConsultaApp();
     const apps = await consultaApp.execute();
     //CASO NÃO RETORNE NENHUM REGISTRO
     if (!apps) {
-        var tempo = new Date()
-        console.log(`FIM Coleta APPs npe ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)
+        // var tempo = new Date()
+        // console.log(`FIM Coleta APPs npe ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)
         return response.status(404).json({
             error: "Não Há Nada Para Ser Listado"
         });
@@ -26,8 +26,8 @@ export async function BuscaPedidosAccon(request: Request, response: Response, ne
     apps.forEach(async app => {
         //VERIFICANDO A EXISTENCIA DO TOKEN
         if (!app.token) {
-            var tempo = new Date()
-            console.log(`Coletando TOKEN ACCON ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)
+            // var tempo = new Date()
+            // console.log(`Coletando TOKEN ACCON ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)
             var urlencoded = new URLSearchParams();
             urlencoded.append("email", app.login);
             urlencoded.append("password", app.senha);
@@ -41,22 +41,22 @@ export async function BuscaPedidosAccon(request: Request, response: Response, ne
             };
             const AcconResponse = await fetch(`${cEndAccon}/auth/login`, requestOptions);
             const AcconResponseJson = await AcconResponse.json();
-            var tempo = new Date()
-            console.log(`TOKEN Coletado ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)
+            // var tempo = new Date()
+            // console.log(`TOKEN Coletado ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)
             Token = AcconResponseJson.token;
             const AtualizaToken = await ExecuteSQL(
                 `UPDATE opt_cad_app SET token = '${Token}'
                 WHERE seq = ?`, app.seq
             )
-            var tempo = new Date()
-            console.log(`TOKEN Gravado ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)
+            // var tempo = new Date()
+            // console.log(`TOKEN Gravado ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)
         }
         else {
             Token = app.token
         }
         //BUSCANDO PEDIDOS
-        var tempo = new Date()
-        console.log(`Buscando Pedidos ACCON ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)
+        // var tempo = new Date()
+        // console.log(`Buscando Pedidos ACCON ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)
         var requestOptionsPed = {
             method: 'GET',
             headers: {
@@ -66,8 +66,8 @@ export async function BuscaPedidosAccon(request: Request, response: Response, ne
         };
         const Pedidos = await fetch(`${cEndAccon}/order/pending`, requestOptionsPed);
         const PedidosJson = await Pedidos.json();
-        var tempo = new Date()
-        console.log(`Pedidos Retornados ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)
+        // var tempo = new Date()
+        // console.log(`Pedidos Retornados ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)
         var nValTot = 0;
         var nQuant = 0;
         var nValUn = 0;
@@ -84,8 +84,8 @@ export async function BuscaPedidosAccon(request: Request, response: Response, ne
                 var entrega = pedido.delivery ? "DEL" : "RET";
 
                 const pedidoRep = getCustomRepository(PedidoRep);
-                var tempo = new Date()
-                console.log(`Gravando pedido ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)
+                // var tempo = new Date()
+                // console.log(`Gravando pedido ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)
                 var pedidoAccon = pedidoRep.create({
                     opt_cod_cliente: app.opt_cod_cliente,
                     cliente: pedido.user.name,
@@ -118,13 +118,11 @@ export async function BuscaPedidosAccon(request: Request, response: Response, ne
                     obs_troco: `TROCO PARA ${pedido.change}`
                 })
                 await pedidoRep.save(pedidoAccon)
-                var tempo = new Date()
-                console.log(`fim Gravando pedido ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)
+                // var tempo = new Date()
+                // console.log(`fim Gravando pedido ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)
             }); //FECHANDO FOR ITEM
         }); // FECHANDO FOR PEDIDOS
     }); // FECHANDO FOR APLICATIVOS
-    //console.log("Foi")
-    // return response.status(200).end;
     return response.status(200).json({
         message: "Itens Gravados!"
     });

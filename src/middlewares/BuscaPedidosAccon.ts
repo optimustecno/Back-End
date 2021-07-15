@@ -105,13 +105,12 @@ export async function BuscaPedidosAccon(request: Request, response: Response, ne
                     obs_troco: `TROCO PARA ${pedido.change}`
                 })
                 await pedidoRep.save(pedidoAccon)
-
             }); //FECHANDO FOR ITEM
         }); // FECHANDO FOR PEDIDOS
     }); // FECHANDO FOR APLICATIVOS
-    console.log("Foi")
-    return response.status(200).end;
-    // return response.status(200).json({
-    //     message: "Itens Gravados!"
-    // });;
+    //console.log("Foi")
+    // return response.status(200).end;
+    return response.status(200).json({
+        message: "Itens Gravados!"
+    });
 }

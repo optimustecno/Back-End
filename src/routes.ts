@@ -21,6 +21,7 @@ Rotas.post("/InsPedidoOptimus",
     BuscaPedidosAccon)
 Rotas.post("/InsUsuario", VerificaUsuario, Autoriza, insereUsuario.handle)
 Rotas.get("/ConsApp", VerificaUsuario, consultaApps.handle)
+Rotas.post("/ProxStatus")
 
 async function PedidosPendentes() {
     return (

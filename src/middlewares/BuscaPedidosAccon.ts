@@ -1,8 +1,9 @@
 import { ExecuteSQL } from "../../BancoSql";
+import { getCustomRepository } from "typeorm";
 import { PedidoRep } from "../repositories/PedidoRep"
 import { Request, Response, NextFunction } from "express";
 import { ServiceConsultaApp } from "../services/ServiceConsApp";
-import { getCustomRepository } from "typeorm";
+
 
 export async function BuscaPedidosAccon(request: Request, response: Response, next: NextFunction) {
     //BUSCANDO APLICATIVOS CADASTRADOS NO BANCO ON-LINE
@@ -39,12 +40,12 @@ export async function BuscaPedidosAccon(request: Request, response: Response, ne
                 },
                 body: urlencoded,
             };
-            const AcconResponse = await fetch(`${cEndAccon}/auth/login`, requestOptions);
-            const AcconResponseJson = await AcconResponse.json();
+            var AcconResponse = await fetch(`${cEndAccon}/auth/login`, requestOptions);
+            var AcconResponseJson = await AcconResponse.json();
             // var tempo = new Date()
             // console.log(`TOKEN Coletado ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)
             Token = AcconResponseJson.token;
-            const AtualizaToken = await ExecuteSQL(
+            var AtualizaToken = await ExecuteSQL(
                 `UPDATE opt_cad_app SET token = '${Token}'
                 WHERE seq = ?`, app.seq
             )
@@ -64,8 +65,8 @@ export async function BuscaPedidosAccon(request: Request, response: Response, ne
                 "X-NETWORK-ID": app.rede
             }
         };
-        const Pedidos = await fetch(`${cEndAccon}/order/pending`, requestOptionsPed);
-        const PedidosJson = await Pedidos.json();
+        var Pedidos = await fetch(`${cEndAccon}/order/pending`, requestOptionsPed);
+        var PedidosJson = await Pedidos.json();
         // var tempo = new Date()
         // console.log(`Pedidos Retornados ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)
         var nValTot = 0;
@@ -83,7 +84,7 @@ export async function BuscaPedidosAccon(request: Request, response: Response, ne
                 nValUn = nValTot / nQuant;
                 var entrega = pedido.delivery ? "DEL" : "RET";
 
-                const pedidoRep = getCustomRepository(PedidoRep);
+                var pedidoRep = getCustomRepository(PedidoRep);
                 // var tempo = new Date()
                 // console.log(`Gravando pedido ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)
                 var pedidoAccon = pedidoRep.create({

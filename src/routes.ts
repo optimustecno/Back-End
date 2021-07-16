@@ -5,14 +5,14 @@ import { VerificaUsuario } from "./middlewares/VerificaUsuario";
 import { BuscaPedidosAccon } from "./middlewares/BuscaPedidosAccon";
 import { ControleAutenticao } from "./Controller/ControleAutenticacao";
 import { ControleInsertUsuario } from "./Controller/ControleInsUsuario";
-import { ControleInsertPedido } from "./Controller/ControleInsertPedido";
+import { ControleMudancaStatus } from "./Controller/ControleMudaStatus";
 
 const Rotas = Router();
 
 const consultaApps = new ControleConsApp();
 const insereUsuario = new ControleInsertUsuario();
 const autenticaUsuario = new ControleAutenticao();
-const insereContPedido = new ControleInsertPedido();
+const consultaProximoStatus = new ControleMudancaStatus();
 
 Rotas.post("/Login", autenticaUsuario.handle)
 Rotas.post("/InsPedidoOptimus",
@@ -21,13 +21,6 @@ Rotas.post("/InsPedidoOptimus",
     BuscaPedidosAccon)
 Rotas.post("/InsUsuario", VerificaUsuario, Autoriza, insereUsuario.handle)
 Rotas.get("/ConsApp", VerificaUsuario, consultaApps.handle)
-Rotas.post("/ProxStatus")
+Rotas.post("/ProxStatus", VerificaUsuario, Autoriza, consultaProximoStatus.handle)
 
-async function PedidosPendentes() {
-    return (
-        Rotas.post("/InsPedidoOptimus",
-            BuscaPedidosAccon)
-    )
-}
-
-export { Rotas, PedidosPendentes }
+export { Rotas }

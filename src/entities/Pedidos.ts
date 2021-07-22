@@ -4,9 +4,9 @@ import { Entity, PrimaryColumn, Column } from "typeorm";
 class Pedidos {
     @PrimaryColumn()
     opt_cod_cliente: string;
-    @Column()
+    @PrimaryColumn()
     opt_cod_app: string;
-    @Column()
+    @PrimaryColumn()
     opt_pedido_app: string;
     @Column()
     opt_pedido: string;
@@ -20,7 +20,7 @@ class Pedidos {
     opt_nome_produto: string;
     @Column()
     obs_combo: string;
-    @Column()
+    @PrimaryColumn()
     ordem: string;
     @Column()
     cod_grupo: string;
@@ -34,6 +34,8 @@ class Pedidos {
     tipo: string;
     @Column()
     taxa_ent: number;
+    @Column()
+    desconto: number;
     @Column()
     hora: string;
     @Column()
@@ -62,6 +64,8 @@ class Pedidos {
     obs_item: string;
     @Column()
     obs: string;
+    @Column()
+    pagamento: string;
     @Column()
     obs_troco: string;
 

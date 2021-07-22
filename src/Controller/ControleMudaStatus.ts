@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { ExecuteSQL } from "../../BancoSql";
-import { ServiceConsultaProxStatus } from "../services/ServiceConsPedidos";
+import { ServiceConsultaProxStatus } from "../services/ServiceProxStatus";
 
 class ControleMudancaStatus {
     async handle(request: Request, response: Response) {
@@ -23,7 +23,12 @@ class ControleMudancaStatus {
                     "X-NETWORK-ID": ped.rede
                 }
             };
-            var AcconResponse = await fetch(`${cEnd}/order/${ped.opt_pedido_app}/next`, requestOptions);
+            if (ped.novo_status === "7") {
+                var AcconResponse = await fetch(`${cEnd}/order/${ped.opt_pedido_app}/next?cancel=true`, requestOptions);
+            }
+            else {
+                var AcconResponse = await fetch(`${cEnd}/order/${ped.opt_pedido_app}/next`, requestOptions);
+            }
             //var AcconResponseJson = await AcconResponse.json();
             switch (AcconResponse.status) {
                 case 204:

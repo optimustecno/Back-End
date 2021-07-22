@@ -1,21 +1,30 @@
 import { getCustomRepository } from "typeorm";
-import { ProxStatusRep } from "../repositories/ProxStatusRep";
+import { PedidoRep } from "../repositories/PedidoRep";
 
-class ServiceConsultaProxStatus {
+interface iClientePedidos {
+    codigo_Cli: string;
+}
 
-    async execute() {
-        const pedidoRep = getCustomRepository(ProxStatusRep);
+class ServiceConsultaPedidos {
 
-        const PedidosProxStatus = await pedidoRep.find({
+    async execute({ codigo_Cli }: iClientePedidos) {
 
+        console.log(codigo_Cli);
+        const pedidoRep = getCustomRepository(PedidoRep);
+
+        const PedidosPendentes = await pedidoRep.find({
+            opt_cod_cliente: codigo_Cli,
+            status: "0"
         });
 
-        if (!PedidosProxStatus) {
-            throw new Error("Nenhum Pedido Para Ser Atualizado!")
+        if (!PedidosPendentes) {
+            throw new Error("Nenhum Pedido Para Ser Importado!")
         }
 
-        return PedidosProxStatus
+        console.log(PedidosPendentes)
+
+        return PedidosPendentes
     }
 }
 
-export { ServiceConsultaProxStatus }
+export { ServiceConsultaPedidos }

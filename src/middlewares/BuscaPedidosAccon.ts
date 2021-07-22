@@ -45,6 +45,7 @@ export async function BuscaPedidosAccon(request: Request, response: Response, ne
             // var tempo = new Date()
             // console.log(`TOKEN Coletado ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)
             Token = AcconResponseJson.token;
+            console.log("Atualizou")
             var AtualizaToken = await ExecuteSQL(
                 `UPDATE opt_cad_app SET token = '${Token}'
                 WHERE seq = ?`, app.seq
@@ -58,6 +59,9 @@ export async function BuscaPedidosAccon(request: Request, response: Response, ne
         //BUSCANDO PEDIDOS
         // var tempo = new Date()
         // console.log(`Buscando Pedidos ACCON ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)
+        console.log(app.rede)
+        console.log(app.senha)
+        console.log(app.login)
         var requestOptionsPed = {
             method: 'GET',
             headers: {
@@ -73,58 +77,86 @@ export async function BuscaPedidosAccon(request: Request, response: Response, ne
         var nQuant = 0;
         var nValUn = 0;
         // RODANDO UM FOR DENTRO DOS PEDIDOS RETORNADOS
-        PedidosJson.forEach(async pedido => {
-            var itens = pedido.products
-            // RODANDO UM FOR DENTRO DOS ITENS DO PEDIDO
-            itens.forEach(async item => {
-                console.log(pedido.date.split("T")[1].substring(0, 5))
-                // COLETANDO VALORES
-                nValTot = item.total;
-                nQuant = item.quantity;
-                nValUn = nValTot / nQuant;
-                var entrega = pedido.delivery ? "DEL" : "RET";
 
+        var estatus = Pedidos.status
+
+        if (estatus === 200) {
+
+            PedidosJson.forEach(async pedido => {
+                // VERIFICANDO SE O PEDIDO JÁ FOI IMPORTADO
                 var pedidoRep = getCustomRepository(PedidoRep);
-                // var tempo = new Date()
-                // console.log(`Gravando pedido ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)
-                var pedidoAccon = pedidoRep.create({
-                    opt_cod_cliente: app.opt_cod_cliente,
-                    cliente: pedido.user.name,
-                    fone_cliente: pedido.user.phone,
-                    cpf_cli: pedido.user.document,
-                    opt_cod_app: app.seq,
-                    opt_pedido_app: pedido._id,
-                    opt_pedido: pedido.sequential,
-                    opt_cod_prod: item.externalVendorCode,
-                    opt_nome_produto: item.name,
-                    obs_combo: "",
-                    ordem: "0",
-                    cod_grupo: "000001",
-                    quant: nQuant,
-                    valor_un: nValUn,
-                    valor_tot_prod: nValTot,
-                    obs_item: item.notes,
-                    tipo: entrega,
-                    taxa_ent: pedido.deliveryTax,
-                    hora: pedido.date.split("T")[1].substring(0, 5),
-                    data: pedido.date.split("T")[0],
-                    status: "0",
-                    novo_status: "0",
-                    endereco: pedido.address.address,
-                    numero: pedido.address.number,
-                    bairro: pedido.address.district,
-                    complemento: pedido.address.complement,
-                    valor_total_ped: pedido.total,
-                    obs: pedido.notes,
-                    obs_troco: `TROCO PARA ${pedido.change}`
+                var cont = 0;
+                const ped = await pedidoRep.findOne({
+                    where: {
+                        opt_cod_cliente: app.opt_cod_cliente,
+                        opt_cod_app: app.seq,
+                        opt_pedido_app: pedido._id
+                    }
                 })
-                await pedidoRep.save(pedidoAccon)
-                // var tempo = new Date()
-                // console.log(`fim Gravando pedido ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)
-            }); //FECHANDO FOR ITEM
-        }); // FECHANDO FOR PEDIDOS
+                if (!ped) {
+                    var itens = pedido.products
+                    // RODANDO UM FOR DENTRO DOS ITENS DO PEDIDO
+                    itens.forEach(async item => {
+                        console.log(pedido.date.split("T")[1].substring(0, 5))
+                        // COLETANDO VALORES
+                        nValTot = item.total;
+                        nQuant = item.quantity;
+                        nValUn = nValTot / nQuant;
+                        cont = cont + 1;
+                        var entrega = pedido.delivery ? "DEL" : "RET";
+                        // var tempo = new Date()
+                        // console.log(`Gravando pedido ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)
+                        console.log(pedido.payment.name)
+                        var pedidoAccon = pedidoRep.create({
+                            opt_cod_cliente: app.opt_cod_cliente,
+                            cliente: pedido.user.name,
+                            fone_cliente: pedido.user.phone,
+                            cpf_cli: pedido.user.document,
+                            opt_cod_app: app.seq,
+                            opt_pedido_app: pedido._id,
+                            opt_pedido: pedido.sequential,
+                            opt_cod_prod: item.externalVendorCode,
+                            opt_nome_produto: item.name,
+                            obs_combo: "",
+                            ordem: cont.toString(),
+                            cod_grupo: "000001",
+                            quant: nQuant,
+                            valor_un: nValUn,
+                            valor_tot_prod: nValTot,
+                            desconto: pedido.discount,
+                            obs_item: item.notes,
+                            tipo: entrega,
+                            taxa_ent: pedido.deliveryTax,
+                            hora: pedido.date.split("T")[1].substring(0, 5),
+                            data: pedido.date.split("T")[0],
+                            status: "0",
+                            novo_status: "0",
+                            endereco: pedido.address.address,
+                            numero: pedido.address.number,
+                            bairro: pedido.address.district,
+                            complemento: pedido.address.complement,
+                            valor_total_ped: pedido.total,
+                            obs: pedido.notes,
+                            pagamento: pedido.payment.name,
+                            obs_troco: `${pedido.change}`
+                        })
+                        await pedidoRep.save(pedidoAccon)
+                        // var tempo = new Date()
+                        // console.log(`fim Gravando pedido ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)
+                    }); //FECHANDO FOR ITEM
+                }
+            }); // FECHANDO FOR PEDIDOS
+        }
+        else if (estatus = 401) {
+            console.log("ZEROU")
+            var ZeraToken = await ExecuteSQL(
+                `UPDATE opt_cad_app SET token = ''
+                WHERE seq = ?`, app.seq
+            )
+        }
     }); // FECHANDO FOR APLICATIVOS
-    return response.status(200).json({
-        message: "Itens Gravados!"
-    });
+    return next();
+    //return response.status(200).json({
+    //    message: "Itens Gravados!"
+    //});
 }

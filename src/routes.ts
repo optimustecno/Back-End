@@ -1,4 +1,4 @@
-import { Router } from "express";
+import { Request, Response, Router } from "express";
 import { Autoriza } from "./middlewares/AutorizaPost";
 import { ControleConsApp } from "./Controller/ControleConsApp";
 import { VerificaUsuario } from "./middlewares/VerificaUsuario";
@@ -25,5 +25,9 @@ Rotas.post("/UpdateStatus", VerificaUsuario, Autoriza, updateStatus.handle)
 Rotas.post("/InsPedidoOptimus", VerificaUsuario, Autoriza, BuscaPedidosAccon)
 Rotas.post("/ProxStatus", VerificaUsuario, Autoriza, consultaProximoStatus.handle)
 Rotas.get("/PedidosPendentes/:codigo", VerificaUsuario, Autoriza, BuscaPedidosAccon, consultaPedidos.handle)
+
+Rotas.get("/Teste", (request: Request, response: Response) => {
+    return response.status(200).json({ Message: "OK" })
+})
 
 export { Rotas }

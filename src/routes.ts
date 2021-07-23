@@ -28,6 +28,6 @@ Rotas.post("/InsPedidoOptimus", VerificaUsuario, Autoriza, BuscaPedidosAccon)
 Rotas.post("/ProxStatus", VerificaUsuario, Autoriza, consultaProximoStatus.handle)
 Rotas.get("/PedidosPendentes/:codigo", VerificaUsuario, Autoriza, BuscaPedidosAccon, consultaPedidos.handle)
 
-Rotas.get("/PedidosUaiRango", AutUaiRango, BuscaPedidosUaiRango)
+Rotas.post("/PedidosUaiRango", AutUaiRango, BuscaPedidosUaiRango)
 
 export { Rotas }

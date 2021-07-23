@@ -5,13 +5,13 @@ import { Request, Response, NextFunction } from "express";
 
 
 export async function BuscaPedidosUaiRango(request: Request, response: Response, next: NextFunction) {
-
+    console.log("Pedido")
     var Pedidos = request.body;
     var PedidosJson = await Pedidos.json();
     // RODANDO UM FOR DENTRO DOS PEDIDOS RETORNADOS
     PedidosJson.forEach(async pedido => {
         // VERIFICANDO SE O PEDIDO JÁ FOI IMPORTADO
-
+        console.log(pedido.id_estabelecimento)
         const apps = getCustomRepository(AppRep);
         const app = await apps.findOne({
             where: {

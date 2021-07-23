@@ -26,7 +26,8 @@ Rotas.post("/InsPedidoOptimus", VerificaUsuario, Autoriza, BuscaPedidosAccon)
 Rotas.post("/ProxStatus", VerificaUsuario, Autoriza, consultaProximoStatus.handle)
 Rotas.get("/PedidosPendentes/:codigo", VerificaUsuario, Autoriza, BuscaPedidosAccon, consultaPedidos.handle)
 
-Rotas.get("/Teste", (request: Request, response: Response) => {
+Rotas.post("/PedidosUaiRango", (request: Request, response: Response) => {
+    console.log(request.headers)
     return response.status(200).json({ Message: "OK" })
 })
 

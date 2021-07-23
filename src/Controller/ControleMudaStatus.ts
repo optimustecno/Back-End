@@ -16,30 +16,32 @@ class ControleMudancaStatus {
         var atualizouTudo = "S";
 
         peds.forEach(async ped => {
-            var requestOptions = {
-                method: 'POST',
-                headers: {
-                    "Authorization": `Bearer ${ped.token}`,
-                    "X-NETWORK-ID": ped.rede
+            if (ped.app === "ACCON") {
+                var requestOptions = {
+                    method: 'POST',
+                    headers: {
+                        "Authorization": `Bearer ${ped.token}`,
+                        "X-NETWORK-ID": ped.rede
+                    }
+                };
+                if (ped.novo_status === "7") {
+                    var AcconResponse = await fetch(`${cEnd}/order/${ped.opt_pedido_app}/next?cancel=true`, requestOptions);
                 }
-            };
-            if (ped.novo_status === "7") {
-                var AcconResponse = await fetch(`${cEnd}/order/${ped.opt_pedido_app}/next?cancel=true`, requestOptions);
-            }
-            else {
-                var AcconResponse = await fetch(`${cEnd}/order/${ped.opt_pedido_app}/next`, requestOptions);
-            }
-            //var AcconResponseJson = await AcconResponse.json();
-            switch (AcconResponse.status) {
-                case 204:
-                    var AtualizaStatus = await ExecuteSQL(
-                        `UPDATE opt_ped_app SET status = '${ped.novo_status}'
-                        WHERE opt_pedido_app = ?`, ped.opt_pedido_app
-                    )
-                    break;
-                default:
-                    atualizouTudo = "N"
-                    break;
+                else {
+                    var AcconResponse = await fetch(`${cEnd}/order/${ped.opt_pedido_app}/next`, requestOptions);
+                }
+                //var AcconResponseJson = await AcconResponse.json();
+                switch (AcconResponse.status) {
+                    case 204:
+                        var AtualizaStatus = await ExecuteSQL(
+                            `UPDATE opt_ped_app SET status = '${ped.novo_status}'
+                            WHERE opt_pedido_app = ?`, ped.opt_pedido_app
+                        )
+                        break;
+                    default:
+                        atualizouTudo = "N"
+                        break;
+                }
             }
         });
         if (atualizouTudo === "S") {

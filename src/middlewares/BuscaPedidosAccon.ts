@@ -26,133 +26,135 @@ export async function BuscaPedidosAccon(request: Request, response: Response, ne
     //RODANDO UM FOR DENTRO DOS ELEMENTOS RETORNADOS PELO BANCO
     apps.forEach(async app => {
         //VERIFICANDO A EXISTENCIA DO TOKEN
-        if (!app.token) {
-            // var tempo = new Date()
-            // console.log(`Coletando TOKEN ACCON ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)
-            var urlencoded = new URLSearchParams();
-            urlencoded.append("email", app.login);
-            urlencoded.append("password", app.senha);
-            urlencoded.append("network", app.rede);
-            var requestOptions = {
-                method: 'POST',
-                headers: {
-                    "Content-Type": "application/x-www-form-urlencoded"
-                },
-                body: urlencoded,
-            };
-            var AcconResponse = await fetch(`${cEndAccon}/auth/login`, requestOptions);
-            var AcconResponseJson = await AcconResponse.json();
-            // var tempo = new Date()
-            // console.log(`TOKEN Coletado ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)
-            Token = AcconResponseJson.token;
-            console.log("Atualizou")
-            var AtualizaToken = await ExecuteSQL(
-                `UPDATE opt_cad_app SET token = '${Token}'
-                WHERE seq = ?`, app.seq
-            )
-            // var tempo = new Date()
-            // console.log(`TOKEN Gravado ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)
-        }
-        else {
-            Token = app.token
-        }
-        //BUSCANDO PEDIDOS
-        // var tempo = new Date()
-        // console.log(`Buscando Pedidos ACCON ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)
-        console.log(app.rede)
-        console.log(app.senha)
-        console.log(app.login)
-        var requestOptionsPed = {
-            method: 'GET',
-            headers: {
-                "Authorization": `Bearer ${Token}`,
-                "X-NETWORK-ID": app.rede
+        if (app.app === "ACCON") {
+            if (!app.token) {
+                // var tempo = new Date()
+                // console.log(`Coletando TOKEN ACCON ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)
+                var urlencoded = new URLSearchParams();
+                urlencoded.append("email", app.login);
+                urlencoded.append("password", app.senha);
+                urlencoded.append("network", app.rede);
+                var requestOptions = {
+                    method: 'POST',
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded"
+                    },
+                    body: urlencoded,
+                };
+                var AcconResponse = await fetch(`${cEndAccon}/auth/login`, requestOptions);
+                var AcconResponseJson = await AcconResponse.json();
+                // var tempo = new Date()
+                // console.log(`TOKEN Coletado ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)
+                Token = AcconResponseJson.token;
+                console.log("Atualizou")
+                var AtualizaToken = await ExecuteSQL(
+                    `UPDATE opt_cad_app SET token = '${Token}'
+                    WHERE seq = ?`, app.seq
+                )
+                // var tempo = new Date()
+                // console.log(`TOKEN Gravado ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)
             }
-        };
-        var Pedidos = await fetch(`${cEndAccon}/order/pending`, requestOptionsPed);
-        var PedidosJson = await Pedidos.json();
-        // var tempo = new Date()
-        // console.log(`Pedidos Retornados ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)
-        var nValTot = 0;
-        var nQuant = 0;
-        var nValUn = 0;
-        // RODANDO UM FOR DENTRO DOS PEDIDOS RETORNADOS
-
-        var estatus = Pedidos.status
-
-        if (estatus === 200) {
-
-            PedidosJson.forEach(async pedido => {
-                // VERIFICANDO SE O PEDIDO JÁ FOI IMPORTADO
-                var pedidoRep = getCustomRepository(PedidoRep);
-                var cont = 0;
-                const ped = await pedidoRep.findOne({
-                    where: {
-                        opt_cod_cliente: app.opt_cod_cliente,
-                        opt_cod_app: app.seq,
-                        opt_pedido_app: pedido._id
-                    }
-                })
-                if (!ped) {
-                    var itens = pedido.products
-                    // RODANDO UM FOR DENTRO DOS ITENS DO PEDIDO
-                    itens.forEach(async item => {
-                        console.log(pedido.date.split("T")[1].substring(0, 5))
-                        // COLETANDO VALORES
-                        nValTot = item.total;
-                        nQuant = item.quantity;
-                        nValUn = nValTot / nQuant;
-                        cont = cont + 1;
-                        var entrega = pedido.delivery ? "DEL" : "RET";
-                        // var tempo = new Date()
-                        // console.log(`Gravando pedido ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)
-                        console.log(pedido.payment.name)
-                        var pedidoAccon = pedidoRep.create({
-                            opt_cod_cliente: app.opt_cod_cliente,
-                            cliente: pedido.user.name,
-                            fone_cliente: pedido.user.phone,
-                            cpf_cli: pedido.user.document,
-                            opt_cod_app: app.seq,
-                            opt_pedido_app: pedido._id,
-                            opt_pedido: pedido.sequential,
-                            opt_cod_prod: item.externalVendorCode,
-                            opt_nome_produto: item.name,
-                            obs_combo: "",
-                            ordem: cont.toString(),
-                            cod_grupo: "000001",
-                            quant: nQuant,
-                            valor_un: nValUn,
-                            valor_tot_prod: nValTot,
-                            desconto: pedido.discount,
-                            obs_item: item.notes,
-                            tipo: entrega,
-                            taxa_ent: pedido.deliveryTax,
-                            hora: pedido.date.split("T")[1].substring(0, 5),
-                            data: pedido.date.split("T")[0],
-                            status: "0",
-                            novo_status: "0",
-                            endereco: pedido.address.address,
-                            numero: pedido.address.number,
-                            bairro: pedido.address.district,
-                            complemento: pedido.address.complement,
-                            valor_total_ped: pedido.total,
-                            obs: pedido.notes,
-                            pagamento: pedido.payment.name,
-                            obs_troco: `${pedido.change}`
-                        })
-                        await pedidoRep.save(pedidoAccon)
-                        // var tempo = new Date()
-                        // console.log(`fim Gravando pedido ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)
-                    }); //FECHANDO FOR ITEM
+            else {
+                Token = app.token
+            }
+            //BUSCANDO PEDIDOS
+            // var tempo = new Date()
+            // console.log(`Buscando Pedidos ACCON ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)
+            console.log(app.rede)
+            console.log(app.senha)
+            console.log(app.login)
+            var requestOptionsPed = {
+                method: 'GET',
+                headers: {
+                    "Authorization": `Bearer ${Token}`,
+                    "X-NETWORK-ID": app.rede
                 }
-            }); // FECHANDO FOR PEDIDOS
-        }
-        else if (estatus = 401) {
-            console.log("ZEROU")
-            var ZeraToken = await ExecuteSQL(
-                `UPDATE opt_cad_app SET token = ''
-                WHERE seq = ?`, app.seq
-            )
+            };
+            var Pedidos = await fetch(`${cEndAccon}/order/pending`, requestOptionsPed);
+            var PedidosJson = await Pedidos.json();
+            // var tempo = new Date()
+            // console.log(`Pedidos Retornados ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)
+            var nValTot = 0;
+            var nQuant = 0;
+            var nValUn = 0;
+            // RODANDO UM FOR DENTRO DOS PEDIDOS RETORNADOS
+
+            var estatus = Pedidos.status
+
+            if (estatus === 200) {
+
+                PedidosJson.forEach(async pedido => {
+                    // VERIFICANDO SE O PEDIDO JÁ FOI IMPORTADO
+                    var pedidoRep = getCustomRepository(PedidoRep);
+                    var cont = 0;
+                    const ped = await pedidoRep.findOne({
+                        where: {
+                            opt_cod_cliente: app.opt_cod_cliente,
+                            opt_cod_app: app.seq,
+                            opt_pedido_app: pedido._id
+                        }
+                    })
+                    if (!ped) {
+                        var itens = pedido.products
+                        // RODANDO UM FOR DENTRO DOS ITENS DO PEDIDO
+                        itens.forEach(async item => {
+                            console.log(pedido.date.split("T")[1].substring(0, 5))
+                            // COLETANDO VALORES
+                            nValTot = item.total;
+                            nQuant = item.quantity;
+                            nValUn = nValTot / nQuant;
+                            cont = cont + 1;
+                            var entrega = pedido.delivery ? "DEL" : "RET";
+                            // var tempo = new Date()
+                            // console.log(`Gravando pedido ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)
+                            console.log(pedido.payment.name)
+                            var pedidoAccon = pedidoRep.create({
+                                opt_cod_cliente: app.opt_cod_cliente,
+                                cliente: pedido.user.name,
+                                fone_cliente: pedido.user.phone,
+                                cpf_cli: pedido.user.document,
+                                opt_cod_app: app.seq,
+                                opt_pedido_app: pedido._id,
+                                opt_pedido: pedido.sequential,
+                                opt_cod_prod: item.externalVendorCode,
+                                opt_nome_produto: item.name,
+                                obs_combo: "",
+                                ordem: cont.toString(),
+                                cod_grupo: "000001",
+                                quant: nQuant,
+                                valor_un: nValUn,
+                                valor_tot_prod: nValTot,
+                                desconto: pedido.discount,
+                                obs_item: item.notes,
+                                tipo: entrega,
+                                taxa_ent: pedido.deliveryTax,
+                                hora: pedido.date.split("T")[1].substring(0, 5),
+                                data: pedido.date.split("T")[0],
+                                status: "0",
+                                novo_status: "0",
+                                endereco: pedido.address.address,
+                                numero: pedido.address.number,
+                                bairro: pedido.address.district,
+                                complemento: pedido.address.complement,
+                                valor_total_ped: pedido.total,
+                                obs: pedido.notes,
+                                pagamento: pedido.payment.name,
+                                obs_troco: `${pedido.change}`
+                            })
+                            await pedidoRep.save(pedidoAccon)
+                            // var tempo = new Date()
+                            // console.log(`fim Gravando pedido ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)
+                        }); //FECHANDO FOR ITEM
+                    }
+                }); // FECHANDO FOR PEDIDOS
+            }
+            else if (estatus = 401) {
+                console.log("ZEROU")
+                var ZeraToken = await ExecuteSQL(
+                    `UPDATE opt_cad_app SET token = ''
+                    WHERE seq = ?`, app.seq
+                )
+            }
         }
     }); // FECHANDO FOR APLICATIVOS
     return next();

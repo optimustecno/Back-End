@@ -19,6 +19,7 @@ export async function ExecuteSQL(
         await bancoSQL.end()
         return results
     } catch (e) {
+        console.log(e.message)
         throw Error(e.message)
     }
 }

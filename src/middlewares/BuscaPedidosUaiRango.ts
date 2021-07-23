@@ -9,11 +9,12 @@ export async function BuscaPedidosUaiRango(request: Request, response: Response,
     var Pedidos = request.body;
     console.log(Pedidos)
     var PedidosJson = await Pedidos.json();
-
+    console.log("Converteu")
     // RODANDO UM FOR DENTRO DOS PEDIDOS RETORNADOS
     PedidosJson.forEach(async pedido => {
+
         // VERIFICANDO SE O PEDIDO JÁ FOI IMPORTADO
-        console.log(pedido.id_estabelecimento)
+        console.log(pedido.cod_pedido)
         const apps = getCustomRepository(AppRep);
         const app = await apps.findOne({
             where: {
@@ -21,6 +22,7 @@ export async function BuscaPedidosUaiRango(request: Request, response: Response,
             }
         })
         if (!app) {
+            console.log("Não Encontro Estabelecimento!")
             return response.status(200).json({ Message: "Pedido Não Pertence a Nenhum Cliente" });
         }
         var cont = 0;

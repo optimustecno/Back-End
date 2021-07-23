@@ -1,18 +1,13 @@
 import { NextFunction, Request, Response } from "express";
-import { AutorizaUsu } from "../services/ServiceAutorizaUsu";
 
+export async function AutUaiRango(request: Request, response: Response, next: NextFunction) {
 
-class ControleAutenticao {
-    async handle(request: Request, response: Response, next: NextFunction) {
-        console.log(request.headers)
+    const chaveUai = request.headers["x-uairango-key"];
 
-        const senha = request.headers.authorization.split(" ")[1];
-
-        const autentica = new AutorizaUsu();
-
-
+    if (chaveUai === process.env.CHAVE_UAI_RANGO) {
         return next();
     }
+    //senha ok?
+    throw new Error("Não Autorizado")
 }
 
-export { ControleAutenticao }

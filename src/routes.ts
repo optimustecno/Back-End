@@ -1,5 +1,6 @@
 import { Request, Response, Router } from "express";
 import { Autoriza } from "./middlewares/AutorizaPost";
+import { AutUaiRango } from "./middlewares/AutorizaUaiRango"
 import { ControleConsApp } from "./Controller/ControleConsApp";
 import { VerificaUsuario } from "./middlewares/VerificaUsuario";
 import { BuscaPedidosAccon } from "./middlewares/BuscaPedidosAccon";
@@ -8,6 +9,7 @@ import { ControleAutenticao } from "./Controller/ControleAutenticacao";
 import { ControleInsertUsuario } from "./Controller/ControleInsUsuario";
 import { ControleMudancaStatus } from "./Controller/ControleMudaStatus";
 import { ControleUpdateStatus } from "./Controller/ControleUpdateStatus";
+import { BuscaPedidosUaiRango } from "./middlewares/BuscaPedidosUaiRango";
 
 const Rotas = Router();
 
@@ -26,15 +28,6 @@ Rotas.post("/InsPedidoOptimus", VerificaUsuario, Autoriza, BuscaPedidosAccon)
 Rotas.post("/ProxStatus", VerificaUsuario, Autoriza, consultaProximoStatus.handle)
 Rotas.get("/PedidosPendentes/:codigo", VerificaUsuario, Autoriza, BuscaPedidosAccon, consultaPedidos.handle)
 
-Rotas.get("/PedidosUaiRango", (request: Request, response: Response) => {
-
-    console.log("TESTE")
-
-    var headrs = request.headers
-
-    console.log(headrs["x-uairango-key"])
-
-    return response.status(200).json({ Message: "OK" })
-})
+Rotas.get("/PedidosUaiRango", AutUaiRango, BuscaPedidosUaiRango)
 
 export { Rotas }

@@ -28,8 +28,9 @@ Rotas.get("/PedidosPendentes/:codigo", VerificaUsuario, Autoriza, BuscaPedidosAc
 
 Rotas.get("/PedidosUaiRango", (request: Request, response: Response) => {
 
-    var TESTA = request.headers
-    console.log(TESTA["x-uairango-key"])
+    var headrs = request.headers
+    console.log("TESTE")
+    console.log(headrs["x-uairango-key"])
 
     return response.status(200).json({ Message: "OK" })
 })

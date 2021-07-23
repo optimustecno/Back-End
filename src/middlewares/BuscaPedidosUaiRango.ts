@@ -8,6 +8,7 @@ export async function BuscaPedidosUaiRango(request: Request, response: Response,
     console.log("Pedido")
     var Pedidos = request.body;
     var PedidosJson = await Pedidos.json();
+    console.log(Pedidos)
     // RODANDO UM FOR DENTRO DOS PEDIDOS RETORNADOS
     PedidosJson.forEach(async pedido => {
         // VERIFICANDO SE O PEDIDO JÁ FOI IMPORTADO

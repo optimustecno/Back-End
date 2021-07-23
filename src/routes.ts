@@ -26,8 +26,11 @@ Rotas.post("/InsPedidoOptimus", VerificaUsuario, Autoriza, BuscaPedidosAccon)
 Rotas.post("/ProxStatus", VerificaUsuario, Autoriza, consultaProximoStatus.handle)
 Rotas.get("/PedidosPendentes/:codigo", VerificaUsuario, Autoriza, BuscaPedidosAccon, consultaPedidos.handle)
 
-Rotas.post("/PedidosUaiRango", (request: Request, response: Response) => {
-    console.log(request.headers)
+Rotas.get("/PedidosUaiRango", (request: Request, response: Response) => {
+
+    var TESTA = request.headers
+    console.log(TESTA["x-uairango-key"])
+
     return response.status(200).json({ Message: "OK" })
 })
 

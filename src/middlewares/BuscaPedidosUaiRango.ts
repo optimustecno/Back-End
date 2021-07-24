@@ -7,7 +7,7 @@ import { Request, Response, NextFunction } from "express";
 export async function BuscaPedidosUaiRango(request: Request, response: Response, next: NextFunction) {
     console.log("Pedido")
     //
-    const { id_estabelecimento, cod_pedido, data } = request.body;
+    var { id_estabelecimento, cod_pedido, data } = request.body;
     //
     var Pedidos = request.body;
     console.log(id_estabelecimento)

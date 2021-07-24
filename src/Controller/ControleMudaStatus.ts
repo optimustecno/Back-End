@@ -16,7 +16,29 @@ class ControleMudancaStatus {
         var atualizouTudo = "S";
 
         peds.forEach(async ped => {
-            if (ped.app === "ACCON") {
+            if (ped.app === "UAI RANGO") {
+                var requestOptionsUai = {
+                    method: 'POST',
+                    headers: {
+                        "Authorization": `Bearer ${process.env.TOKEN_UAI_RANGO}`,
+                    },
+                    body: {
+                        "motivo": "PEDIDO CANCELADO. ENTRE EM CONTATO COM O ESTABELECIMENTO."
+                    }
+                };
+                if (ped.novo_status === "7") {
+                    var UaiResponse = await fetch(`https://www.uairango.com/api2/auth/pedido/cancela/${ped.opt_pedido_app}`, requestOptionsUai);
+                }
+
+                //var AcconResponseJson = await AcconResponse.json();
+                if (UaiResponse.success) {
+                    var AtualizaStatus = await ExecuteSQL(
+                        `UPDATE opt_ped_app SET status = '${ped.novo_status}'
+                        WHERE opt_pedido_app = ?`, ped.opt_pedido_app
+                    )
+                }
+            }
+            else if (ped.app === "ACCON") {
                 var requestOptions = {
                     method: 'POST',
                     headers: {

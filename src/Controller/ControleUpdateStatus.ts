@@ -17,12 +17,19 @@ class ControleUpdateStatus {
             )
         }
         else {
-            console.log(`ATUALIZOU PEDIDO: ${opt_chave_ped} STATUS ${novo_status} COD_CLI ${opt_cod_cliente}`)
-            const atualizaStatus = await ExecuteSQL(
-                `UPDATE opt_ped_app SET novo_status = '${novo_status}', 
-                    status = '${novo_status}'
-                    WHERE opt_pedido_app = '${opt_chave_ped}'
-                    AND opt_cod_cliente = ?`, opt_cod_cliente)
+            if (novo_status === "7") {
+                const atualizaStatus = await ExecuteSQL(
+                    `UPDATE opt_ped_app SET novo_status = '${novo_status}', 
+                        WHERE opt_pedido_app = '${opt_chave_ped}'
+                        AND opt_cod_cliente = ?`, opt_cod_cliente)
+            }
+            else {
+                const atualizaStatus = await ExecuteSQL(
+                    `UPDATE opt_ped_app SET novo_status = '${novo_status}', 
+                        status = '${novo_status}'
+                        WHERE opt_pedido_app = '${opt_chave_ped}'
+                        AND opt_cod_cliente = ?`, opt_cod_cliente)
+            }
         }
 
         return response.json({

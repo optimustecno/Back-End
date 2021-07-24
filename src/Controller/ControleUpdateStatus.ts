@@ -19,7 +19,7 @@ class ControleUpdateStatus {
         else {
             if (novo_status === "7") {
                 const atualizaStatus = await ExecuteSQL(
-                    `UPDATE opt_ped_app SET novo_status = '${novo_status}', 
+                    `UPDATE opt_ped_app SET novo_status = '${novo_status}' 
                         WHERE opt_pedido_app = '${opt_chave_ped}'
                         AND opt_cod_cliente = ?`, opt_cod_cliente)
             }

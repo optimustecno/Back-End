@@ -29,12 +29,10 @@ class ControleMudancaStatus {
                     },
                     body: motivo
                 };
-
                 if (ped.novo_status === "7") {
                     var UaiResponse = await fetch(`https://www.uairango.com/api2/auth/pedido/cancela/${ped.opt_pedido_app}`, requestOptionsUai);
                 }
                 //var AcconResponseJson = await AcconResponse.json();
-
                 if (UaiResponse.status === 200) {
                     var AtualizaStatus = await ExecuteSQL(
                         `UPDATE opt_ped_app SET status = '${ped.novo_status}'

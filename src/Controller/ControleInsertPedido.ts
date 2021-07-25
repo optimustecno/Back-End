@@ -3,7 +3,6 @@ import { ServiceInserePedido } from "../services/ServiceInserePedio";
 
 class ControleInsertPedido {
     async handle(request: Request, response: Response) {
-        console.log(request.body)
         const { opt_cod_cliente,
             opt_cod_app,
             opt_pedido_app,

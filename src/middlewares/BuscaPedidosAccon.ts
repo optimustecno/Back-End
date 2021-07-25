@@ -4,7 +4,6 @@ import { PedidoRep } from "../repositories/PedidoRep"
 import { Request, Response, NextFunction } from "express";
 import { ServiceConsultaApp } from "../services/ServiceConsApp";
 
-
 export async function BuscaPedidosAccon(request: Request, response: Response, next: NextFunction) {
     //BUSCANDO APLICATIVOS CADASTRADOS NO BANCO ON-LINE
     // var tempo = new Date()
@@ -46,7 +45,6 @@ export async function BuscaPedidosAccon(request: Request, response: Response, ne
                 // var tempo = new Date()
                 // console.log(`TOKEN Coletado ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)
                 Token = AcconResponseJson.token;
-                console.log("Atualizou")
                 var AtualizaToken = await ExecuteSQL(
                     `UPDATE opt_cad_app SET token = '${Token}'
                     WHERE seq = ?`, app.seq
@@ -60,9 +58,6 @@ export async function BuscaPedidosAccon(request: Request, response: Response, ne
             //BUSCANDO PEDIDOS
             // var tempo = new Date()
             // console.log(`Buscando Pedidos ACCON ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)
-            console.log(app.rede)
-            console.log(app.senha)
-            console.log(app.login)
             var requestOptionsPed = {
                 method: 'GET',
                 headers: {
@@ -98,7 +93,6 @@ export async function BuscaPedidosAccon(request: Request, response: Response, ne
                         var itens = pedido.products
                         // RODANDO UM FOR DENTRO DOS ITENS DO PEDIDO
                         itens.forEach(async item => {
-                            console.log(pedido.date.split("T")[1].substring(0, 5))
                             // COLETANDO VALORES
                             nValTot = item.total;
                             nQuant = item.quantity;
@@ -107,7 +101,6 @@ export async function BuscaPedidosAccon(request: Request, response: Response, ne
                             var entrega = pedido.delivery ? "DEL" : "RET";
                             // var tempo = new Date()
                             // console.log(`Gravando pedido ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)
-                            console.log(pedido.payment.name)
                             var pedidoAccon = pedidoRep.create({
                                 opt_cod_cliente: app.opt_cod_cliente,
                                 cliente: pedido.user.name,
@@ -149,7 +142,6 @@ export async function BuscaPedidosAccon(request: Request, response: Response, ne
                 }); // FECHANDO FOR PEDIDOS
             }
             else if (estatus = 401) {
-                console.log("ZEROU")
                 var ZeraToken = await ExecuteSQL(
                     `UPDATE opt_cad_app SET token = ''
                     WHERE seq = ?`, app.seq

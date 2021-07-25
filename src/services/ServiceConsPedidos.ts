@@ -9,7 +9,6 @@ class ServiceConsultaPedidos {
 
     async execute({ codigo_Cli }: iClientePedidos) {
 
-        console.log(codigo_Cli);
         const pedidoRep = getCustomRepository(PedidoRep);
 
         const PedidosPendentes = await pedidoRep.find({

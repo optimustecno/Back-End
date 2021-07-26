@@ -101,15 +101,23 @@ export async function BuscaPedidosAccon(request: Request, response: Response, ne
                             var entrega = pedido.delivery ? "DEL" : "RET";
                             var TextoObs = item.notes;
                             var obsItem = item.modifiers
-                            obsItem.forEach(texto => {
-                                if (obsItem.price.actualPrice === 0) {
+                            try {
+                                obsItem.forEach(texto => {
+                                    if (obsItem.price.actualPrice === 0) {
+                                        TextoObs = TextoObs + '/n' + obsItem.name;
+                                    }
+                                    else {
+                                        //implemntear insert
+                                    }
+                                });
+                            } catch (error) {
+                                if (item.modifiers.price.actualPrice === 0) {
                                     TextoObs = TextoObs + '/n' + obsItem.name;
                                 }
                                 else {
                                     //implemntear insert
                                 }
-                            });
-
+                            };
                             // var tempo = new Date()
                             // console.log(`Gravando pedido ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)
                             var pedidoAccon = pedidoRep.create({

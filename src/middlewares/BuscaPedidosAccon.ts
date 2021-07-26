@@ -66,7 +66,6 @@ export async function BuscaPedidosAccon(request: Request, response: Response, ne
                 }
             };
             var Pedidos = await fetch(`${cEndAccon}/order/pending`, requestOptionsPed);
-            console.log(Pedidos)
             var PedidosJson = await Pedidos.json();
             // var tempo = new Date()
             // console.log(`Pedidos Retornados ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)
@@ -100,7 +99,6 @@ export async function BuscaPedidosAccon(request: Request, response: Response, ne
                             nValUn = nValTot / nQuant;
                             cont = cont + 1;
                             var entrega = pedido.delivery ? "DEL" : "RET";
-                            console.log(item.name)
                             // var tempo = new Date()
                             // console.log(`Gravando pedido ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)
                             var pedidoAccon = pedidoRep.create({

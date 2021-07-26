@@ -100,7 +100,7 @@ export async function BuscaPedidosAccon(request: Request, response: Response, ne
                             nValUn = nValTot / nQuant;
                             cont = cont + 1;
                             var entrega = pedido.delivery ? "DEL" : "RET";
-                            console.log()
+                            console.log(item.name)
                             // var tempo = new Date()
                             // console.log(`Gravando pedido ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)
                             var pedidoAccon = pedidoRep.create({

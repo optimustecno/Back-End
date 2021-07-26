@@ -101,7 +101,7 @@ export async function BuscaPedidosAccon(request: Request, response: Response, ne
                             var entrega = pedido.delivery ? "DEL" : "RET";
                             var TextoObs = item.notes;
                             var obsItem = item.modifiers
-                            obsItem.array.forEach(texto => {
+                            obsItem.forEach(texto => {
                                 if (obsItem.price.actualPrice === 0) {
                                     TextoObs = TextoObs + '/n' + obsItem.name;
                                 }

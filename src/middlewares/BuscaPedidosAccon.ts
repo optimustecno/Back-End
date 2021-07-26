@@ -99,6 +99,17 @@ export async function BuscaPedidosAccon(request: Request, response: Response, ne
                             nValUn = nValTot / nQuant;
                             cont = cont + 1;
                             var entrega = pedido.delivery ? "DEL" : "RET";
+                            var TextoObs = item.notes;
+                            var obsItem = item.modifiers
+                            obsItem.array.forEach(texto => {
+                                if (obsItem.price.actualPrice === 0) {
+                                    TextoObs = TextoObs + '/n' + obsItem.name;
+                                }
+                                else {
+                                    //implemntear insert
+                                }
+                            });
+
                             // var tempo = new Date()
                             // console.log(`Gravando pedido ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)
                             var pedidoAccon = pedidoRep.create({
@@ -118,7 +129,7 @@ export async function BuscaPedidosAccon(request: Request, response: Response, ne
                                 valor_un: nValUn,
                                 valor_tot_prod: nValTot,
                                 desconto: pedido.discount,
-                                obs_item: item.notes,
+                                obs_item: TextoObs,
                                 tipo: entrega,
                                 taxa_ent: pedido.deliveryTax,
                                 hora: pedido.date.split("T")[1].substring(0, 5),

@@ -105,7 +105,7 @@ export async function BuscaPedidosAccon(request: Request, response: Response, ne
                             try {
                                 obsItem.forEach(async texto => {
                                     if (texto.price.actualPrice === 0) {
-                                        TextoObs = TextoObs + "//n" + texto.name;
+                                        TextoObs = TextoObs + `/n ${texto.name}`;
                                     }
                                     else {
                                         //implemntear insert
@@ -113,7 +113,7 @@ export async function BuscaPedidosAccon(request: Request, response: Response, ne
                                 });
                             } catch (error) {
                                 if (item.modifiers.price.actualPrice === 0) {
-                                    TextoObs = TextoObs + '//n' + obsItem.name;
+                                    TextoObs = TextoObs + `/n ${item.modifiers.name}`;
                                 }
                                 else {
                                     //implemntear insert

@@ -105,7 +105,12 @@ export async function BuscaPedidosAccon(request: Request, response: Response, ne
                             try {
                                 obsItem.forEach(async texto => {
                                     if (texto.price.actualPrice === 0) {
-                                        TextoObs = TextoObs + `\n ${texto.name}`;
+                                        if (TextoObs === "") {
+                                            TextoObs = texto.name;
+                                        }
+                                        else {
+                                            TextoObs = TextoObs + `\n ${texto.name}`;
+                                        }
                                     }
                                     else {
                                         //implemntear insert

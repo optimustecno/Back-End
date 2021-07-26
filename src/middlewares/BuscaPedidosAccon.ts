@@ -3,6 +3,7 @@ import { getCustomRepository } from "typeorm";
 import { PedidoRep } from "../repositories/PedidoRep"
 import { Request, Response, NextFunction } from "express";
 import { ServiceConsultaApp } from "../services/ServiceConsApp";
+import { createHeritageClause } from "typescript";
 
 export async function BuscaPedidosAccon(request: Request, response: Response, next: NextFunction) {
     //BUSCANDO APLICATIVOS CADASTRADOS NO BANCO ON-LINE
@@ -104,7 +105,7 @@ export async function BuscaPedidosAccon(request: Request, response: Response, ne
                             try {
                                 obsItem.forEach(async texto => {
                                     if (texto.price.actualPrice === 0) {
-                                        TextoObs = TextoObs + '/n' + texto.name;
+                                        TextoObs = TextoObs + "//n" + texto.name;
                                     }
                                     else {
                                         //implemntear insert
@@ -112,7 +113,7 @@ export async function BuscaPedidosAccon(request: Request, response: Response, ne
                                 });
                             } catch (error) {
                                 if (item.modifiers.price.actualPrice === 0) {
-                                    TextoObs = TextoObs + '/n' + obsItem.name;
+                                    TextoObs = TextoObs + '//n' + obsItem.name;
                                 }
                                 else {
                                     //implemntear insert

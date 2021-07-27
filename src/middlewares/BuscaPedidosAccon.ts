@@ -68,21 +68,25 @@ export async function BuscaPedidosAccon(request: Request, response: Response, ne
             };
             var Pedidos = await fetch(`${cEndAccon}/order/pending`, requestOptionsPed);
             var PedidosJson = await Pedidos.json();
+            console.log(PedidosJson)
             // var tempo = new Date()
             // console.log(`Pedidos Retornados ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)
             var nValTot = 0;
             var nQuant = 0;
             var nValUn = 0;
+            var nValTotComp = 0;
+            var nQuantComp = 0;
+            var nValUnComp = 0;
             // RODANDO UM FOR DENTRO DOS PEDIDOS RETORNADOS
 
             var estatus = Pedidos.status
 
             if (estatus === 200) {
-
                 PedidosJson.forEach(async pedido => {
                     // VERIFICANDO SE O PEDIDO JÁ FOI IMPORTADO
                     var pedidoRep = getCustomRepository(PedidoRep);
                     var cont = 0;
+                    var contComp = 0
                     const ped = await pedidoRep.findOne({
                         where: {
                             opt_cod_cliente: app.opt_cod_cliente,
@@ -98,32 +102,16 @@ export async function BuscaPedidosAccon(request: Request, response: Response, ne
                             nValTot = item.total;
                             nQuant = item.quantity;
                             nValUn = nValTot / nQuant;
-                            cont = cont + 1;
+                            if (contComp === 0) {
+                                cont = cont + 1
+                            }
+                            else {
+                                cont = contComp + 1
+                            };
                             var entrega = pedido.delivery ? "DEL" : "RET";
                             var TextoObs = item.notes;
                             var obsItem = item.modifiers
-                            try {
-                                obsItem.forEach(async texto => {
-                                    if (texto.price.actualPrice === 0) {
-                                        if (TextoObs === "") {
-                                            TextoObs = texto.name;
-                                        }
-                                        else {
-                                            TextoObs = TextoObs + `\n ${texto.name}`;
-                                        }
-                                    }
-                                    else {
-                                        //implemntear insert
-                                    }
-                                });
-                            } catch (error) {
-                                if (item.modifiers.price.actualPrice === 0) {
-                                    TextoObs = TextoObs + `\n ${item.modifiers.name}`;
-                                }
-                                else {
-                                    //implemntear insert
-                                }
-                            };
+
                             // var tempo = new Date()
                             // console.log(`Gravando pedido ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)
                             var pedidoAccon = pedidoRep.create({
@@ -160,6 +148,67 @@ export async function BuscaPedidosAccon(request: Request, response: Response, ne
                                 obs_troco: `${pedido.change}`
                             })
                             await pedidoRep.save(pedidoAccon)
+
+                            try {
+                                obsItem.forEach(async texto => {
+                                    if (texto.price.actualPrice === 0) {
+                                        if (TextoObs === "") {
+                                            TextoObs = texto.name;
+                                        }
+                                        else {
+                                            TextoObs = TextoObs + `\n ${texto.name}`;
+                                        }
+                                    }
+                                    else {
+                                        nValTotComp = texto.price.actualPrice;
+                                        nQuantComp = texto.quantity;
+                                        nValUnComp = nValTotComp / nQuantComp;
+                                        cont = cont + 1;
+                                        var pedidoAcconADD = pedidoRep.create({
+                                            opt_cod_cliente: app.opt_cod_cliente,
+                                            cliente: pedido.user.name,
+                                            fone_cliente: pedido.user.phone,
+                                            cpf_cli: pedido.user.document,
+                                            opt_cod_app: app.seq,
+                                            opt_pedido_app: pedido._id,
+                                            opt_pedido: pedido.sequential,
+                                            opt_cod_prod: texto.externalVendorCode,
+                                            opt_nome_produto: texto.name,
+                                            obs_combo: "",
+                                            ordem: cont.toString(),
+                                            cod_grupo: "000001",
+                                            quant: nQuantComp,
+                                            valor_un: nValUnComp,
+                                            valor_tot_prod: nValTotComp,
+                                            desconto: pedido.discount,
+                                            tipo: entrega,
+                                            taxa_ent: pedido.deliveryTax,
+                                            hora: pedido.date.split("T")[1].substring(0, 5),
+                                            data: pedido.date.split("T")[0],
+                                            status: "0",
+                                            novo_status: "0",
+                                            endereco: pedido.address.address,
+                                            numero: pedido.address.number,
+                                            bairro: pedido.address.district,
+                                            complemento: pedido.address.complement,
+                                            valor_total_ped: pedido.total,
+                                            obs: pedido.notes,
+                                            pagamento: pedido.payment.name,
+                                            obs_troco: `${pedido.change}`
+                                        })
+                                        await pedidoRep.save(pedidoAcconADD)
+                                    }
+                                });
+                            }
+                            catch (error) {
+                                if (item.modifiers.price.actualPrice === 0) {
+                                    TextoObs = TextoObs + `\n ${item.modifiers.name}`;
+                                }
+                                else {
+                                    //implemntear insert
+                                }
+                            };
+
                             // var tempo = new Date()
                             // console.log(`fim Gravando pedido ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)
                         }); //FECHANDO FOR ITEM

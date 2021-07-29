@@ -14,11 +14,12 @@ Api.use(Rotas)
 
 Api.use((err: Error, request: Request, response: Response, next: NextFunction) => {
     if (err instanceof Error) {
+        console.log(err.message)
         return response.status(400).json({
             error: err.message
         })
     }
-
+    console.log("ERRO 500")
     return response.status(500).json({
         status: "error",
         message: "Internal Server Error"

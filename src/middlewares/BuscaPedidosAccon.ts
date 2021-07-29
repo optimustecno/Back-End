@@ -168,6 +168,17 @@ export async function BuscaPedidosAccon(request: Request, response: Response, ne
                                     //implemntear insert
                                 }
                             };
+                            //ANALISANDO FORMA DE PAGAMENTO ONLINE
+                            var autorizacaoPag = "";
+                            var idTrans = "";
+                            var infoCard = "";
+                            var tipoCard = "";
+                            if (pedido.payment.online) {
+                                autorizacaoPag = pedido.payment.authorizationCode;
+                                idTrans = pedido.payment.tid;
+                                infoCard = pedido.payment.card;
+                                tipoCard = pedido.payment.type;
+                            }
                             // var tempo = new Date()
                             // console.log(`Gravando pedido ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)
                             var pedidoAccon = pedidoRep.create({
@@ -201,7 +212,11 @@ export async function BuscaPedidosAccon(request: Request, response: Response, ne
                                 valor_total_ped: pedido.total,
                                 obs: pedido.notes,
                                 pagamento: pedido.payment.name,
-                                obs_troco: `${pedido.change}`
+                                obs_troco: `${pedido.change}`,
+                                autorizacao: autorizacaoPag,
+                                id_trans: idTrans,
+                                info_car: infoCard,
+                                tipo_rec_on: tipoCard
                             })
                             await pedidoRep.save(pedidoAccon)
                             // var tempo = new Date()

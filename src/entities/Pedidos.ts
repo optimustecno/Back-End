@@ -68,7 +68,14 @@ class Pedidos {
     pagamento: string;
     @Column()
     obs_troco: string;
-
+    @Column()
+    autorizacao: string;
+    @Column()
+    id_trans: string;
+    @Column()
+    info_car: string;
+    @Column()
+    tipo_rec_on: string;
 }
 
 export { Pedidos };

@@ -33,6 +33,10 @@ interface iPedidorequest {
     obs_item?: string;
     obs?: string;
     obs_troco?: string;
+    autorizacao?: string;
+    id_trans?: string;
+    info_car?: string;
+    tipo_rec_on?: string;
 };
 
 class ServiceInserePedido {
@@ -68,7 +72,11 @@ class ServiceInserePedido {
         valor_total_ped,
         obs_item,
         obs,
-        obs_troco
+        obs_troco,
+        autorizacao,
+        id_trans,
+        info_car,
+        tipo_rec_on
     }: iPedidorequest) {
         const pedidoRep = getCustomRepository(PedidoRep);
 
@@ -115,7 +123,11 @@ class ServiceInserePedido {
             valor_total_ped,
             obs_item,
             obs,
-            obs_troco
+            obs_troco,
+            autorizacao,
+            id_trans,
+            info_car,
+            tipo_rec_on
         })
         await pedidoRep.save(pedido)
 

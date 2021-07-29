@@ -11,7 +11,6 @@ class ControleConsPedido {
             codigo_Cli
         });
 
-
         return response.json(pedidos)
     }
 }

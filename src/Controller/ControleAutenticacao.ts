@@ -12,7 +12,7 @@ class ControleAutenticao {
             email,
             senha
         });
-
+        console.log(token)
         return response.json(token);
     }
 }

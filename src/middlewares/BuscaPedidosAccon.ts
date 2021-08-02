@@ -77,6 +77,7 @@ export async function BuscaPedidosAccon(request: Request, response: Response, ne
             var nValTotComp = 0;
             var nQuantComp = 0;
             var nValUnComp = 0;
+            var nValTotAdicionais = 0;
             // RODANDO UM FOR DENTRO DOS PEDIDOS RETORNADOS
 
             var estatus = Pedidos.status
@@ -97,12 +98,9 @@ export async function BuscaPedidosAccon(request: Request, response: Response, ne
                     if (!ped) {
                         var itens = pedido.products
                         // RODANDO UM FOR DENTRO DOS ITENS DO PEDIDO
-                        console.log(itens)
                         itens.forEach(async item => {
                             // COLETANDO VALORES
-                            nValTot = item.total;
-                            nQuant = item.quantity;
-                            nValUn = nValTot / nQuant;
+                            nValTotAdicionais = 0;
                             cont = cont + contComp + 1
                             contComp = 0
                             var entrega = pedido.delivery ? "DEL" : "RET";
@@ -110,7 +108,6 @@ export async function BuscaPedidosAccon(request: Request, response: Response, ne
                             var obsItem = item.modifiers
                             try {
                                 obsItem.forEach(async texto => {
-                                    console.log(obsItem)
                                     if (texto.price.actualPrice === 0) {
                                         if (TextoObs === "") {
                                             TextoObs = texto.name;
@@ -124,6 +121,7 @@ export async function BuscaPedidosAccon(request: Request, response: Response, ne
                                         nQuantComp = texto.quantity;
                                         nValUnComp = nValTotComp / nQuantComp;
                                         contComp = contComp + 1;
+                                        nValTotAdicionais = nValTotAdicionais + nValTotComp;
                                         var pedidoAcconADD = pedidoRep.create({
                                             opt_cod_cliente: app.opt_cod_cliente,
                                             cliente: pedido.user.name,
@@ -179,6 +177,10 @@ export async function BuscaPedidosAccon(request: Request, response: Response, ne
                                 infoCard = pedido.payment.card;
                                 tipoCard = pedido.payment.type;
                             }
+                            nValTot = item.total;
+                            nValTot = nValTot - nValTotAdicionais
+                            nQuant = item.quantity;
+                            nValUn = nValTot / nQuant;
                             // var tempo = new Date()
                             // console.log(`Gravando pedido ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)
                             var pedidoAccon = pedidoRep.create({

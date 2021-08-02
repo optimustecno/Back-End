@@ -43,6 +43,7 @@ export async function BuscaPedidosAccon(request: Request, response: Response, ne
                 };
                 var AcconResponse = await fetch(`${cEndAccon}/auth/login`, requestOptions);
                 var AcconResponseJson = await AcconResponse.json();
+                // ajuste para subir
                 // var tempo = new Date()
                 // console.log(`TOKEN Coletado ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)
                 Token = AcconResponseJson.token;

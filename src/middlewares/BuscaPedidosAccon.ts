@@ -114,7 +114,7 @@ export async function BuscaPedidosAccon(request: Request, response: Response, ne
                                             TextoObs = texto.name;
                                         }
                                         else {
-                                            TextoObs = TextoObs + `\n ${texto.name}`;
+                                            TextoObs = TextoObs + `\n${texto.name}`;
                                         }
                                     }
                                     else {

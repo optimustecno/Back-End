@@ -11,9 +11,6 @@ export async function BuscaPedidosUaiRango(request: Request, response: Response,
     //
     console.log(cod_pedido)
     //
-    //var Pedidos = request.body;
-    //var PedidosJson = await Pedidos.json();
-    // RODANDO UM FOR DENTRO DOS PEDIDOS RETORNADOS
     //PedidosJson.forEach(async pedido => {
     // VERIFICANDO SE O PEDIDO JÁ FOI IMPORTADO
     const apps = getCustomRepository(AppRep);

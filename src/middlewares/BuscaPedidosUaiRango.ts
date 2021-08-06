@@ -8,6 +8,7 @@ export async function BuscaPedidosUaiRango(request: Request, response: Response,
     //
     var { id_estabelecimento, cod_pedido, data } = request.body;
     //
+    console.log(request.body)
     console.log(cod_pedido)
     //
     //var Pedidos = request.body;

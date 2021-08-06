@@ -6,7 +6,7 @@ import { Request, Response, NextFunction } from "express";
 
 export async function BuscaPedidosUaiRango(request: Request, response: Response, next: NextFunction) {
     //
-    var { id_estabelecimento, cod_pedido, data, usuario } = request.body;
+    var { id_estabelecimento, cod_pedido, data, usuario, valor_total } = request.body;
     var user = usuario;
     //
     console.log(user.nome)
@@ -40,6 +40,8 @@ export async function BuscaPedidosUaiRango(request: Request, response: Response,
             opt_cod_cliente: app.opt_cod_cliente,
             opt_cod_app: app.seq,
             opt_pedido_app: cod_pedido,
+            cliente: user.nome,
+            valor_total_ped: valor_total,
             ordem: cont.toString(),
             hora: data.split(" ")[1].substring(0, 5),
             data: data.split(" ")[0],

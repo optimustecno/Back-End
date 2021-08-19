@@ -52,7 +52,6 @@ class ServiceInserePedidoManual {
                 await pedidoRep.save(pedidoUai)
             }
             else {
-
                 throw new Error("Pedido Já Inserido no banco On-Line");
             }
             //   }); // FECHANDO FOR PEDIDOS

@@ -1,5 +1,6 @@
 import { Request, Response, Router } from "express";
 import { Autoriza } from "./middlewares/AutorizaPost";
+import { ControleTeste } from "./Controller/ControleTesteEndPoint";
 import { AutUaiRango } from "./middlewares/AutorizaUaiRango"
 import { ControleConsApp } from "./Controller/ControleConsApp";
 import { VerificaUsuario } from "./middlewares/VerificaUsuario";
@@ -22,6 +23,7 @@ const insereUsuario = new ControleInsertUsuario();
 const autenticaUsuario = new ControleAutenticao();
 const consultaProximoStatus = new ControleMudancaStatus();
 const pedidoUaiRangoManual = new ControleInsertManual();
+const controleTeste = new ControleTeste();
 
 Rotas.post("/Login", autenticaUsuario.handle)
 Rotas.get("/ConsApp", VerificaUsuario, consultaApps.handle)
@@ -30,8 +32,8 @@ Rotas.post("/UpdateStatus", VerificaUsuario, Autoriza, updateStatus.handle)
 Rotas.post("/ProxStatus", VerificaUsuario, Autoriza, consultaProximoStatus.handle)
 Rotas.post("/InsPedidoOptimus", VerificaUsuario, Autoriza, pedidoUaiRangoManual.handle)
 Rotas.get("/PedidosPendentes/:codigo", VerificaUsuario, Autoriza, BuscaPedidosAccon, consultaPedidos.handle)
-
 Rotas.post("/PedidosUaiRango", AutUaiRango, BuscaPedidosUaiRango)
-
+//
+Rotas.get("/Teste", controleTeste.handle)
 
 export { Rotas }

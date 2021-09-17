@@ -34,6 +34,6 @@ Rotas.post("/InsPedidoOptimus", VerificaUsuario, Autoriza, pedidoUaiRangoManual.
 Rotas.get("/PedidosPendentes/:codigo", VerificaUsuario, Autoriza, BuscaPedidosAccon, consultaPedidos.handle)
 Rotas.post("/PedidosUaiRango", AutUaiRango, BuscaPedidosUaiRango)
 //
-Rotas.get("/Teste", controleTeste.handle)
+Rotas.get("/Teste", consultaApps.handle)
 
 export { Rotas }

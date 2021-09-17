@@ -8,7 +8,9 @@ class ControleUpdateStatus {
             app,
             novo_status
         } = request.body;
-
+        //
+        console.log(`Pedido At. ${opt_chave_ped} Status: ${novo_status} CodCli: ${opt_cod_cliente}`)
+        //
         if (app === "ACCON") {
             const atualizaNovoStatus = await ExecuteSQL(
                 `UPDATE opt_ped_app SET novo_status = '${novo_status}'

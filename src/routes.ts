@@ -1,9 +1,9 @@
 import { Request, Response, Router } from "express";
 import { Autoriza } from "./middlewares/AutorizaPost";
-import { ControleTeste } from "./Controller/ControleTesteEndPoint";
 import { AutUaiRango } from "./middlewares/AutorizaUaiRango"
 import { ControleConsApp } from "./Controller/ControleConsApp";
 import { VerificaUsuario } from "./middlewares/VerificaUsuario";
+import { ControleTeste } from "./Controller/ControleTesteEndPoint";
 import { BuscaPedidosAccon } from "./middlewares/BuscaPedidosAccon";
 import { ControleConsPedido } from "./Controller/ControleConsPedido";
 import { ControleAutenticao } from "./Controller/ControleAutenticacao";
@@ -16,6 +16,7 @@ import { ControleInsertManual } from "./Controller/ControlePedidoOptimus";
 
 const Rotas = Router();
 
+const controleTeste = new ControleTeste();
 const consultaApps = new ControleConsApp();
 const updateStatus = new ControleUpdateStatus();
 const consultaPedidos = new ControleConsPedido();
@@ -23,7 +24,6 @@ const insereUsuario = new ControleInsertUsuario();
 const autenticaUsuario = new ControleAutenticao();
 const consultaProximoStatus = new ControleMudancaStatus();
 const pedidoUaiRangoManual = new ControleInsertManual();
-const controleTeste = new ControleTeste();
 
 Rotas.post("/Login", autenticaUsuario.handle)
 Rotas.get("/ConsApp", VerificaUsuario, consultaApps.handle)

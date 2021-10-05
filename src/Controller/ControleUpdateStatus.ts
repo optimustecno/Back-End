@@ -55,17 +55,25 @@ class ControleUpdateStatus {
                     throw new Error("Estabelecimento não encontrado");
                 }
                 else {
+                    var cNovoStatus = "";
+                    var cStatus = "";
+                    if (novo_status === "7") {
+                        cNovoStatus = "7";
+                        cStatus = "1";
+                    }
+                    else {
+                        cNovoStatus = novo_status;
+                        cStatus = novo_status;
+                    }
                     var pedidoUai = pedidoRep.create({
                         opt_cod_cliente: opt_cod_cliente,
-
                         opt_cod_app: app.seq,
-
                         opt_pedido_app: opt_chave_ped,
                         ordem: '1',
                         hora: UaiResponseJson.data.split(" ")[1].substring(0, 5),
                         data: UaiResponseJson.data.split(" ")[0],
-                        status: novo_status,
-                        novo_status: novo_status,
+                        status: cStatus,
+                        novo_status: cNovoStatus,
                     })
                     await pedidoRep.save(pedidoUai)
                 }

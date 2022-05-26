@@ -9,7 +9,7 @@ class ServiceConsultaApp {
 
     async execute({ codigo_Cli }: iAppsCliente) {
         const appRep = getCustomRepository(AppRep);
-        //Acrescentei parametro para filtrar aplicativos apenas de quem está solicitando
+        //Acrescentei parametro para filtrar aplicativos apenas de quem está solicitando pedidos
         const appExistentes = await appRep.find({
             where: {
                 opt_cod_cliente: codigo_Cli,

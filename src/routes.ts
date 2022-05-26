@@ -35,5 +35,6 @@ Rotas.get("/PedidosPendentes/:codigo", VerificaUsuario, Autoriza, BuscaPedidosAc
 Rotas.post("/PedidosUaiRango", AutUaiRango, BuscaPedidosUaiRango)
 //
 Rotas.get("/Teste", controleTeste.handle)
+Rotas.post("/ContaRequest", VerificaUsuario, Autoriza)
 
 export { Rotas }

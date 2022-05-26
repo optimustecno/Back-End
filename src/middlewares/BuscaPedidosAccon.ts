@@ -10,7 +10,12 @@ export async function BuscaPedidosAccon(request: Request, response: Response, ne
     // var tempo = new Date()
     // console.log(`Coleta APPs ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)
     const consultaApp = new ServiceConsultaApp();
-    const apps = await consultaApp.execute();
+    //
+    const codigo_Cli = request.params.codigo;
+    //
+    const apps = await consultaApp.execute({
+        codigo_Cli
+    });
     //CASO NÃO RETORNE NENHUM REGISTRO
     if (!apps) {
         // var tempo = new Date()

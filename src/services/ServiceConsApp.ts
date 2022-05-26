@@ -1,13 +1,18 @@
 import { getCustomRepository } from "typeorm";
 import { AppRep } from "../repositories/AppRep"
 
+interface iAppsCliente {
+    codigo_Cli: string;
+}
+
 class ServiceConsultaApp {
 
-    async execute() {
+    async execute({ codigo_Cli }: iAppsCliente) {
         const appRep = getCustomRepository(AppRep);
 
         const appExistentes = await appRep.find({
             where: {
+                opt_cod_cliente: codigo_Cli,
                 app: "ACCON"
             },
         });

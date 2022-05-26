@@ -1,5 +1,5 @@
 {
-  "name": "BackEnd",
+  "name": "backend",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
@@ -35,5 +35,15 @@
     "ts-node": "^10.1.0",
     "typeorm": "^0.2.34",
     "uuid": "^8.3.2"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/optimustecno/Back-End.git"
+  },
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/optimustecno/Back-End/issues"
+  },
+  "homepage": "https://github.com/optimustecno/Back-End#readme",
+  "description": ""
 }

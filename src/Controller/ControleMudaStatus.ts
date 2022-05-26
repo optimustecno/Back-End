@@ -37,6 +37,7 @@ class ControleMudancaStatus {
                             WHERE opt_pedido_app = ?`, ped.opt_pedido_app
                         )
                     }
+
                 }
                 else {
                     var AtualizaStatus = await ExecuteSQL(

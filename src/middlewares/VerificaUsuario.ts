@@ -8,7 +8,7 @@ interface IUsuarioAutorizado {
 export function VerificaUsuario(request: Request, response: Response, next: NextFunction) {
     // var tempo = new Date()
     // console.log(`Verifica Usuario ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)
-    console.log(`Verifica USU: ${request.params.codigo}`)
+    //console.log(`Verifica USU: ${request.params.codigo}`)
     const token = request.headers.authorization.split(" ")[1]
     if (!token) {
         // var tempo = new Date()

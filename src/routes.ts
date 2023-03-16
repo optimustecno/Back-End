@@ -13,7 +13,6 @@ import { ControleUpdateStatus } from "./Controller/ControleUpdateStatus";
 import { BuscaPedidosUaiRango } from "./middlewares/BuscaPedidosUaiRango";
 import { ControleInsertManual } from "./Controller/ControlePedidoOptimus";
 
-
 const Rotas = Router();
 
 const controleTeste = new ControleTeste();

@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import { AutorizaUsu } from "../services/ServiceAutorizaUsu";
 
-
 class ControleAutenticao {
     async handle(request: Request, response: Response) {
         const { email, senha } = request.body;
@@ -10,11 +9,11 @@ class ControleAutenticao {
 
         const token = await autentica.execute({
             email,
-            senha
+            senha,
         });
-        console.log(token)
+
         return response.json(token);
     }
 }
 
-export { ControleAutenticao }
+export { ControleAutenticao };

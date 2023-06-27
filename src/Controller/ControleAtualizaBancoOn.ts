@@ -3,13 +3,14 @@ import { ServiceInformaBancoOn } from "../services/ServiceCliente";
 
 class ControleUpdateBancoOn {
     async handle(request: Request, response: Response) {
-        const { opt_cod_cliente,
+        const {
+            opt_cod_cliente,
             opt_dns,
             opt_banco,
             opt_user,
             opt_password,
-            opt_odbc } =
-            request.body;
+            opt_odbc,
+        } = request.body;
 
         const updateCli = new ServiceInformaBancoOn();
 

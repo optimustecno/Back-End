@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { ServiceConsOcorrencia } from "../services/ServiceConsOcorrencia";
+import { ServiceConsOcorrencia } from "../services/ServiceOcorrencia";
 
 class ControleConsOcorrencia {
     async handle(request: Request, response: Response) {

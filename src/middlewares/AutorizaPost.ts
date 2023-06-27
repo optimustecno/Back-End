@@ -2,7 +2,11 @@ import { Request, Response, NextFunction } from "express";
 import { getCustomRepository } from "typeorm";
 import { UsuarioRep } from "../repositories/UsuarioRep";
 
-export async function Autoriza(request: Request, response: Response, next: NextFunction) {
+export async function Autoriza(
+    request: Request,
+    response: Response,
+    next: NextFunction
+) {
     // var tempo = new Date()
     // console.log(`Autoriza Usuario ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)
 
@@ -20,7 +24,7 @@ export async function Autoriza(request: Request, response: Response, next: NextF
 
     // var tempo = new Date()
     // console.log(`Fim Autoriza Usuario naut ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)
-    return response.status(401).json({
-        error: "Não Autorizado"
+    return response.status(403).json({
+        error: "Não Autorizado",
     });
 }

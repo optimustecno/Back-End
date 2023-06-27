@@ -38,7 +38,7 @@ class ServiceGeraSenha {
         aVer.forEach((item) => {
             nVer = nVer + Number(item);
         });
-        //
+        //Analiza data
         var Data = new Date();
         var dia = String(Data.getDate()).padStart(2, "0");
         var mes = String(Data.getMonth() + 1).padStart(2, "0");

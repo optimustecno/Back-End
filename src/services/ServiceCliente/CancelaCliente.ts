@@ -11,7 +11,7 @@ class ServiceCancelaCli {
         const clientesRep = getCustomRepository(ClientesRep);
 
         if (!opt_cod_cliente) {
-            throw new console.error("Código do Cliente Não Informado");
+            throw new Error("Código do Cliente Não Informado");
         }
 
         const _cliente = await clientesRep.update(

@@ -32,7 +32,7 @@ class ServiceCriaCliente {
         });
 
         if (verCad) {
-            throw new console.error("CPF / CNPJ já incluido no cadastro");
+            throw new Error("CPF / CNPJ já incluido no cadastro");
         }
 
         const _cliente = await clientesRep.create({

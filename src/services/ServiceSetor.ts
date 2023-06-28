@@ -51,7 +51,7 @@ class ServiceAtualizaSetor {
         const setorRep = getCustomRepository(SetorRep);
 
         if (!seq) {
-            throw new console.error("Código do Setor Não Informado");
+            throw new Error("Código do Setor Não Informado");
         }
 
         const _setor = await setorRep.update(

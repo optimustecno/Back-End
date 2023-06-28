@@ -20,7 +20,7 @@ class ServiceUpdateViaFood {
         const clientesRep = getCustomRepository(ClientesRep);
         var _cliente;
         if (!opt_cod_cliente) {
-            throw new console.error("Código do Cliente Não Informado");
+            throw Error("Código do Cliente Não Informado");
         }
 
         if (sistema === "FOOD") {

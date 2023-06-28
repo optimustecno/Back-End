@@ -73,7 +73,7 @@ class ServiceUpdateUsu {
         const usuRep = getCustomRepository(UsuarioRep);
 
         if (!opt_codigo_usu) {
-            throw new console.error("Código do Usuário Não Informado");
+            throw new Error("Código do Usuário Não Informado");
         }
 
         const _usuario = await usuRep.update(

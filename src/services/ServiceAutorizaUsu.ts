@@ -36,8 +36,11 @@ class AutorizaUsu {
                 expiresIn: "1d",
             }
         );
-
-        return { codigo: cCodigo, nome: user.opt_usuario, token };
+        if (user.opt_usuario == "FOOD") {
+            return token;
+        } else {
+            return { codigo: cCodigo, nome: user.opt_usuario, token };
+        }
     }
 }
 

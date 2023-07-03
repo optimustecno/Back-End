@@ -112,18 +112,18 @@ class ServiceAtualizaSuporte {
                 cod_setor,
             }
         );
-        console.table(`
-            data: ${data},
-            hora: ${hora},
-            codcli: ${opt_cod_cliente},
-            status: ${status},
-            prioridade: ${prioridade},
-            atendente: ${atendente},
-            titulo: ${titulo},
-            descricao: ${descricao},
-            contato: ${contato},
-            resolucao: ${resolucao},
-            cod_setor: ${cod_setor}`);
+        // console.log(`
+        //     data: ${data},
+        //     hora: ${hora},
+        //     codcli: ${opt_cod_cliente},
+        //     status: ${status},
+        //     prioridade: ${prioridade},
+        //     atendente: ${atendente},
+        //     titulo: ${titulo},
+        //     descricao: ${descricao},
+        //     contato: ${contato},
+        //     resolucao: ${resolucao},
+        //     cod_setor: ${cod_setor}`);
         return {
             data,
             hora,

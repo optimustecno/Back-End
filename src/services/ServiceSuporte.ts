@@ -112,7 +112,18 @@ class ServiceAtualizaSuporte {
                 cod_setor,
             }
         );
-
+        console.log(seq,
+            data,
+            hora,
+            opt_cod_cliente,
+            status,
+            prioridade,
+            atendente,
+            titulo,
+            descricao,
+            contato,
+            resolucao,
+            cod_setor,)
         return {
             data,
             hora,

@@ -1,35 +1,43 @@
 import { getCustomRepository } from "typeorm";
 import { AppRep } from "../repositories/AppRep";
-import { PedidoRep } from "../repositories/PedidoRep"
+import { PedidoRep } from "../repositories/PedidoRep";
 import { Request, Response, NextFunction } from "express";
 
-
-export async function BuscaPedidosUaiRango(request: Request, response: Response, next: NextFunction) {
+export async function BuscaPedidosUaiRango(
+    request: Request,
+    response: Response,
+    next: NextFunction
+) {
     //
-    var { id_estabelecimento, cod_pedido, data, usuario, valor_total } = request.body;
+    console.log(request.body);
+    //
+    var { id_estabelecimento, cod_pedido, data, usuario, valor_total } =
+        request.body;
     var user = usuario;
     //
-    console.log(cod_pedido)
+    console.log(cod_pedido);
     //
     //PedidosJson.forEach(async pedido => {
     // VERIFICANDO SE O PEDIDO JÁ FOI IMPORTADO
     const apps = getCustomRepository(AppRep);
     const app = await apps.findOne({
         where: {
-            token: id_estabelecimento
-        }
-    })
+            token: id_estabelecimento,
+        },
+    });
     if (!app) {
-        console.log("Não Encontro Estabelecimento!")
-        return response.status(200).json({ Message: "Pedido Não Pertence a Nenhum Cliente" });
+        console.log("Não Encontro Estabelecimento!");
+        return response
+            .status(200)
+            .json({ Message: "Pedido Não Pertence a Nenhum Cliente" });
     }
     var cont = 0;
     var pedidoRep = getCustomRepository(PedidoRep);
     const ped = await pedidoRep.findOne({
         where: {
-            opt_pedido_app: cod_pedido
-        }
-    })
+            opt_pedido_app: cod_pedido,
+        },
+    });
     if (!ped) {
         cont = cont + 1;
         var pedidoUai = pedidoRep.create({
@@ -43,8 +51,8 @@ export async function BuscaPedidosUaiRango(request: Request, response: Response,
             data: data.split(" ")[0],
             status: "0",
             novo_status: "0",
-        })
-        await pedidoRep.save(pedidoUai)
+        });
+        await pedidoRep.save(pedidoUai);
     }
     //   }); // FECHANDO FOR PEDIDOS
     return response.status(200).json({ Message: "OK" });

@@ -9,7 +9,7 @@ export async function BuscaPedidosUaiRango(
     next: NextFunction
 ) {
     //
-    console.log(request.body);
+    //console.log(request.body);
     //
     var { id_estabelecimento, cod_pedido, data, usuario, valor_total } =
         request.body;

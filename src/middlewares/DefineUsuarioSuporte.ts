@@ -22,6 +22,7 @@ export async function DefineUsuarioSuporte(
                 { seq },
                 {
                     atendente: opt_codigo_usu,
+                    status: '1'
                 }
             );
             return next();

@@ -27,7 +27,9 @@ import { ControleBuscaUsuario } from "./Controller/ControleBuscaUsuario";
 import { ControleBuscaSetores } from "./Controller/ControleBuscaSetores";
 import { ControleUpdateUsu } from "./Controller/ControleAtualizaUsuario";
 import { ControleUpdateSetor } from "./Controller/ControleAtualizaSetor";
+import { ControleCriaContrato } from "./Controller/ControleCriaContrato";
 import { ControleUpdateStatus } from "./Controller/ControleUpdateStatus";
+import { ControleConsContrato } from "./Controller/ControleConsContrato";
 import { DefineUsuarioSuporte } from "./middlewares/DefineUsuarioSuporte";
 import { BuscaPedidosUaiRango } from "./middlewares/BuscaPedidosUaiRango";
 import { ControleInsertManual } from "./Controller/ControlePedidoOptimus";
@@ -39,6 +41,9 @@ import { ControleCriaOcorrencia } from "./Controller/ControleCriaOcorrencia";
 import { ControleUpdateSuporte } from "./Controller/ControleAtualizaSuporte";
 import { ControleUpdateBancoOn } from "./Controller/ControleAtualizaBancoOn";
 import { ControleConsOcorrencia } from "./Controller/ControleConsOcorrencia";
+import { ControleCancelaContrato } from "./Controller/ControleCancelaContrato";
+import { ControleConsContratosCli } from "./Controller/ControleConsContratoCli";
+import { ControleAtualizaContrato } from "./Controller/ControleAtualizaContrato";
 import { ControleTodasConsOcorrencias } from "./Controller/ControleConsTodasOcorrencias";
 import { ControleUpdateClienteViaFood } from "./Controller/ControleUpdateClienteViaFood";
 import { ControleBuscaEmpresasLinkadas } from "./Controller/ControleBuscaEmpresasLinkadas";
@@ -64,6 +69,8 @@ const consultaSistemas = new ControleConsSis();
 const updateStatus = new ControleUpdateStatus();
 const buscaSetores = new ControleBuscaSetores();
 const buscaUsuario = new ControleBuscaUsuario();
+const consContrato = new ControleConsContrato();
+const criaContrato = new ControleCriaContrato();
 const consultaPedidos = new ControleConsPedido();
 const buscaUsuarios = new ControleBuscaUsuarios();
 const deleteSuporte = new ControleDeleteSuporte();
@@ -76,6 +83,9 @@ const consultaSuportes = new ControleConsSuporte();
 const buscaSuporte = new ControleConsultaSuporte();
 const criaOcorrencia = new ControleCriaOcorrencia();
 const atualizaLicenca = new ControleUpdateLicenca();
+const cancelaContrato = new ControleCancelaContrato();
+const contratosCliente = new ControleConsContratosCli();
+const atualizaContrato = new ControleAtualizaContrato();
 const consultaOcorrencia = new ControleConsOcorrencia();
 const pedidoUaiRangoManual = new ControleInsertManual();
 const consultaProximoStatus = new ControleMudancaStatus();
@@ -91,6 +101,7 @@ Rotas.get("/ConsApp", VerificaUsuario, consultaApps.handle);
 Rotas.get("/Usuarios", VerificaUsuario, buscaUsuarios.handle);
 Rotas.get("/Sistemas", VerificaUsuario, consultaSistemas.handle);
 Rotas.get("/Suportes", VerificaUsuario, consultaSuportes.handle);
+Rotas.get("/Contrato/:seq", VerificaUsuario, consContrato.handle);
 Rotas.get("/BancoOn/:codigo", VerificaUsuario, buscaBancoOn.handle);
 Rotas.get("/Cliente/:codigo", VerificaUsuario, buscaCliente.handle);
 Rotas.get("/Usuarios/:codigo", VerificaUsuario, buscaUsuario.handle);
@@ -99,6 +110,11 @@ Rotas.get("/ConsultaClientes", VerificaUsuario, consultaClientes.handle);
 Rotas.get("/CredenciaisWabiz/:codigo", VerificaUsuario, buscaWabiz.handle);
 Rotas.get("/Ocorrencias", VerificaUsuario, consultaTodasOcorrencias.handle);
 Rotas.get("/Ocorrencias/:codigo", VerificaUsuario, consultaOcorrencia.handle);
+Rotas.get(
+    "/ContratosCli/:opt_cod_cliente",
+    VerificaUsuario,
+    contratosCliente.handle
+);
 Rotas.get(
     "/EmpLinkadas/:codigo",
     VerificaUsuario,
@@ -124,6 +140,7 @@ Rotas.post("/Cliente", VerificaUsuario, criaCliente.handle);
 Rotas.post("/Suporte", VerificaUsuario, criaSuporte.handle);
 Rotas.post("/PedidosUaiRango", AutUaiRango, BuscaPedidosUaiRango);
 Rotas.post("/Setor", VerificaUsuario, Autoriza, criaSetor.handle);
+Rotas.post("/Contrato", VerificaUsuario, Autoriza, criaContrato.handle);
 Rotas.post("/InsUsuario", VerificaUsuario, Autoriza, insereUsuario.handle);
 Rotas.post("/UpdateStatus", VerificaUsuario, Autoriza, updateStatus.handle);
 Rotas.post("/NovaOcorrencia", VerificaUsuario, Autoriza, criaOcorrencia.handle);
@@ -150,6 +167,13 @@ Rotas.put("/DadosBancoOn", VerificaUsuario, updateBancoOn.handle);
 Rotas.put("/UpdateLicenca", VerificaUsuario, atualizaLicenca.handle);
 Rotas.put("/ClienteFood", VerificaUsuario, atualizaDadosViaFood.handle);
 Rotas.put("/CancelaCliente", VerificaUsuario, Autoriza, cancelaCli.handle);
+Rotas.put("/Contrato", VerificaUsuario, Autoriza, atualizaContrato.handle);
+Rotas.put(
+    "/CancelaContrato/:seq",
+    VerificaUsuario,
+    Autoriza,
+    cancelaContrato.handle
+);
 Rotas.put(
     "/AtualizaCli",
     VerificaUsuario,

@@ -1,5 +1,6 @@
 import { getCustomRepository } from "typeorm";
 import { ClientesRep } from "../repositories/ClienteRep";
+import { UserSuporteRep } from "../repositories/UsuarioSuporteRep"
 
 interface iCliente {
     opt_cod_cliente: string;
@@ -8,6 +9,8 @@ interface iCliente {
 class ServiceGeraSenha {
     async execute({ opt_cod_cliente }: iCliente) {
         const clientesRep = getCustomRepository(ClientesRep);
+        const userRep = getCustomRepository(UserSuporteRep);
+
         const ClientesCad = await clientesRep.findOne({
             opt_cod_cliente,
         });
@@ -49,7 +52,18 @@ class ServiceGeraSenha {
         iLen = String(cSenha).length;
         cSenha = `${cCod}${cSenha.substring(iLen, iLen - 3)}`;
         //
-        return cSenha;
+        const userSup = await userRep.findOne({
+            opt_cod_cliente,
+        });
+        var cPrimPart;
+        if (!userSup){
+            cPrimPart = ""
+        }
+        else{
+            cPrimPart = userSup.cod_funcionario
+        }
+        
+        return cPrimPart + cSenha;
     }
 }
 

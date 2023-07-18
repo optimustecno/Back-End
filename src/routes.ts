@@ -169,7 +169,7 @@ Rotas.put("/ClienteFood", VerificaUsuario, atualizaDadosViaFood.handle);
 Rotas.put("/CancelaCliente", VerificaUsuario, Autoriza, cancelaCli.handle);
 Rotas.put("/Contrato", VerificaUsuario, Autoriza, atualizaContrato.handle);
 Rotas.put(
-    "/CancelaContrato/:seq",
+    "/CancelaContrato",
     VerificaUsuario,
     Autoriza,
     cancelaContrato.handle

@@ -6,7 +6,7 @@ class ControleCancelaContrato {
         const {
             seq,
             data_cancelamento
-        } = request.params;
+        } = request.body;
 
         const cancelaContrato = new ServiceCancelaContrato();
 

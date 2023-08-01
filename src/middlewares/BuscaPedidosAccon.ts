@@ -2,8 +2,7 @@ import { ExecuteSQL } from "../../BancoSql";
 import { getCustomRepository } from "typeorm";
 import { PedidoRep } from "../repositories/PedidoRep";
 import { Request, Response, NextFunction } from "express";
-import { ServiceConsultaApp } from "../services/ServiceConsApp";
-import { createHeritageClause } from "typescript";
+import { ServiceConsultaApp } from "../services/ServicePedidos";
 
 export async function BuscaPedidosAccon(
     request: Request,

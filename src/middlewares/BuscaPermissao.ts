@@ -16,11 +16,11 @@ export async function Autoriza(
 
     const { cod_permissao } = await PermUsu.findOne(opt_codigo_usu);
 
-    if (opt_nivel === "0") {
+    // if (opt_nivel === "0") {
         // var tempo = new Date()
         // console.log(`Fim Autoriza Usuario ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)
         return next();
-    }
+    // }
 
     // var tempo = new Date()
     // console.log(`Fim Autoriza Usuario naut ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)

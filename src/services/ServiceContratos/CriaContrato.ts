@@ -38,16 +38,22 @@ class ServiceCriaContrato {
         if (verCont) {
             throw new Error("Contrato já criado");
         }
+
+        var valInst = tx_instalacao * 100;
+        var valMens = valor_mens * 100;
+        var valPerc = percentual * 100;
+        var valBase = base_calculo * 100;
+
         const _contrato = await contratosRep.create({
             opt_cod_cliente,
             data: dataCria,
             vencimento,
-            tx_instalacao,
+            tx_instalacao: valInst,
             venc_instalacao,
             inicio_mens,
-            valor_mens,
-            percentual,
-            base_calculo,
+            valor_mens: valMens,
+            percentual: valPerc,
+            base_calculo: valBase,
             ativo,
         });
 

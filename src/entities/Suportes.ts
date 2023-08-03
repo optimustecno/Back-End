@@ -35,6 +35,8 @@ class Suporte {
     resolucao: string;
     @Column()
     cod_setor: string;
+    @Column()
+    canal_atendimento: string;
     @JoinColumn({ name: "cod_setor" })
     @ManyToOne(() => Setor)
     setor: Setor;

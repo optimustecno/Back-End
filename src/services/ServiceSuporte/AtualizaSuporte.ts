@@ -14,6 +14,7 @@ interface iSuporte {
     contato?: any;
     resolucao?: any;
     cod_setor?: any;
+    canal_atendimento?: any;
 }
 
 class ServiceAtualizaSuporte {
@@ -30,6 +31,7 @@ class ServiceAtualizaSuporte {
         contato,
         resolucao,
         cod_setor,
+        canal_atendimento,
     }: iSuporte) {
         const suporteRep = getCustomRepository(SuporteRep);
         const Suporte = await suporteRep.update(
@@ -46,6 +48,7 @@ class ServiceAtualizaSuporte {
                 contato,
                 resolucao,
                 cod_setor,
+                canal_atendimento,
             }
         );
 
@@ -61,6 +64,7 @@ class ServiceAtualizaSuporte {
             contato,
             resolucao,
             cod_setor,
+            canal_atendimento,
         };
     }
 }

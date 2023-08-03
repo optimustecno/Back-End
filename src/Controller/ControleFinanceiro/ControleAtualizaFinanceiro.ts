@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { ServiceCriaFinanceiro } from "../../services/ServiceFinanceiro";
 
-class ControleCriaFinanceiro {
+class ControleAtualizaFinanceiro {
     async handle(request: Request, response: Response) {
         const {
             opt_seq_contrato,
@@ -33,4 +33,4 @@ class ControleCriaFinanceiro {
     }
 }
 
-export { ControleCriaFinanceiro };
+export { ControleAtualizaFinanceiro };

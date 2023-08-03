@@ -15,6 +15,7 @@ class ControleCriaSuporte {
             contato,
             resolucao,
             cod_setor,
+            canal_atendimento
         } = request.body;
 
         const criaSuporte = new ServiceCriaSuporte();
@@ -31,6 +32,7 @@ class ControleCriaSuporte {
             contato,
             resolucao,
             cod_setor,
+            canal_atendimento
         });
 
         return response.json(suporteGrava);

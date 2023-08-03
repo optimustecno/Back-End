@@ -14,6 +14,7 @@ interface iSuporte {
     contato?: any;
     resolucao?: any;
     cod_setor?: any;
+    canal_atendimento?: any;
 }
 
 class ServiceCriaSuporte {
@@ -29,6 +30,7 @@ class ServiceCriaSuporte {
         contato,
         resolucao,
         cod_setor,
+        canal_atendimento,
     }: iSuporte) {
         const supRep = getCustomRepository(SuporteRep);
 
@@ -54,6 +56,7 @@ class ServiceCriaSuporte {
             contato,
             resolucao,
             cod_setor,
+            canal_atendimento,
         });
 
         await supRep.save(_suporte);

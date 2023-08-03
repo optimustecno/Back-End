@@ -16,6 +16,7 @@ class ControleUpdateSuporte {
             contato,
             resolucao,
             cod_setor,
+            canal_atendimento
         } = request.body;
 
         const updateSuporte = new ServiceAtualizaSuporte();
@@ -33,6 +34,7 @@ class ControleUpdateSuporte {
             contato,
             resolucao,
             cod_setor,
+            canal_atendimento
         });
 
         return response.json(suporteGrava);

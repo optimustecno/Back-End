@@ -39,18 +39,23 @@ class ServiceAtualizaContrato {
             throw new Error("Contrato Não Encontrado");
         }
 
+        var valInst = tx_instalacao * 100;
+        var valMens = valor_mens * 100;
+        var valPerc = percentual * 100;
+        var valBase = base_calculo * 100;
+
         const _contrato = await contratosRep.update(
             { seq: seq },
             {
                 opt_cod_cliente,
                 data,
                 vencimento,
-                tx_instalacao,
+                tx_instalacao: valInst,
                 venc_instalacao,
                 inicio_mens,
-                valor_mens,
-                percentual,
-                base_calculo,
+                valor_mens: valMens,
+                percentual: valPerc,
+                base_calculo: valBase,
                 ativo,
             }
         );

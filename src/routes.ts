@@ -113,22 +113,9 @@ Rotas.get("/ConsultaClientes", VerificaUsuario, consultaClientes.handle);
 Rotas.get("/CredenciaisWabiz/:codigo", VerificaUsuario, buscaWabiz.handle);
 Rotas.get("/Ocorrencias", VerificaUsuario, consultaTodasOcorrencias.handle);
 Rotas.get("/Ocorrencias/:codigo", VerificaUsuario, consultaOcorrencia.handle);
-Rotas.get(
-    "/ContratosCli/:opt_cod_cliente",
-    VerificaUsuario,
-    contratosCliente.handle
-);
-Rotas.get(
-    "/EmpLinkadas/:codigo",
-    VerificaUsuario,
-    buscaEmpresasLinkadas.handle
-);
-Rotas.get(
-    "/Suporte/:seq",
-    VerificaUsuario,
-    DefineUsuarioSuporte,
-    buscaSuporte.handle
-);
+Rotas.get("/EmpLinkadas/:codigo", VerificaUsuario, buscaEmpresasLinkadas.handle);
+Rotas.get("/ContratosCli/:opt_cod_cliente", VerificaUsuario, contratosCliente.handle);
+Rotas.get("/Suporte/:seq", VerificaUsuario, DefineUsuarioSuporte, buscaSuporte.handle);
 Rotas.get(
     "/PedidosPendentes/:codigo",
     VerificaUsuario,
@@ -146,20 +133,10 @@ Rotas.post("/Setor", VerificaUsuario, Autoriza, criaSetor.handle);
 Rotas.post("/Contrato", VerificaUsuario, Autoriza, criaContrato.handle);
 Rotas.post("/InsUsuario", VerificaUsuario, Autoriza, insereUsuario.handle);
 Rotas.post("/UpdateStatus", VerificaUsuario, Autoriza, updateStatus.handle);
-Rotas.post("/UsuarioSuporte", VerificaUsuario,Autoriza, criaUsuSuporte.handle);
+Rotas.post("/UsuarioSuporte", VerificaUsuario, Autoriza, criaUsuSuporte.handle);
 Rotas.post("/NovaOcorrencia", VerificaUsuario, Autoriza, criaOcorrencia.handle);
-Rotas.post(
-    "/ProxStatus",
-    VerificaUsuario,
-    Autoriza,
-    consultaProximoStatus.handle
-);
-Rotas.post(
-    "/InsPedidoOptimus",
-    VerificaUsuario,
-    Autoriza,
-    pedidoUaiRangoManual.handle
-);
+Rotas.post("/ProxStatus", VerificaUsuario, Autoriza, consultaProximoStatus.handle);
+Rotas.post("/InsPedidoOptimus", VerificaUsuario, Autoriza, pedidoUaiRangoManual.handle);
 //PUT
 Rotas.put("/Setor", VerificaUsuario, updateSetor.handle);
 Rotas.put("/TrocaSenha", VerificaUsuario, trocaSenha.handle);
@@ -172,18 +149,8 @@ Rotas.put("/UpdateLicenca", VerificaUsuario, atualizaLicenca.handle);
 Rotas.put("/ClienteFood", VerificaUsuario, atualizaDadosViaFood.handle);
 Rotas.put("/CancelaCliente", VerificaUsuario, Autoriza, cancelaCli.handle);
 Rotas.put("/Contrato", VerificaUsuario, Autoriza, atualizaContrato.handle);
-Rotas.put(
-    "/CancelaContrato",
-    VerificaUsuario,
-    Autoriza,
-    cancelaContrato.handle
-);
-Rotas.put(
-    "/AtualizaCli",
-    VerificaUsuario,
-    Autoriza,
-    atualizaDadosViaFood.handle
-);
+Rotas.put("/CancelaContrato", VerificaUsuario, Autoriza, cancelaContrato.handle);
+Rotas.put("/AtualizaCli", VerificaUsuario, Autoriza, atualizaDadosViaFood.handle);
 //DELETE
 Rotas.delete("/Suporte/:seq", VerificaUsuario, Autoriza, deleteSuporte.handle);
 //

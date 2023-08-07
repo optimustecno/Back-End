@@ -1,4 +1,4 @@
-import { getCustomRepository, Like, Between } from "typeorm";
+import { getCustomRepository, Like, Between, Not } from "typeorm";
 import { ViewSuporteRep as SuporteRep } from "../../repositories/ViewSuporteRep";
 
 interface iFiltro {
@@ -44,16 +44,28 @@ class countSuportes {
         } else if (!dataFinal) {
             throw new Error("Não Foi Informada a Data Final!");
         } else {
-            console.log(prioridade);
-            ContaSuportes = await ocorrenciaRep.count({
-                where: {
-                    opt_nome_cliente: Like(`%${cliente}%`),
-                    titulo: Like(`%${titulo}%`),
-                    prioridade: Like(`%${prioridade}%`),
-                    status: Like(`%${status}%`),
-                    data: Between(dataInicial, dataFinal),
-                },
-            });
+            if (!status){
+                ContaSuportes = await ocorrenciaRep.count({
+                    where: {
+                        opt_nome_cliente: Like(`%${cliente}%`),
+                        titulo: Like(`%${titulo}%`),
+                        prioridade: Like(`%${prioridade}%`),
+                        status: Not("4"),
+                        data: Between(dataInicial, dataFinal),
+                    },
+                });
+            }else{
+                ContaSuportes = await ocorrenciaRep.count({
+                    where: {
+                        opt_nome_cliente: Like(`%${cliente}%`),
+                        titulo: Like(`%${titulo}%`),
+                        prioridade: Like(`%${prioridade}%`),
+                        status,
+                        data: Between(dataInicial, dataFinal),
+                    },
+                });
+            }
+            
         }
         return ContaSuportes;
     }

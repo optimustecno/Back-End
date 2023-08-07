@@ -1,4 +1,4 @@
-import { getCustomRepository, Like, Between } from "typeorm";
+import { getCustomRepository, Like, Between, Not } from "typeorm";
 import { ViewSuporteRep as SuporteRep } from "../../repositories/ViewSuporteRep";
 
 interface iFiltro {
@@ -35,26 +35,38 @@ class ServiceListaSuportes {
         if (!prioridade) {
             prioridade = "";
         }
-        if (!status) {
-            status = "";
-        }
         if (!hora) {
             hora = "";
         }
-
-        Suportes = await supRep.find({
-            where: {
-                opt_nome_cliente: Like(`%${cliente}%`),
-                titulo: Like(`%${titulo}%`),
-                prioridade: Like(`%${prioridade}%`),
-                status: Like(`%${status}%`),
-                hora: Like(`%${hora}%`),
-                data: Between(dataInicial, dataFinal),
-            },
-            order: { prioridade: "ASC", data: "ASC" },
-            skip: offset,
-            take: 10,
-        });
+        if (!status) {
+            Suportes = await supRep.find({
+                where: {
+                    opt_nome_cliente: Like(`%${cliente}%`),
+                    titulo: Like(`%${titulo}%`),
+                    prioridade: Like(`%${prioridade}%`),
+                    status: Not("4"),
+                    hora: Like(`%${hora}%`),
+                    data: Between(dataInicial, dataFinal),
+                },
+                order: { prioridade: "ASC", data: "ASC" },
+                skip: offset,
+                take: 10,
+            });
+        } else {
+            Suportes = await supRep.find({
+                where: {
+                    opt_nome_cliente: Like(`%${cliente}%`),
+                    titulo: Like(`%${titulo}%`),
+                    prioridade: Like(`%${prioridade}%`),
+                    status,
+                    hora: Like(`%${hora}%`),
+                    data: Between(dataInicial, dataFinal),
+                },
+                order: { prioridade: "ASC", data: "ASC" },
+                skip: offset,
+                take: 10,
+            });
+        }
 
         if (!Suportes) {
             throw new Error("Nenhum registro a ser exibido!");

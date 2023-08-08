@@ -1,20 +1,9 @@
 import { Request, Response } from "express";
-import {
-    ServiceListaSuportes,
-    countSuportes,
-} from "../../services/ServiceSuporte";
+import { ServiceListaSuportes, countSuportes } from "../../services/ServiceSuporte";
 
 class ControleListaSuporte {
     async handle(request: Request, response: Response) {
-        var {
-            status,
-            cliente,
-            offset,
-            dataInicial,
-            dataFinal,
-            titulo,
-            prioridade,
-        } = request.query;
+        var { status, cliente, offset, dataInicial, dataFinal, titulo, prioridade } = request.query;
         var dataIni;
         var dataFim;
         //
@@ -59,8 +48,7 @@ class ControleListaSuporte {
         const previous = Skip - limit < 0 ? null : Skip - limit;
         var previousURL;
         if (!dataInicial) {
-            previousURL =
-                previous != null ? `${currentURL}?offset=${previous}` : null;
+            previousURL = previous != null ? `${currentURL}?offset=${previous}` : null;
         } else {
             previousURL =
                 previous != null
@@ -71,9 +59,11 @@ class ControleListaSuporte {
 
         const consultaSuportes = new ServiceListaSuportes();
 
+        var cCliente = cliente.toString();
+
         const suportes = await consultaSuportes.execute({
             status,
-            cliente,
+            cliente: cCliente.trim(),
             offset,
             dataInicial,
             dataFinal,

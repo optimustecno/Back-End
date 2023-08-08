@@ -59,7 +59,7 @@ class ControleListaSuporte {
 
         const consultaSuportes = new ServiceListaSuportes();
 
-        var cCliente = cliente.toString();
+        var cCliente = "" + cliente.toString();
 
         const suportes = await consultaSuportes.execute({
             status,

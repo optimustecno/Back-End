@@ -20,6 +20,22 @@ class ControleListaSuporte {
         } else {
             dataFim = dataFinal;
         }
+
+        var segueURL = "";
+
+        if (status) {
+            segueURL = `&status=${status}`;
+        }
+        if (cliente) {
+            segueURL = segueURL + `&cliente=${cliente}`;
+        }
+        if (titulo) {
+            segueURL = segueURL + `&titulo=${titulo}`;
+        }
+        if (prioridade) {
+            segueURL = segueURL + `&prioridade=${prioridade}`;
+        }
+
         var Skip = Number(offset);
         const limit = 10;
         const Conta = new countSuportes();
@@ -37,22 +53,22 @@ class ControleListaSuporte {
         const next = Skip + limit;
         var nextUrl;
         if (!dataInicial) {
-            nextUrl = next < total ? `${currentURL}?offset=${next}` : null;
+            nextUrl = next < total ? `${currentURL}?offset=${next}${segueURL}` : null;
         } else {
             nextUrl =
                 next < total
-                    ? `${currentURL}?offset=${next}&dataInicial=${dataIni}&dataFinal=${dataFim}`
+                    ? `${currentURL}?offset=${next}&dataInicial=${dataIni}&dataFinal=${dataFim}${segueURL}`
                     : null;
         }
         //
         const previous = Skip - limit < 0 ? null : Skip - limit;
         var previousURL;
         if (!dataInicial) {
-            previousURL = previous != null ? `${currentURL}?offset=${previous}` : null;
+            previousURL = previous != null ? `${currentURL}?offset=${previous}${segueURL}` : null;
         } else {
             previousURL =
                 previous != null
-                    ? `${currentURL}?offset=${previous}&dataInicial=${dataIni}&dataFinal=${dataFim}`
+                    ? `${currentURL}?offset=${previous}&dataInicial=${dataIni}&dataFinal=${dataFim}${segueURL}`
                     : null;
         }
         //

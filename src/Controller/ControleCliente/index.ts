@@ -9,6 +9,7 @@ import { ControleUpdateBancoOn } from "./ControleAtualizaBancoOn";
 import { ControleUpdateClienteViaFood } from "./ControleUpdateClienteViaFood";
 import { ControleAtualizaQuantRequest } from "./ControleAtualizaQuantRequest";
 import { ControleBuscaEmpresasLinkadas } from "./ControleBuscaEmpresasLinkadas";
+import { ControleBuscaEmpresasNaoLinkadas } from "./ControleBuscaEmpresasNaoLinkadas";
 
 export {
     ControleBancoOn,
@@ -22,4 +23,5 @@ export {
     ControleUpdateClienteViaFood,
     ControleAtualizaQuantRequest,
     ControleBuscaEmpresasLinkadas,
+    ControleBuscaEmpresasNaoLinkadas,
 };

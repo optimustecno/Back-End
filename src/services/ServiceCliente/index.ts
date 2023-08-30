@@ -10,6 +10,7 @@ import { ServiceConsultaCliente } from "./ConsultaCliente";
 import { ServiceAtualizaLicenca } from "./AtualizaLicenca";
 import { ServiceListaClientes } from "./ServiceRetClientes";
 import { ServiceCredenciaisWabiz } from "./CredenciaisWabiz";
+import { ServiceConsultaNaoLinkadas } from "./EmpresasNaoLinkadas";
 
 export {
     ServiceConsultaCliente,
@@ -24,4 +25,5 @@ export {
     ServiceCredenciaisWabiz,
     ServiceConsultaLinks,
     ServiceListaClientes,
+    ServiceConsultaNaoLinkadas,
 };

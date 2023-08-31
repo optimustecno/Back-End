@@ -1,5 +1,5 @@
-import { getCustomRepository, Not } from "typeorm";
-import { ViewEmpLinkRep } from "../../repositories/ViewEmpLink";
+import { getCustomRepository } from "typeorm";
+import { DadosOnRep } from "../../repositories/DadosOnRep";
 
 interface iAppsCliente {
     opt_cod_cliente: string;
@@ -7,9 +7,9 @@ interface iAppsCliente {
 
 class ServiceConsultaNaoLinkadas {
     async execute({ opt_cod_cliente }: iAppsCliente) {
-        const empLinkRep = getCustomRepository(ViewEmpLinkRep);
+        const empLinkRep = getCustomRepository(DadosOnRep);
 
-        const Links = await empLinkRep.find({ opt_cod_cliente: Not(opt_cod_cliente) });
+        const Links = await empLinkRep.find({ opt_cod_cliente });
 
         return Links;
     }

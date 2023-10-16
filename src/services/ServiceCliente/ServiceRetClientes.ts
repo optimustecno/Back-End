@@ -5,6 +5,7 @@ interface iFiltro {
     opt_bloqueado?: any;
     opt_nome_sistema?: any;
     opt_nome_cliente?: any;
+    opt_doc1?: any;
 }
 
 class ServiceListaClientes {

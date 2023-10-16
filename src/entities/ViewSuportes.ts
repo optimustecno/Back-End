@@ -9,6 +9,8 @@ class ViewSuporte {
     @Column()
     readonly hora: string;
     @Column()
+    readonly opt_cod_cliente: string;
+    @Column()
     readonly opt_nome_cliente: number;
     @Column()
     readonly status: string;

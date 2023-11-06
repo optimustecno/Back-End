@@ -54,6 +54,9 @@ export async function BuscaPedidosAccon(
                         `${cEndAccon}/auth/login`,
                         requestOptions
                     );
+                    //
+                    console.log(`ACCON Cli ${codigo_Cli}`)
+                    //
                     var AcconResponseJson = await AcconResponse.json();
                     // ajuste para subir
                     // var tempo = new Date()
@@ -79,6 +82,9 @@ export async function BuscaPedidosAccon(
                         "X-NETWORK-ID": app.rede,
                     },
                 };
+                //
+                console.log(`ACCON Cli ${codigo_Cli}`)
+                //
                 var Pedidos = await fetch(
                     `${cEndAccon}/order/pending`,
                     requestOptionsPed
@@ -88,7 +94,7 @@ export async function BuscaPedidosAccon(
                     return next();
                 }
                 var PedidosJson = await Pedidos.json();
-                //console.log(PedidosJson)
+                console.log(PedidosJson)
                 // var tempo = new Date()
                 // console.log(`Pedidos Retornados ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)
                 var nValTot = 0;

@@ -4,11 +4,7 @@ import { PedidoRep } from "../repositories/PedidoRep";
 import { Request, Response, NextFunction } from "express";
 import { ServiceConsultaApp } from "../services/ServicePedidos";
 
-export async function BuscaPedidosAccon(
-    request: Request,
-    response: Response,
-    next: NextFunction
-) {
+export async function BuscaPedidosAccon(request: Request, response: Response, next: NextFunction) {
     //BUSCANDO APLICATIVOS CADASTRADOS NO BANCO ON-LINE
     // var tempo = new Date()
     // console.log(`Coleta APPs ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)
@@ -50,12 +46,9 @@ export async function BuscaPedidosAccon(
                         },
                         body: urlencoded,
                     };
-                    var AcconResponse = await fetch(
-                        `${cEndAccon}/auth/login`,
-                        requestOptions
-                    );
+                    var AcconResponse = await fetch(`${cEndAccon}/auth/login`, requestOptions);
                     //
-                    console.log(`ACCON Cli ${codigo_Cli}`)
+                    console.log(`ACCON Cli ${codigo_Cli}`);
                     //
                     var AcconResponseJson = await AcconResponse.json();
                     // ajuste para subir
@@ -83,18 +76,15 @@ export async function BuscaPedidosAccon(
                     },
                 };
                 //
-                console.log(`ACCON Cli ${codigo_Cli}`)
+                console.log(`ACCON Cli ${codigo_Cli}`);
                 //
-                var Pedidos = await fetch(
-                    `${cEndAccon}/order/pending`,
-                    requestOptionsPed
-                );
+                var Pedidos = await fetch(`${cEndAccon}/order/pending`, requestOptionsPed);
                 var estatus = Pedidos.status;
                 if (estatus != 200) {
                     return next();
                 }
                 var PedidosJson = await Pedidos.json();
-                console.log(PedidosJson)
+                //console.log(PedidosJson)
                 // var tempo = new Date()
                 // console.log(`Pedidos Retornados ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)
                 var nValTot = 0;
@@ -135,8 +125,7 @@ export async function BuscaPedidosAccon(
                                 var infoCard = "";
                                 var tipoCard = "";
                                 if (pedido.payment.online) {
-                                    autorizacaoPag =
-                                        pedido.payment.authorizationCode;
+                                    autorizacaoPag = pedido.payment.authorizationCode;
                                     idTrans = pedido.payment.tid;
                                     infoCard = pedido.payment.card;
                                     tipoCard = pedido.payment.type;
@@ -149,87 +138,56 @@ export async function BuscaPedidosAccon(
                                                 TextoObs = `(${texto.quantity}) ${texto.name}`;
                                             } else {
                                                 TextoObs =
-                                                    TextoObs +
-                                                    `¬(${texto.quantity}) ${texto.name}`;
+                                                    TextoObs + `¬(${texto.quantity}) ${texto.name}`;
                                             }
                                         } else {
-                                            nValTotComp =
-                                                texto.price.actualPrice;
+                                            nValTotComp = texto.price.actualPrice;
                                             nQuantComp = texto.quantity;
-                                            nValUnComp =
-                                                nValTotComp / nQuantComp;
+                                            nValUnComp = nValTotComp / nQuantComp;
                                             contComp = contComp + 1;
-                                            nValTotAdicionais =
-                                                nValTotAdicionais + nValTotComp;
-                                            var pedidoAcconADD =
-                                                pedidoRep.create({
-                                                    opt_cod_cliente:
-                                                        app.opt_cod_cliente,
-                                                    cliente: pedido.user.name,
-                                                    fone_cliente:
-                                                        pedido.user.phone,
-                                                    cpf_cli:
-                                                        pedido.user.document,
-                                                    opt_cod_app: app.seq,
-                                                    opt_pedido_app: pedido._id,
-                                                    opt_pedido:
-                                                        pedido.sequential,
-                                                    opt_cod_prod:
-                                                        texto.externalVendorCode,
-                                                    opt_nome_produto:
-                                                        texto.name,
-                                                    obs_combo: "",
-                                                    ordem: (
-                                                        cont + contComp
-                                                    ).toString(),
-                                                    cod_grupo: "000001",
-                                                    quant: nQuantComp,
-                                                    valor_un: nValUnComp,
-                                                    valor_tot_prod: nValTotComp,
-                                                    desconto: pedido.discount,
-                                                    tipo: entrega,
-                                                    taxa_ent:
-                                                        pedido.deliveryTax,
-                                                    hora: pedido.date
-                                                        .split("T")[1]
-                                                        .substring(0, 5),
-                                                    data: pedido.date.split(
-                                                        "T"
-                                                    )[0],
-                                                    status: "0",
-                                                    novo_status: "0",
-                                                    endereco:
-                                                        pedido.address.address,
-                                                    numero: pedido.address
-                                                        .number,
-                                                    bairro: pedido.address
-                                                        .district,
-                                                    complemento:
-                                                        pedido.address
-                                                            .complement,
-                                                    valor_total_ped:
-                                                        pedido.total,
-                                                    obs: pedido.notes,
-                                                    pagamento:
-                                                        pedido.payment.name,
-                                                    obs_troco: `${pedido.change}`,
-                                                    autorizacao: autorizacaoPag,
-                                                    id_trans: idTrans,
-                                                    info_car: infoCard,
-                                                    tipo_rec_on: tipoCard,
-                                                });
-                                            await pedidoRep.save(
-                                                pedidoAcconADD
-                                            );
+                                            nValTotAdicionais = nValTotAdicionais + nValTotComp;
+                                            var pedidoAcconADD = pedidoRep.create({
+                                                opt_cod_cliente: app.opt_cod_cliente,
+                                                cliente: pedido.user.name,
+                                                fone_cliente: pedido.user.phone,
+                                                cpf_cli: pedido.user.document,
+                                                opt_cod_app: app.seq,
+                                                opt_pedido_app: pedido._id,
+                                                opt_pedido: pedido.sequential,
+                                                opt_cod_prod: texto.externalVendorCode,
+                                                opt_nome_produto: texto.name,
+                                                obs_combo: "",
+                                                ordem: (cont + contComp).toString(),
+                                                cod_grupo: "000001",
+                                                quant: nQuantComp,
+                                                valor_un: nValUnComp,
+                                                valor_tot_prod: nValTotComp,
+                                                desconto: pedido.discount,
+                                                tipo: entrega,
+                                                taxa_ent: pedido.deliveryTax,
+                                                hora: pedido.date.split("T")[1].substring(0, 5),
+                                                data: pedido.date.split("T")[0],
+                                                status: "0",
+                                                novo_status: "0",
+                                                endereco: pedido.address.address,
+                                                numero: pedido.address.number,
+                                                bairro: pedido.address.district,
+                                                complemento: pedido.address.complement,
+                                                valor_total_ped: pedido.total,
+                                                obs: pedido.notes,
+                                                pagamento: pedido.payment.name,
+                                                obs_troco: `${pedido.change}`,
+                                                autorizacao: autorizacaoPag,
+                                                id_trans: idTrans,
+                                                info_car: infoCard,
+                                                tipo_rec_on: tipoCard,
+                                            });
+                                            await pedidoRep.save(pedidoAcconADD);
                                         }
                                     });
                                 } catch (error) {
-                                    if (
-                                        item.modifiers.price.actualPrice === 0
-                                    ) {
-                                        TextoObs =
-                                            TextoObs +
-                                            `\n ${item.modifiers.name}`;
+                                    if (item.modifiers.price.actualPrice === 0) {
+                                        TextoObs = TextoObs + `\n ${item.modifiers.name}`;
                                     } else {
                                         //implemntear insert
                                     }
@@ -260,9 +218,7 @@ export async function BuscaPedidosAccon(
                                     obs_item: TextoObs,
                                     tipo: entrega,
                                     taxa_ent: pedido.deliveryTax,
-                                    hora: pedido.date
-                                        .split("T")[1]
-                                        .substring(0, 5),
+                                    hora: pedido.date.split("T")[1].substring(0, 5),
                                     data: pedido.date.split("T")[0],
                                     status: "0",
                                     novo_status: "0",

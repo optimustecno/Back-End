@@ -11,11 +11,11 @@ export async function BuscaPedidosAccon(request: Request, response: Response, ne
     const consultaApp = new ServiceConsultaApp();
     //
     const codigo_Cli = request.params.codigo;
-    console.log(request.query)
+    //console.log(request.query)
     var cTipo = request.query.tipo;
     //
-    if (!cTipo){
-        cTipo = '';
+    if (!cTipo) {
+        cTipo = "";
     }
     //
     const apps = await consultaApp.execute({
@@ -35,8 +35,7 @@ export async function BuscaPedidosAccon(request: Request, response: Response, ne
     var Token = "";
     //RODANDO UM FOR DENTRO DOS ELEMENTOS RETORNADOS PELO BANCO
     try {
-        if (cTipo == 'ACCON'){
-
+        if (cTipo == "ACCON") {
             apps.forEach(async (app) => {
                 //VERIFICANDO A EXISTENCIA DO TOKEN
                 if (app.app === "ACCON") {
@@ -146,7 +145,8 @@ export async function BuscaPedidosAccon(request: Request, response: Response, ne
                                                     TextoObs = `(${texto.quantity}) ${texto.name}`;
                                                 } else {
                                                     TextoObs =
-                                                        TextoObs + `¬(${texto.quantity}) ${texto.name}`;
+                                                        TextoObs +
+                                                        `¬(${texto.quantity}) ${texto.name}`;
                                                 }
                                             } else {
                                                 nValTotComp = texto.price.actualPrice;

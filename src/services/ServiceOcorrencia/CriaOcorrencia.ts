@@ -1,4 +1,4 @@
-
+import { getCustomRepository } from "typeorm";
 import { OcorrenciasRep } from "../../repositories/OcorrenciasRep";
 
 interface iCriaOcorrencia {
@@ -17,7 +17,7 @@ class ServiceCriaOcorrencia {
         opt_obs,
         opt_tipo_ocorrencia,
     }: iCriaOcorrencia) {
-        const ocorrenciaRep = OcorrenciasRep;
+        const ocorrenciaRep = getCustomRepository(OcorrenciasRep);
 
         const _ocorrencia = await ocorrenciaRep.create({
             opt_cod_cliente,

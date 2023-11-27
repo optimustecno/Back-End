@@ -1,4 +1,4 @@
-
+import { getCustomRepository } from "typeorm";
 import { ClientesRep } from "../../repositories/ClienteRep";
 
 interface iAcessoEmpresas {
@@ -19,7 +19,7 @@ class ServiceInformaBancoOn {
         opt_password,
         opt_odbc,
     }: iAcessoEmpresas) {
-        const clientesRep = (ClientesRep);
+        const clientesRep = getCustomRepository(ClientesRep);
 
         if (!opt_cod_cliente) {
             throw new Error("Código do Cliente Não Informado");

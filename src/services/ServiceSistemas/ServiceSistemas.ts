@@ -1,9 +1,9 @@
-
+import { getCustomRepository } from "typeorm";
 import { SistemasRep } from "../../repositories/SistemasRep";
 
 class ServiceConsultaSistemas {
     async execute() {
-        const sisRep = SistemasRep;
+        const sisRep = getCustomRepository(SistemasRep);
 
         const Sistemas = await sisRep.find({
             order: { opt_nome_sistema: "ASC" },

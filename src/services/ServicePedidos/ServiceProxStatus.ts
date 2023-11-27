@@ -1,10 +1,10 @@
-
+import { getCustomRepository } from "typeorm";
 import { ProxStatusRep } from "../../repositories/ProxStatusRep";
 
 class ServiceConsultaProxStatus {
 
     async execute() {
-        const pedidoRep = ProxStatusRep;
+        const pedidoRep = getCustomRepository(ProxStatusRep);
 
         const PedidosProxStatus = await pedidoRep.find({
 

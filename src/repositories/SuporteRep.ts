@@ -1,5 +1,7 @@
-
+import { EntityRepository, Repository } from "typeorm";
 import { Suporte } from "../entities/Suportes";
 
-import { AppDataSource } from "../data-source";
-export const SuporteRep = AppDataSource.getRepository(Suporte).extend({});
+@EntityRepository(Suporte)
+class SuporteRep extends Repository<Suporte> {}
+
+export { SuporteRep };

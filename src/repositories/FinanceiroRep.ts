@@ -1,3 +1,7 @@
+import { EntityRepository, Repository } from "typeorm";
 import { Financeiro } from "../entities/Financeiro";
-import { AppDataSource } from "../data-source";
-export const FinanceiroRep = AppDataSource.getRepository(Financeiro).extend({});
+
+@EntityRepository(Financeiro)
+class FinanceiroRep extends Repository<Financeiro> {}
+
+export { FinanceiroRep };

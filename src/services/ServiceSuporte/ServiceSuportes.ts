@@ -1,4 +1,4 @@
-import { Like, Between, Not } from "typeorm";
+import { getCustomRepository, Like, Between, Not } from "typeorm";
 import { ViewSuporteRep as SuporteRep } from "../../repositories/ViewSuporteRep";
 
 interface iFiltro {
@@ -15,21 +15,33 @@ interface iFiltro {
 class ServiceListaSuportes {
     async execute({
         status,
-        cliente="",
+        cliente,
         dataInicial,
         dataFinal,
-        hora="",
+        hora,
         offset,
-        titulo="",
-        prioridade="",
+        titulo,
+        prioridade,
     }: iFiltro) {
-        const supRep = SuporteRep;
+        const supRep = getCustomRepository(SuporteRep);
         var Suportes;
-       
+
+        if (!cliente) {
+            cliente = "";
+        }
+        if (!titulo) {
+            titulo = "";
+        }
+        if (!prioridade) {
+            prioridade = "";
+        }
+        if (!hora) {
+            hora = "";
+        }
         if (!status) {
             Suportes = await supRep.find({
                 where: {
-                    opt_nome_cliente: Like(cliente),
+                    opt_nome_cliente: Like(`%${cliente}%`),
                     titulo: Like(`%${titulo}%`),
                     prioridade: Like(`%${prioridade}%`),
                     status: Not("4"),
@@ -43,7 +55,7 @@ class ServiceListaSuportes {
         } else {
             Suportes = await supRep.find({
                 where: {
-                    opt_nome_cliente: Like(cliente),
+                    opt_nome_cliente: Like(`%${cliente}%`),
                     titulo: Like(`%${titulo}%`),
                     prioridade: Like(`%${prioridade}%`),
                     status,

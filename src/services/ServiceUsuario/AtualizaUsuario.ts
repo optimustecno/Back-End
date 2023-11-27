@@ -1,4 +1,4 @@
-
+import { getCustomRepository } from "typeorm";
 import { UsuarioRep } from "../../repositories/UsuarioRep";
 
 interface iUsuariorequest {
@@ -17,7 +17,7 @@ class ServiceUpdateUsu {
         opt_email,
         ativo,
     }: iUsuariorequest) {
-        const usuRep = UsuarioRep;
+        const usuRep = getCustomRepository(UsuarioRep);
 
         if (!opt_codigo_usu) {
             throw new Error("Código do Usuário Não Informado");

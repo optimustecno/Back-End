@@ -1,9 +1,9 @@
-
+import { getCustomRepository } from "typeorm";
 import { SetorRep } from "../../repositories/SetoresRep";
 
 class consultaSetor {
     async execute() {
-        const setorRep = SetorRep;
+        const setorRep = getCustomRepository(SetorRep);
 
         const Setor = await setorRep.find();
 

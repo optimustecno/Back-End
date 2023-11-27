@@ -1,5 +1,5 @@
 import { hash } from "bcryptjs";
-
+import { getCustomRepository } from "typeorm";
 import { UsuarioRep } from "../../repositories/UsuarioRep";
 
 interface iUsuariorequest {
@@ -19,7 +19,7 @@ class ServiceInsereUsuario {
         opt_nivel,
         ativo,
     }: iUsuariorequest) {
-        const usuarioRep = UsuarioRep;
+        const usuarioRep = getCustomRepository(UsuarioRep);
 
         if (!opt_usuario) {
             throw new Error("Usuario Sem Nome");
@@ -34,7 +34,7 @@ class ServiceInsereUsuario {
             throw new Error("Usuario Sem Nível");
         }
         const usuarioExistente = await usuarioRep.findOne({
-            where:{opt_email},
+            opt_email,
         });
         if (usuarioExistente) {
             throw new Error("Usuário Já Inserido!");

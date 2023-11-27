@@ -1,4 +1,4 @@
-
+import { getCustomRepository } from "typeorm";
 import { AppRep } from "../../repositories/AppRep";
 
 interface iAppsCliente {
@@ -7,7 +7,7 @@ interface iAppsCliente {
 
 class ServiceConsultaApp {
     async execute({ codigo_Cli }: iAppsCliente) {
-        const appRep = AppRep;
+        const appRep = getCustomRepository(AppRep);
         //Acrescentei parametro para filtrar aplicativos apenas de quem está solicitando pedidos
         const appExistentes = await appRep.find({
             where: {

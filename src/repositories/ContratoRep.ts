@@ -1,3 +1,7 @@
+import { EntityRepository, Repository } from "typeorm";
 import { Contrato } from "../entities/Contrato";
-import { AppDataSource } from "../data-source";
-export const ContratoRep = AppDataSource.getRepository(Contrato).extend({});
+
+@EntityRepository(Contrato)
+class ContratoRep extends Repository<Contrato> {}
+
+export { ContratoRep };

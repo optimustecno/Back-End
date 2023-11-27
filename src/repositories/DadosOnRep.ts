@@ -1,3 +1,9 @@
+import { EntityRepository, Repository } from "typeorm";
 import { DadosOn } from "../entities/EmpresasClientes";
-import { AppDataSource } from "../data-source";
-export const DadosOnRep = AppDataSource.getRepository(DadosOn).extend({});
+
+@EntityRepository(DadosOn)
+class DadosOnRep extends Repository<DadosOn>{
+
+}
+
+export { DadosOnRep }

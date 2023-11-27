@@ -1,4 +1,4 @@
-import { getCustomRepository } from "typeorm";
+
 import { SuporteRep } from "../../repositories/SuporteRep";
 
 interface iSuporte {
@@ -7,7 +7,7 @@ interface iSuporte {
 
 class ServiceDeleteSuporte {
     async execute({ seq }: iSuporte) {
-        const suporteRep = getCustomRepository(SuporteRep);
+        const suporteRep = SuporteRep;
 
         const Suporte = await suporteRep.delete({ seq });
 

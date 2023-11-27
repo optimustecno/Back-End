@@ -1,9 +1,5 @@
-import { EntityRepository, Repository } from "typeorm";
 import { PedidosProxStatus } from "../entities/ProxStatus";
-
-@EntityRepository(PedidosProxStatus)
-class ProxStatusRep extends Repository<PedidosProxStatus>{
-
-}
-
-export { ProxStatusRep }
+import { AppDataSource } from "../data-source";
+export const ProxStatusRep = AppDataSource.getRepository(
+	PedidosProxStatus
+).extend({});

@@ -1,7 +1,3 @@
-import { EntityRepository, Repository } from "typeorm";
 import { viewSistemas } from "../entities/ViewSistemas";
-
-@EntityRepository(viewSistemas)
-class SistemasRep extends Repository<viewSistemas> {}
-
-export { SistemasRep };
+import { AppDataSource } from "../data-source";
+export const SistemasRep = AppDataSource.getRepository(viewSistemas).extend({});

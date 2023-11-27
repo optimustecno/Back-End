@@ -1,9 +1,5 @@
-import { EntityRepository, Repository } from "typeorm";
 import { RequestClientes } from "../entities/RequestClientes";
-
-@EntityRepository(RequestClientes)
-class RequestClientesRep extends Repository<RequestClientes>{
-
-}
-
-export { RequestClientesRep }
+import { AppDataSource } from "../data-source";
+export const RequestClientesRep = AppDataSource.getRepository(
+	RequestClientes
+).extend({});

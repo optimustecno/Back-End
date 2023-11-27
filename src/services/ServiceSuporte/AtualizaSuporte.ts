@@ -1,4 +1,4 @@
-import { getCustomRepository } from "typeorm";
+
 import { SuporteRep } from "../../repositories/SuporteRep";
 
 interface iSuporte {
@@ -33,7 +33,7 @@ class ServiceAtualizaSuporte {
         cod_setor,
         canal_atendimento,
     }: iSuporte) {
-        const suporteRep = getCustomRepository(SuporteRep);
+        const suporteRep = SuporteRep;
         const Suporte = await suporteRep.update(
             { seq },
             {

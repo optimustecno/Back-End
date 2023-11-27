@@ -1,4 +1,4 @@
-import { getCustomRepository } from "typeorm";
+
 import { OcorrenciasRep } from "../../repositories/OcorrenciasRep";
 
 interface iOcorrencia {
@@ -7,7 +7,7 @@ interface iOcorrencia {
 
 class ServiceConsOcorrencia {
     async execute({ opt_cod_cliente }: iOcorrencia) {
-        const ocorrenciaRep = getCustomRepository(OcorrenciasRep);
+        const ocorrenciaRep = OcorrenciasRep;
         const Ocorrencias = await ocorrenciaRep.find({
             where: { opt_cod_cliente },
             order: { opt_data_ocorrencia: "DESC" },

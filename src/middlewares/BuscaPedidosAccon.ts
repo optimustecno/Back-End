@@ -1,5 +1,5 @@
 import { ExecuteSQL } from "../../BancoSql";
-import { getCustomRepository } from "typeorm";
+
 import { PedidoRep } from "../repositories/PedidoRep";
 import { Request, Response, NextFunction } from "express";
 import { ServiceConsultaApp } from "../services/ServicePedidos";
@@ -105,7 +105,7 @@ export async function BuscaPedidosAccon(request: Request, response: Response, ne
                     if (estatus === 200) {
                         PedidosJson.forEach(async (pedido) => {
                             // VERIFICANDO SE O PEDIDO JÁ FOI IMPORTADO
-                            var pedidoRep = getCustomRepository(PedidoRep);
+                            var pedidoRep = PedidoRep;
                             var cont = 0;
                             var contComp = 0;
                             const ped = await pedidoRep.findOne({

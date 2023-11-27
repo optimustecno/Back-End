@@ -1,39 +1,38 @@
-import { getCustomRepository } from "typeorm";
 import { SetorRep } from "../../repositories/SetoresRep";
 
 interface iSetor {
-    seq?: string;
-    setor?: string;
+	seq?: string;
+	setor?: string;
 }
 
 class ServiceCriaSetor {
-    async execute({ setor }: iSetor) {
-        const setorRep = getCustomRepository(SetorRep);
+	async execute({ setor }: iSetor) {
+		const setorRep = SetorRep;
 
-        if (!setor) {
-            throw new Error("Não Foi Informado o Nome do Setor!");
-        }
+		if (!setor) {
+			throw new Error("Não Foi Informado o Nome do Setor!");
+		}
 
-        const TestaCad = await setorRep.findOne({
-            setor,
-        });
+		const TestaCad = await setorRep.findOne({
+			where: { setor },
+		});
 
-        if (TestaCad) {
-            throw new Error("Setor Existente!");
-        }
+		if (TestaCad) {
+			throw new Error("Setor Existente!");
+		}
 
-        const _setor = await setorRep.create({
-            setor,
-        });
+		const _setor = await setorRep.create({
+			setor,
+		});
 
-        await setorRep.save(_setor);
+		await setorRep.save(_setor);
 
-        const SuporteCad = await setorRep.findOne({
-            setor,
-        });
+		const SuporteCad = await setorRep.findOne({
+			where: { setor },
+		});
 
-        return SuporteCad;
-    }
+		return SuporteCad;
+	}
 }
 
 export { ServiceCriaSetor };

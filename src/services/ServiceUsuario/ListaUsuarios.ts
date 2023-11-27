@@ -1,4 +1,4 @@
-import { getCustomRepository, Like } from "typeorm";
+import { Like } from "typeorm";
 import { UserRep } from "../../repositories/UserRep";
 
 interface iUsuariorequest {
@@ -9,7 +9,7 @@ interface iUsuariorequest {
 
 class ServiceListaUsuarios {
     async execute({ opt_usuario, opt_email, ativo }: iUsuariorequest) {
-        const usuario = getCustomRepository(UserRep);
+        const usuario = UserRep;
 
         const user = await usuario.find({
             where: {

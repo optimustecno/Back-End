@@ -1,4 +1,4 @@
-import { getCustomRepository } from "typeorm";
+
 import { AppRep } from "../repositories/AppRep";
 import { PedidoRep } from "../repositories/PedidoRep";
 import { Request, Response, NextFunction } from "express";
@@ -19,7 +19,7 @@ export async function BuscaPedidosUaiRango(
     //
     //PedidosJson.forEach(async pedido => {
     // VERIFICANDO SE O PEDIDO JÁ FOI IMPORTADO
-    const apps = getCustomRepository(AppRep);
+    const apps = AppRep;
     const app = await apps.findOne({
         where: {
             token: id_estabelecimento,
@@ -32,7 +32,7 @@ export async function BuscaPedidosUaiRango(
             .json({ Message: "Pedido Não Pertence a Nenhum Cliente" });
     }
     var cont = 0;
-    var pedidoRep = getCustomRepository(PedidoRep);
+    var pedidoRep = PedidoRep;
     const ped = await pedidoRep.findOne({
         where: {
             opt_pedido_app: cod_pedido,

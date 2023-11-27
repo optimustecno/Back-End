@@ -1,4 +1,4 @@
-import { getCustomRepository } from "typeorm";
+
 import { FinanceiroRep } from "../../repositories/FinanceiroRep";
 
 interface iFin {
@@ -6,7 +6,7 @@ interface iFin {
 }
 class ServiceConsultaFinanceiro {
     async execute({ opt_seq_contrato }: iFin) {
-        const finRep = getCustomRepository(FinanceiroRep);
+        const finRep = FinanceiroRep;
 
         const verCont = await finRep.find({
             opt_seq_contrato,

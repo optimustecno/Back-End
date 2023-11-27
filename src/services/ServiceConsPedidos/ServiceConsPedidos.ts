@@ -1,29 +1,28 @@
-import { getCustomRepository } from "typeorm";
 import { PedidoRep } from "../../repositories/PedidoRep";
 
 interface iClientePedidos {
-    codigo_Cli: string;
+	codigo_Cli: string;
 }
 
 class ServiceConsultaPedidos {
+	async execute({ codigo_Cli }: iClientePedidos) {
+		const pedidoRep = PedidoRep;
 
-    async execute({ codigo_Cli }: iClientePedidos) {
+		const PedidosPendentes = await pedidoRep.find({
+			where: {
+				opt_cod_cliente: codigo_Cli,
+				status: "0",
+			},
+		});
 
-        const pedidoRep = getCustomRepository(PedidoRep);
+		if (!PedidosPendentes) {
+			throw new Error("Nenhum Pedido Para Ser Importado!");
+		}
 
-        const PedidosPendentes = await pedidoRep.find({
-            opt_cod_cliente: codigo_Cli,
-            status: "0"
-        });
+		//console.log(PedidosPendentes)
 
-        if (!PedidosPendentes) {
-            throw new Error("Nenhum Pedido Para Ser Importado!")
-        }
-
-        //console.log(PedidosPendentes)
-
-        return PedidosPendentes
-    }
+		return PedidosPendentes;
+	}
 }
 
-export { ServiceConsultaPedidos }
+export { ServiceConsultaPedidos };

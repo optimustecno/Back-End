@@ -1,4 +1,4 @@
-import { getCustomRepository } from "typeorm";
+
 import { SetorRep } from "../../repositories/SetoresRep";
 
 interface iSetor {
@@ -8,7 +8,7 @@ interface iSetor {
 
 class ServiceAtualizaSetor {
     async execute({ seq, setor }: iSetor) {
-        const setorRep = getCustomRepository(SetorRep);
+        const setorRep = SetorRep;
 
         if (!seq) {
             throw new Error("Código do Setor Não Informado");

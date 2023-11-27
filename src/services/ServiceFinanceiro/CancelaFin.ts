@@ -1,4 +1,4 @@
-import { getCustomRepository } from "typeorm";
+
 import { FinanceiroRep } from "../../repositories/FinanceiroRep";
 
 interface iFin {
@@ -7,7 +7,7 @@ interface iFin {
 }
 class ServiceCancelaFinanceiro {
     async execute({ seq, data_pagamento }: iFin) {
-        const finRep = getCustomRepository(FinanceiroRep);
+        const finRep = FinanceiroRep;
 
         var dataPag = `${data_pagamento} 00:00:01`;
 

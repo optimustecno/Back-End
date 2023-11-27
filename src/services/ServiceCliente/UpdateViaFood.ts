@@ -1,4 +1,4 @@
-import { getCustomRepository } from "typeorm";
+
 import { ClientesRep } from "../../repositories/ClienteRep";
 
 interface iUpdateViaFood {
@@ -17,7 +17,7 @@ class ServiceUpdateViaFood {
         opt_versao,
         opt_versao_adm,
     }: iUpdateViaFood) {
-        const clientesRep = getCustomRepository(ClientesRep);
+        const clientesRep = ClientesRep;
         var _cliente;
         if (!opt_cod_cliente) {
             throw Error("Código do Cliente Não Informado");

@@ -1,4 +1,4 @@
-import { getCustomRepository } from "typeorm";
+
 import { FinanceiroRep } from "../../repositories/FinanceiroRep";
 
 interface iFin {
@@ -22,7 +22,7 @@ class ServiceCriaFinanceiro {
         pago,
         identificador,
     }: iFin) {
-        const finRep = getCustomRepository(FinanceiroRep);
+        const finRep = FinanceiroRep;
 
         var dataCria = `${vencimento} 00:00:01`;
 

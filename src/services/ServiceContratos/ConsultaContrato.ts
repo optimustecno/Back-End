@@ -1,24 +1,23 @@
-import { getCustomRepository } from "typeorm";
 import { ContratoRep } from "../../repositories/ContratoRep";
 
 //NEGAR ACESSO 403
 interface iContrato {
-    seq: string;
+	seq: string;
 }
 
 class ServiceConsultaContrato {
-    async execute({ seq }: iContrato) {
-        const contratoRep = getCustomRepository(ContratoRep);
-        const ContratoCad = await contratoRep.findOne({
-            seq,
-        });
+	async execute({ seq }: iContrato) {
+		const contratoRep = ContratoRep;
+		const ContratoCad = await contratoRep.findOne({
+			where: { seq },
+		});
 
-        if (!ContratoCad) {
-            throw new Error("Nenhum Registro Encontrado!");
-        }
+		if (!ContratoCad) {
+			throw new Error("Nenhum Registro Encontrado!");
+		}
 
-        return ContratoCad;
-    }
+		return ContratoCad;
+	}
 }
 
 export { ServiceConsultaContrato };

@@ -1,18 +1,18 @@
-import { getCustomRepository } from "typeorm";
+
 import { ViewEmpLinkRep } from "../../repositories/ViewEmpLink";
 
 interface iAppsCliente {
-    opt_cod_cliente: string;
+	opt_cod_cliente: string;
 }
 
 class ServiceCriaLinks {
-    async execute({ opt_cod_cliente }: iAppsCliente) {
-        const empLinkRep = getCustomRepository(ViewEmpLinkRep);
+	async execute({ opt_cod_cliente }: iAppsCliente) {
+		const empLinkRep = ViewEmpLinkRep;
 
-        const Links = await empLinkRep.find({ opt_cod_cliente });
+		const Links = await empLinkRep.find({ where: { opt_cod_cliente } });
 
-        return Links;
-    }
+		return Links;
+	}
 }
 
 export { ServiceCriaLinks };

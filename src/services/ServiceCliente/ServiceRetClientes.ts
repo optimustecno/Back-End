@@ -1,4 +1,4 @@
-import { getCustomRepository, Like } from "typeorm";
+import { Like } from "typeorm";
 import { ClientesRep } from "../../repositories/ClientesRep";
 
 interface iFiltro {
@@ -12,7 +12,7 @@ class ServiceListaClientes {
     async execute({ opt_bloqueado, opt_nome_sistema, opt_nome_cliente }: iFiltro) {
         var ClientesCad;
 
-        const clientesRep = getCustomRepository(ClientesRep);
+        const clientesRep = ClientesRep;
 
         if (opt_bloqueado && opt_nome_sistema && opt_nome_cliente) {
             ClientesCad = await clientesRep.find({

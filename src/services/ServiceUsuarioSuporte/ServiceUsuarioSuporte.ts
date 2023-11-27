@@ -1,4 +1,4 @@
-import { getCustomRepository } from "typeorm";
+
 import { UserSuporteRep } from "../../repositories/UsuarioSuporteRep";
 
 interface iUser {
@@ -8,10 +8,10 @@ interface iUser {
 class ServiceCriaUsuarioSuporte {
     async execute({ opt_cod_cliente, cod_funcionario }: iUser) {
         
-        const usrSupRep = getCustomRepository(UserSuporteRep);
+        const usrSupRep = UserSuporteRep;
 
         const verUsr = await usrSupRep.findOne({
-            opt_cod_cliente
+            where:{opt_cod_cliente}
         });
 
         if (verUsr) {
@@ -25,7 +25,7 @@ class ServiceCriaUsuarioSuporte {
         await usrSupRep.save(_userSuporte);
 
         const usrCriado = await usrSupRep.findOne({
-            opt_cod_cliente
+            where:{opt_cod_cliente}
         });
 
         return usrCriado;

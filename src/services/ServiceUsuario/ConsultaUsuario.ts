@@ -1,4 +1,4 @@
-import { getCustomRepository } from "typeorm";
+
 import { UserRep } from "../../repositories/UserRep";
 
 interface iUsuariorequest {
@@ -7,7 +7,7 @@ interface iUsuariorequest {
 
 class ServiceConsUsuario {
     async execute({ opt_codigo_usu }: iUsuariorequest) {
-        const usuario = getCustomRepository(UserRep);
+        const usuario = UserRep;
 
         const user = await usuario.findOne({
             where: { opt_codigo_usu },

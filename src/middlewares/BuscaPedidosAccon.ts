@@ -5,7 +5,6 @@ import { Request, Response, NextFunction } from "express";
 import { ServiceConsultaApp } from "../services/ServicePedidos";
 
 export async function BuscaPedidosAccon(request: Request, response: Response, next: NextFunction) {
-export async function BuscaPedidosAccon(request: Request, response: Response, next: NextFunction) {
     //BUSCANDO APLICATIVOS CADASTRADOS NO BANCO ON-LINE
     // var tempo = new Date()
     // console.log(`Coleta APPs ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)

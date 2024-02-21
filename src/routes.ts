@@ -108,6 +108,7 @@ Rotas.get("/Sistemas", VerificaUsuario, consultaSistemas.handle);
 Rotas.get("/Suportes", VerificaUsuario, consultaSuportes.handle);
 Rotas.get("/Contrato/:seq", VerificaUsuario, consContrato.handle);
 Rotas.get("/BancoOn/:codigo", VerificaUsuario, buscaBancoOn.handle);
+Rotas.get("/produtos/:codigo", VerificaUsuario)
 Rotas.get("/Cliente/:codigo", VerificaUsuario, buscaCliente.handle);
 Rotas.get("/Usuarios/:codigo", VerificaUsuario, buscaUsuario.handle);
 Rotas.get("/SenhaCliente/:codigo", VerificaUsuario, buscaSenha.handle);

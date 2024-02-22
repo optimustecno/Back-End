@@ -12,6 +12,7 @@ class ControleCriaCliente {
             opt_uf,
             opt_doc1,
             opt_doc2,
+            opt_cardapio_digital
         } = request.body;
 
         const criaCli = new ServiceCriaCliente();
@@ -25,6 +26,7 @@ class ControleCriaCliente {
             opt_uf,
             opt_doc1,
             opt_doc2,
+            opt_cardapio_digital
         });
 
         return response.json(clienteGrava);

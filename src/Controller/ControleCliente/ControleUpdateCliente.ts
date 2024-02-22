@@ -13,6 +13,7 @@ class ControleUpdateCliente {
             opt_uf,
             opt_doc1,
             opt_doc2,
+            opt_cardapio_digital
         } = request.body;
 
         const updateCli = new ServiceAtualizaCliente();
@@ -27,6 +28,7 @@ class ControleUpdateCliente {
             opt_uf,
             opt_doc1,
             opt_doc2,
+            opt_cardapio_digital
         });
 
         return response.json(clienteGrava);

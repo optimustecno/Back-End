@@ -12,6 +12,7 @@ interface iCadCliente {
     opt_doc1: string;
     opt_doc2: string;
     opt_nome_sistema?: string;
+    opt_cardapio_digital?: string;
 }
 
 class ServiceAtualizaCliente {
@@ -25,6 +26,7 @@ class ServiceAtualizaCliente {
         opt_uf,
         opt_doc1,
         opt_doc2,
+        opt_cardapio_digital,
     }: iCadCliente) {
         const clientesRep = getCustomRepository(ClientesRep);
         const _cliente = await clientesRep.update(
@@ -39,6 +41,7 @@ class ServiceAtualizaCliente {
                 opt_uf,
                 opt_doc1,
                 opt_doc2,
+                opt_cardapio_digital,
             }
         );
 
@@ -52,6 +55,7 @@ class ServiceAtualizaCliente {
             opt_uf,
             opt_doc1,
             opt_doc2,
+            opt_cardapio_digital,
         };
     }
 }

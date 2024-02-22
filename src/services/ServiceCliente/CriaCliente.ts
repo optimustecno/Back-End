@@ -12,6 +12,7 @@ interface iCadCliente {
     opt_doc1: string;
     opt_doc2: string;
     opt_nome_sistema?: string;
+    opt_cardapio_digital?: string;
 }
 
 class ServiceCriaCliente {
@@ -24,6 +25,7 @@ class ServiceCriaCliente {
         opt_uf,
         opt_doc1,
         opt_doc2,
+        opt_cardapio_digital
     }: iCadCliente) {
         const clientesRep = getCustomRepository(ClientesRep);
 
@@ -44,6 +46,7 @@ class ServiceCriaCliente {
             opt_uf,
             opt_doc1,
             opt_doc2,
+            opt_cardapio_digital
         });
 
         await clientesRep.save(_cliente);

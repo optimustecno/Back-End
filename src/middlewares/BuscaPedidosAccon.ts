@@ -8,6 +8,8 @@ export async function BuscaPedidosAccon(request: Request, response: Response, ne
     //BUSCANDO APLICATIVOS CADASTRADOS NO BANCO ON-LINE
     // var tempo = new Date()
     // console.log(`Coleta APPs ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)
+    return next();
+    //
     const consultaApp = new ServiceConsultaApp();
     //
     const codigo_Cli = request.params.codigo;

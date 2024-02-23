@@ -8,7 +8,8 @@ export async function BuscaPedidosAccon(request: Request, response: Response, ne
     //BUSCANDO APLICATIVOS CADASTRADOS NO BANCO ON-LINE
     // var tempo = new Date()
     // console.log(`Coleta APPs ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)
-    return next();
+    //Ao voltar a linha abaixo isolamos todo o processo de verificação ACCON
+    //return next();
     //
     const consultaApp = new ServiceConsultaApp();
     //

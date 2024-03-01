@@ -111,17 +111,18 @@ const consultaTodasOcorrencias = new ControleTodasConsOcorrencias();
 
 //GET
 Rotas.get("/Teste", controleTeste.handle);
+Rotas.get("/GruposProd/:codigo", buscaGrupos.handle);
+Rotas.get("/Produtos/:codigo", buscaProdutos.handle);
 Rotas.get("/Setores", VerificaUsuario, buscaSetores.handle);
 Rotas.get("/ConsApp", VerificaUsuario, consultaApps.handle);
 Rotas.get("/Usuarios", VerificaUsuario, buscaUsuarios.handle);
+Rotas.get("/PerfilCardapio/:codigo", buscaPerfilCardapio.handle);
 Rotas.get("/Sistemas", VerificaUsuario, consultaSistemas.handle);
 Rotas.get("/Suportes", VerificaUsuario, consultaSuportes.handle);
 Rotas.get("/Contrato/:seq", VerificaUsuario, consContrato.handle);
 Rotas.get("/BancoOn/:codigo", VerificaUsuario, buscaBancoOn.handle);
 Rotas.get("/Cliente/:codigo", VerificaUsuario, buscaCliente.handle);
 Rotas.get("/Usuarios/:codigo", VerificaUsuario, buscaUsuario.handle);
-Rotas.get("/Produtos/:codigo", VerificaUsuario, buscaProdutos.handle);
-Rotas.get("/GruposProd/:codigo", VerificaUsuario, buscaGrupos.handle);
 Rotas.get("/SenhaCliente/:codigo", VerificaUsuario, buscaSenha.handle);
 Rotas.get("/ConsultaClientes", VerificaUsuario, consultaClientes.handle);
 Rotas.get("/CredenciaisWabiz/:codigo", VerificaUsuario, buscaWabiz.handle);
@@ -129,7 +130,6 @@ Rotas.get("/Ocorrencias", VerificaUsuario, consultaTodasOcorrencias.handle);
 Rotas.get("/Ocorrencias/:codigo", VerificaUsuario, consultaOcorrencia.handle);
 Rotas.get("/EmpNaoLinkadas/:codigo", VerificaUsuario, buscaNaoLinkadas.handle);
 Rotas.get("/EmpLinkadas/:codigo", VerificaUsuario, buscaEmpresasLinkadas.handle);
-Rotas.get("/PerfilCardapio/:codigo", VerificaUsuario, buscaPerfilCardapio.handle);
 Rotas.get("/ContratosCli/:opt_cod_cliente", VerificaUsuario, contratosCliente.handle);
 Rotas.get("/Suporte/:seq", VerificaUsuario, DefineUsuarioSuporte, buscaSuporte.handle);
 Rotas.get(

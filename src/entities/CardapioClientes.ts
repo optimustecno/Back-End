@@ -16,6 +16,8 @@ class CardapioClientes {
     cor_fonte: string;
     @Column()
     logo_svg: string;
+    @Column()
+    cor_botao: string;
 }
 
 export { CardapioClientes };

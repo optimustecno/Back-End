@@ -9,10 +9,14 @@ class ConsultaProdutos {
     async execute({ opt_cod_cliente }: iCliProds) {
         const prodsRep = getCustomRepository(ProdCardapioRep);
 
-        const Prods = await prodsRep.find(
-            { opt_cod_cliente }
-        );
-
+        const Prods = await prodsRep.find({
+            where: {
+                opt_cod_cliente,
+            },
+            order: {
+                ordem: "ASC",
+            },
+        });
         return Prods;
     }
 }

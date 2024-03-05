@@ -18,6 +18,8 @@ class ProdutosCardapio {
     destaque: string;
     @Column()
     valor: Number;
+    @Column()
+    ordem: string;
 }
 
 export { ProdutosCardapio };

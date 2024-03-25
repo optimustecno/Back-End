@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { ServiceCriaSuporte } from "../../services/ServiceSuporte";
+import { removeEmojis } from "../../utils/functions";
 
 class ControleCriaSuporte {
     async handle(request: Request, response: Response) {
@@ -15,10 +16,14 @@ class ControleCriaSuporte {
             contato,
             resolucao,
             cod_setor,
-            canal_atendimento
+            canal_atendimento,
         } = request.body;
 
+        const TrataEmojis = new removeEmojis();
         const criaSuporte = new ServiceCriaSuporte();
+
+        var cDescricao = await TrataEmojis.execute({ textoRep: descricao });
+        var cResolucao = await TrataEmojis.execute({ textoRep: resolucao });
 
         const suporteGrava = await criaSuporte.execute({
             data,
@@ -28,11 +33,11 @@ class ControleCriaSuporte {
             prioridade,
             atendente,
             titulo,
-            descricao,
+            descricao: cDescricao.trim(),
             contato,
-            resolucao,
+            resolucao: cResolucao.trim(),
             cod_setor,
-            canal_atendimento
+            canal_atendimento,
         });
 
         return response.json(suporteGrava);

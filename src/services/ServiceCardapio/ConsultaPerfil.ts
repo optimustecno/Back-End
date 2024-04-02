@@ -11,13 +11,14 @@ class ConsultaPerfil {
         const Valida = new ValidaCardapio();
         const bUsaCardapio = await Valida.execute({ opt_cod_cliente });
         if (!bUsaCardapio) {
+            console.log("retornou falso")
             throw new Error("Cardápio Digital Indisponível");
         }
 
         const perfilRep = getCustomRepository(CardapioCliRep);
 
         const Perfil = await perfilRep.findOne({ opt_cod_cliente });
-
+        console.log(Perfil);
         return Perfil;
     }
 }

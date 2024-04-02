@@ -1,4 +1,5 @@
 import { getCustomRepository } from "typeorm";
+import { ValidaCardapio } from "../../utils/functions";
 import { CardapioCliRep } from "../../repositories/CardapioCliRep";
 
 interface iPerfil {
@@ -7,11 +8,15 @@ interface iPerfil {
 
 class ConsultaPerfil {
     async execute({ opt_cod_cliente }: iPerfil) {
+        const Valida = new ValidaCardapio();
+        const bUsaCardapio = await Valida.execute({ opt_cod_cliente });
+        if (!bUsaCardapio) {
+            throw new Error("Cardápio Digital Indisponível");
+        }
+
         const perfilRep = getCustomRepository(CardapioCliRep);
 
-        const Perfil = await perfilRep.findOne(
-            { opt_cod_cliente }
-        );
+        const Perfil = await perfilRep.findOne({ opt_cod_cliente });
 
         return Perfil;
     }

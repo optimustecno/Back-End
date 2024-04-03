@@ -19,7 +19,7 @@ class ServiceConsultaPedidos {
         if (!PedidosPendentes) {
             throw new Error("Nenhum Pedido Para Ser Importado!")
         }
-
+        
         //console.log(PedidosPendentes)
 
         return PedidosPendentes

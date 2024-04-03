@@ -1,3 +1,4 @@
+import { ControleCriaProdutos } from "./ControleCriaProdutos";
 import { ControleBuscaProdutos } from "./ControleBuscaProdutos";
 import { ControleCriaAlteraProduto } from "./ControleCriaProduto";
 import { ControleCriaPerfilCardapio } from "./ControleCriaPerfil";
@@ -10,4 +11,5 @@ export {
     ControleBuscaGruposProdutos,
     ControleBuscaProdutos,
     ControleCriaAlteraProduto,
+    ControleCriaProdutos,
 };

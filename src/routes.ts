@@ -12,6 +12,9 @@ import { ControleTeste } from "./Controller/ControleTeste";
 import { ControleCredWabiz } from "./Controller/ControleApp";
 import { ControleCriaSetor } from "./Controller/ControleSetor";
 import { ControleBancoOn } from "./Controller/ControleCliente";
+//
+import { ControleLogger } from "./Controller/ControleToLevando";
+//
 import { ControleInformaWabiz } from "./Controller/ControleApp";
 import { ControleConsPedido } from "./Controller/ControlePedido";
 import { ControleListaSis } from "./Controller/ControleSistemas";
@@ -81,6 +84,9 @@ const buscaUsuario = new ControleBuscaUsuario();
 const consContrato = new ControleConsContrato();
 const criaContrato = new ControleCriaContrato();
 const consultaPedidos = new ControleConsPedido();
+//
+const loggerToLevando = new ControleLogger();
+//
 const buscaProdutos = new ControleBuscaProdutos();
 const buscaUsuarios = new ControleListaUsuarios();
 const deleteSuporte = new ControleDeleteSuporte();
@@ -143,6 +149,9 @@ Rotas.get(
 );
 //POST
 Rotas.post("/Login", autenticaUsuario.handle);
+//
+Rotas.post("/PedidoToLevando", loggerToLevando.handle);
+//
 Rotas.post("/ContaRequest", VerificaUsuario, Autoriza);
 Rotas.post("/Cliente", VerificaUsuario, criaCliente.handle);
 Rotas.post("/Suporte", VerificaUsuario, criaSuporte.handle);

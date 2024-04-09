@@ -1,4 +1,4 @@
-import { Request, Response } from "express"
+import { Request, Response } from "express";
 
 class ControleLogger {
     async handle(request: Request, response: Response) {
@@ -6,10 +6,8 @@ class ControleLogger {
 
         console.log(corpoReq);
 
-        return response.json(
-            "OK"
-        )
+        return response.json("OK");
     }
 }
 
-export { ControleLogger }
+export { ControleLogger };

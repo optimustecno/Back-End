@@ -1,3 +1,3 @@
-import { ControleLogger } from "./logger";
+import { ControleLogger } from "./Logger";
 
 export { ControleLogger };

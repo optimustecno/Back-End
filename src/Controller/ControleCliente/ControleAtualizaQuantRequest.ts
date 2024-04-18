@@ -25,6 +25,7 @@ class ControleAtualizaQuantRequest {
                     data = '${data}',
                     quantidade = ?`, quantidade
                 )
+                
             }
             else {
                 const atualizaNovoStatus = await ExecuteSQL(
@@ -32,6 +33,11 @@ class ControleAtualizaQuantRequest {
                     WHERE data = '${data}' AND
                     opt_cod_cliente = ?`, opt_cod_cliente
                 )
+                // const atualizaNovoStatus = await requestClientesRep.update(
+                //     { opt_cod_cliente, data },
+                //     { quantidade: () => `quantidade + ${quantidade}` }
+                // );
+
             }
             return response.json({
                 message: "OK"

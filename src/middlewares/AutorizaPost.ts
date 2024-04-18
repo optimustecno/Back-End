@@ -19,6 +19,7 @@ export async function Autoriza(
     if (opt_nivel === "0") {
         // var tempo = new Date()
         // console.log(`Fim Autoriza Usuario ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)
+        //console.log("Passou autoriza");
         return next();
     }
 

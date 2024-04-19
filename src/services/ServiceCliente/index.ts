@@ -1,5 +1,6 @@
 import { ServiceBancoOn } from "./BancoOn";
 import { ServiceCriaCliente } from "./CriaCliente";
+import { ServiceCriaReqs } from "./CriaRequestsCli";
 import { ServiceCancelaCli } from "./CancelaCliente";
 import { ServiceWabizCliente } from "./WabizCliente";
 import { ServiceUpdateViaFood } from "./UpdateViaFood";
@@ -9,21 +10,24 @@ import { ServiceAtualizaCliente } from "./AtualizaCliente";
 import { ServiceConsultaCliente } from "./ConsultaCliente";
 import { ServiceAtualizaLicenca } from "./AtualizaLicenca";
 import { ServiceListaClientes } from "./ServiceRetClientes";
+import { ServiceAtualizaRequests } from "./AtualizaRequests";
 import { ServiceCredenciaisWabiz } from "./CredenciaisWabiz";
 import { ServiceConsultaNaoLinkadas } from "./EmpresasNaoLinkadas";
 
 export {
-    ServiceConsultaCliente,
-    ServiceAtualizaLicenca,
     ServiceBancoOn,
-    ServiceCriaCliente,
+    ServiceCriaReqs,
     ServiceCancelaCli,
+    ServiceCriaCliente,
     ServiceWabizCliente,
+    ServiceListaClientes,
     ServiceUpdateViaFood,
+    ServiceConsultaLinks,
     ServiceInformaBancoOn,
     ServiceAtualizaCliente,
+    ServiceConsultaCliente,
+    ServiceAtualizaLicenca,
     ServiceCredenciaisWabiz,
-    ServiceConsultaLinks,
-    ServiceListaClientes,
+    ServiceAtualizaRequests,
     ServiceConsultaNaoLinkadas,
 };

@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
-import { ExecuteSQL } from "../../../BancoSql";
+//import { ExecuteSQL } from "../../../BancoSql";
+import { ServiceAtualizaStatus } from "../../services/ServicePedidos";
 import { ServiceConsultaProxStatus } from "../../services/ServicePedidos";
 
 class ControleMudancaStatus {
@@ -8,11 +9,16 @@ class ControleMudancaStatus {
 
         const fetch = require("node-fetch");
 
+        const AtualizaStatus = new ServiceAtualizaStatus();
+
         const peds = await consultaPed.execute();
 
         const cEnd = process.env.API_ACCON;
 
         var atualizouTudo = "S";
+
+        var NumPedido = "";
+        var StatusAt = "";
 
         peds.forEach(async (ped) => {
             if (ped.app === "UAI RANGO") {
@@ -33,18 +39,30 @@ class ControleMudancaStatus {
                         requestOptionsUai
                     );
                     if (UaiResponse.status === 200) {
-                        var AtualizaStatus = await ExecuteSQL(
-                            `UPDATE opt_ped_app SET status = '${ped.novo_status}'
-                            WHERE opt_pedido_app = ?`,
-                            ped.opt_pedido_app
-                        );
+                        // var AtualizaStatus = await ExecuteSQL(
+                        //     `UPDATE opt_ped_app SET status = '${ped.novo_status}'
+                        //     WHERE opt_pedido_app = ?`,
+                        //     ped.opt_pedido_app
+                        // );
+                        NumPedido = ped.opt_pedido_app;
+                        StatusAt = ped.novo_status;
+                        var AtStatus = await AtualizaStatus.execute({
+                            opt_pedido_app: NumPedido,
+                            novo_status: StatusAt,
+                        });
                     }
                 } else {
-                    var AtualizaStatus = await ExecuteSQL(
-                        `UPDATE opt_ped_app SET status = '${ped.novo_status}'
-                        WHERE opt_pedido_app = ?`,
-                        ped.opt_pedido_app
-                    );
+                    // var AtualizaStatus = await ExecuteSQL(
+                    //     `UPDATE opt_ped_app SET status = '${ped.novo_status}'
+                    //     WHERE opt_pedido_app = ?`,
+                    //     ped.opt_pedido_app
+                    // );
+                    NumPedido = ped.opt_pedido_app;
+                    StatusAt = ped.novo_status;
+                    var AtStatus = await AtualizaStatus.execute({
+                        opt_pedido_app: NumPedido,
+                        novo_status: StatusAt,
+                    });
                 }
             } else if (ped.app === "ACCON") {
                 var requestOptions = {
@@ -68,11 +86,17 @@ class ControleMudancaStatus {
                 //var AcconResponseJson = await AcconResponse.json();
                 switch (AcconResponse.status) {
                     case 204:
-                        var AtualizaStatus = await ExecuteSQL(
-                            `UPDATE opt_ped_app SET status = '${ped.novo_status}'
-                            WHERE opt_pedido_app = ?`,
-                            ped.opt_pedido_app
-                        );
+                        // var AtualizaStatus = await ExecuteSQL(
+                        //     `UPDATE opt_ped_app SET status = '${ped.novo_status}'
+                        //     WHERE opt_pedido_app = ?`,
+                        //     ped.opt_pedido_app
+                        // );
+                        NumPedido = ped.opt_pedido_app;
+                        StatusAt = ped.novo_status;
+                        var AtStatus = await AtualizaStatus.execute({
+                            opt_pedido_app: NumPedido,
+                            novo_status: StatusAt,
+                        });
                         break;
                     default:
                         atualizouTudo = "N";

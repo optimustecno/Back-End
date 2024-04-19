@@ -1,7 +1,8 @@
-import { ExecuteSQL } from "../../BancoSql";
+//import { ExecuteSQL } from "../../BancoSql";
 import { getCustomRepository } from "typeorm";
 import { PedidoRep } from "../repositories/PedidoRep";
 import { Request, Response, NextFunction } from "express";
+import { ServiceUpdateToken } from "../services/ServicePedidos";
 import { ServiceConsultaApp } from "../services/ServicePedidos";
 
 export async function BuscaPedidosAccon(request: Request, response: Response, next: NextFunction) {
@@ -12,6 +13,7 @@ export async function BuscaPedidosAccon(request: Request, response: Response, ne
     //return next();
     //
     const consultaApp = new ServiceConsultaApp();
+    const UpdateToken = new ServiceUpdateToken();
     //
     const codigo_Cli = request.params.codigo;
     //console.log(request.query)
@@ -65,11 +67,15 @@ export async function BuscaPedidosAccon(request: Request, response: Response, ne
                         // var tempo = new Date()
                         // console.log(`TOKEN Coletado ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)
                         Token = AcconResponseJson.token;
-                        var AtualizaToken = await ExecuteSQL(
-                            `UPDATE opt_cad_app SET token = '${Token}'
-                            WHERE seq = ?`,
-                            app.seq
-                        );
+                        // var AtualizaToken = await ExecuteSQL(
+                        //     `UPDATE opt_cad_app SET token = '${Token}'
+                        //     WHERE seq = ?`,
+                        //     app.seq
+                        // );
+                        var AtToken = await UpdateToken.execute({
+                            token: Token,
+                            seq: app.seq,
+                        });
                         // var tempo = new Date()
                         // console.log(`TOKEN Gravado ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)
                     } else {
@@ -253,11 +259,15 @@ export async function BuscaPedidosAccon(request: Request, response: Response, ne
                             }
                         }); // FECHANDO FOR PEDIDOS
                     } else if ((estatus = 401)) {
-                        var ZeraToken = await ExecuteSQL(
-                            `UPDATE opt_cad_app SET token = ''
-                            WHERE seq = ?`,
-                            app.seq
-                        );
+                        // var ZeraToken = await ExecuteSQL(
+                        //     `UPDATE opt_cad_app SET token = ''
+                        //     WHERE seq = ?`,
+                        //     app.seq
+                        // );
+                        var AtToken = await UpdateToken.execute({
+                            token: "",
+                            seq: app.seq,
+                        });
                     }
                 }
             }); // FECHANDO FOR APLICATIVOS

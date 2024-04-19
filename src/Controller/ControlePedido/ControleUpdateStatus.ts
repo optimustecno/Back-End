@@ -1,8 +1,9 @@
 import { Request, Response } from "express"
 import { getCustomRepository } from "typeorm";
-import { ExecuteSQL } from "../../../BancoSql";
+//import { ExecuteSQL } from "../../../BancoSql";
 import { AppRep } from "../../repositories/AppRep";
 import { PedidoRep } from "../../repositories/PedidoRep"
+import { ServiceAtualizaStatusPorChave } from "../../services/ServicePedidos";
 
 
 class ControleUpdateStatus {
@@ -14,13 +15,20 @@ class ControleUpdateStatus {
         } = request.body;
         //
         console.log(`Pedido At. ${opt_chave_ped} Status: ${novo_status} CodCli: ${opt_cod_cliente}`)
+        const AtStatus = new ServiceAtualizaStatusPorChave();
         //
         if (app === "ACCON") {
-            const atualizaNovoStatus = await ExecuteSQL(
-                `UPDATE opt_ped_app SET novo_status = '${novo_status}'
-                WHERE opt_pedido_app = '${opt_chave_ped}'
-                AND opt_cod_cliente = ?`, opt_cod_cliente
-            )
+            // const atualizaNovoStatus = await ExecuteSQL(
+            //     `UPDATE opt_ped_app SET novo_status = '${novo_status}'
+            //     WHERE opt_pedido_app = '${opt_chave_ped}'
+            //     AND opt_cod_cliente = ?`, opt_cod_cliente
+            // )
+            var AtStatusChave = await AtStatus.execute({
+                opt_cod_cliente,
+                opt_chave_ped,
+                novo_status,
+                status: false,
+            });
         }
         else {
             var pedidoRep = getCustomRepository(PedidoRep);
@@ -81,17 +89,29 @@ class ControleUpdateStatus {
             else {
 
                 if (novo_status === "7") {
-                    const atualizaStatus = await ExecuteSQL(
-                        `UPDATE opt_ped_app SET novo_status = '${novo_status}' 
-                            WHERE opt_pedido_app = '${opt_chave_ped}'
-                            AND opt_cod_cliente = ?`, opt_cod_cliente)
+                    // const atualizaStatus = await ExecuteSQL(
+                    //     `UPDATE opt_ped_app SET novo_status = '${novo_status}' 
+                    //         WHERE opt_pedido_app = '${opt_chave_ped}'
+                    //         AND opt_cod_cliente = ?`, opt_cod_cliente)
+                    var AtStatusChave = await AtStatus.execute({
+                        opt_cod_cliente,
+                        opt_chave_ped,
+                        novo_status,
+                        status: false,
+                    });
                 }
                 else {
-                    const atualizaStatus = await ExecuteSQL(
-                        `UPDATE opt_ped_app SET novo_status = '${novo_status}', 
-                            status = '${novo_status}'
-                            WHERE opt_pedido_app = '${opt_chave_ped}'
-                            AND opt_cod_cliente = ?`, opt_cod_cliente)
+                    // const atualizaStatus = await ExecuteSQL(
+                    //     `UPDATE opt_ped_app SET novo_status = '${novo_status}', 
+                    //         status = '${novo_status}'
+                    //         WHERE opt_pedido_app = '${opt_chave_ped}'
+                    //         AND opt_cod_cliente = ?`, opt_cod_cliente)
+                    var AtStatusChave = await AtStatus.execute({
+                        opt_cod_cliente,
+                        opt_chave_ped,
+                        novo_status,
+                        status: true,
+                    });
                 }
             }
         }

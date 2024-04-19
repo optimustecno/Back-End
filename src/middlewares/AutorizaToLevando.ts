@@ -1,11 +1,11 @@
 import { NextFunction, Request, Response } from "express";
 import { ServiceGravaLog } from "../services/ServiceLogger";
 
-export async function AutUaiRango(request: Request, response: Response, next: NextFunction) {
-    var { cod_pedido } = request.body;
+export async function AutToLevando(request: Request, response: Response, next: NextFunction) {
+    //var { cod_pedido } = request.body;
     //console.log(cod_pedido)
 
-    const chaveUai = request.headers["x-uairango-key"];
+    //const chaveUai = request.headers["x-uairango-key"];
 
     const CriaLog = new ServiceGravaLog();
     //
@@ -30,12 +30,12 @@ export async function AutUaiRango(request: Request, response: Response, next: Ne
         opt_payload: request.body,
         opt_data: MomentoD,
         opt_hora: MomentoH,
-        opt_origem: "UAI RANGO",
+        opt_origem: "TO LEVANDO",
     });
 
-    if (chaveUai === process.env.CHAVE_UAI_RANGO) {
+    //if (chaveUai === process.env.CHAVE_UAI_RANGO) {
         return next();
-    }
+    //}
     //senha ok?
-    throw new Error("Não Autorizado");
+    //throw new Error("Não Autorizado");
 }

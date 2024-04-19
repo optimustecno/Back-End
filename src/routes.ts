@@ -2,6 +2,7 @@ import { Router } from "express";
 // MIDDLEWARES
 import { Autoriza } from "./middlewares/AutorizaPost";
 import { AutUaiRango } from "./middlewares/AutorizaUaiRango";
+import { AutToLevando } from "./middlewares/AutorizaToLevando";
 import { VerificaUsuario } from "./middlewares/VerificaUsuario";
 import { BuscaPedidosAccon } from "./middlewares/BuscaPedidosAccon";
 import { DefineUsuarioSuporte } from "./middlewares/DefineUsuarioSuporte";
@@ -150,7 +151,7 @@ Rotas.get(
 //POST
 Rotas.post("/Login", autenticaUsuario.handle);
 //
-Rotas.post("/PedidoToLevando", loggerToLevando.handle);
+Rotas.post("/PedidoToLevando", AutToLevando, loggerToLevando.handle);
 //
 Rotas.post("/ContaRequest", VerificaUsuario, Autoriza);
 Rotas.post("/Cliente", VerificaUsuario, criaCliente.handle);

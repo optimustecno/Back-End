@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-//import { ExecuteSQL } from "../../../BancoSql";
+import { ExecuteSQL } from "../../../BancoSql";
 import { getCustomRepository } from "typeorm";
 import { ServiceCriaReqs } from "../../services/ServiceCliente";
 import { ServiceAtualizaRequests } from "../../services/ServiceCliente";

@@ -45,7 +45,7 @@ class ServiceCriaSuporte {
         }
 
         const _suporte = await supRep.create({
-            data,
+            data: `${data} 00:00:01`,
             hora,
             opt_cod_cliente,
             status,

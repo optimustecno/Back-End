@@ -38,6 +38,7 @@ class ServiceListaSuportes {
         if (!hora) {
             hora = "";
         }
+        console.log(`${dataInicial} até ${dataFinal}`)
         if (!status) {
             Suportes = await supRep.find({
                 where: {

@@ -7,6 +7,9 @@ export async function AutToLevando(request: Request, response: Response, next: N
     var payload = request.body;
     //const chaveUai = request.headers["x-uairango-key"];
     console.log(payload)
+    if (payload == "{}"){
+        console.log("Erro")
+    }
     const CriaLog = new ServiceGravaLog();
     //
     var iLen = 0;

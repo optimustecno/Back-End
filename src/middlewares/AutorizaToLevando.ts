@@ -4,9 +4,11 @@ import { ServiceGravaLog } from "../services/ServiceLogger";
 export async function AutToLevando(request: Request, response: Response, next: NextFunction) {
     //var { cod_pedido } = request.body;
     //console.log(cod_pedido)
-
+    var payload = request.body;
     //const chaveUai = request.headers["x-uairango-key"];
-
+    if (payload == "{}"){
+        payload = "";
+    }
     const CriaLog = new ServiceGravaLog();
     //
     var iLen = 0;
@@ -27,7 +29,7 @@ export async function AutToLevando(request: Request, response: Response, next: N
     const MomentoH = `${horas}:${minutos}:${segundos}`;
     //
     const _log = await CriaLog.execute({
-        opt_payload: request.body,
+        opt_payload: payload,
         opt_data: MomentoD,
         opt_hora: MomentoH,
         opt_origem: "TO LEVANDO",

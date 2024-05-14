@@ -18,7 +18,7 @@ class ServiceGravaLog {
         
         const LoggerRep = getCustomRepository(LoggerwebhookRep);
 
-        console.log("chegou aqui" + opt_payload + "PAYLOAD")
+        console.log("chegou aqui" + opt_payload.toString() + "PAYLOAD")
 
         const _logger = await LoggerRep.create({
             opt_payload,

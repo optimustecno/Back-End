@@ -18,6 +18,11 @@ class ServiceGravaLog {
         
         const LoggerRep = getCustomRepository(LoggerwebhookRep);
 
+        console.log(opt_payload,
+            opt_data,
+            opt_hora,
+            opt_origem)
+
         const _logger = await LoggerRep.create({
             opt_payload,
             opt_data,

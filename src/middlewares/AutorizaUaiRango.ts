@@ -27,7 +27,7 @@ export async function AutUaiRango(request: Request, response: Response, next: Ne
     const MomentoH = `${horas}:${minutos}:${segundos}`;
     //
     const _log = await CriaLog.execute({
-        opt_payload: request.body,
+        opt_payload: JSON.stringify(request.body),
         opt_data: MomentoD,
         opt_hora: MomentoH,
         opt_origem: "UAI RANGO",

@@ -6,11 +6,7 @@ export async function AutToLevando(request: Request, response: Response, next: N
     //console.log(cod_pedido)
     var payload = JSON.stringify(request.body);
     //const chaveUai = request.headers["x-uairango-key"];
-    console.log(payload);
-    if (!payload) {
-        console.log("Eliminou")
-        payload = "";
-    }
+    
     const CriaLog = new ServiceGravaLog();
     //
     var iLen = 0;

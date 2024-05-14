@@ -1,7 +1,7 @@
 import { Entity, PrimaryColumn, Column, JoinColumn, ManyToOne } from "typeorm";
-import { Clientes } from "./Cliente";
 import { Setor } from "./Setores";
 import { usuario } from "./Usuario";
+import { Clientes } from "./Cliente";
 
 @Entity("opt_suporte")
 class Suporte {

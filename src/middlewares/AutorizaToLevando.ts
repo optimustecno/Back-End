@@ -4,10 +4,13 @@ import { ServiceGravaLog } from "../services/ServiceLogger";
 export async function AutToLevando(request: Request, response: Response, next: NextFunction) {
     //var { cod_pedido } = request.body;
     //console.log(cod_pedido)
-    var payload = request.body.toString;
+    var payload = request.body;
     //const chaveUai = request.headers["x-uairango-key"];
-    console.log(payload.toString())
-    //payload = "";
+    console.log(payload.toString());
+    if (!payload) {
+        console.log("Eliminou")
+        payload = "";
+    }
     const CriaLog = new ServiceGravaLog();
     //
     var iLen = 0;
@@ -35,7 +38,7 @@ export async function AutToLevando(request: Request, response: Response, next: N
     });
 
     //if (chaveUai === process.env.CHAVE_UAI_RANGO) {
-        return next();
+    return next();
     //}
     //senha ok?
     //throw new Error("Não Autorizado");

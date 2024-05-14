@@ -4,10 +4,10 @@ import { ServiceGravaLog } from "../services/ServiceLogger";
 export async function AutToLevando(request: Request, response: Response, next: NextFunction) {
     //var { cod_pedido } = request.body;
     //console.log(cod_pedido)
-    var payload = request.body;
+    var payload = request.body.toString;
     //const chaveUai = request.headers["x-uairango-key"];
     console.log(payload.toString())
-    payload = "";
+    //payload = "";
     const CriaLog = new ServiceGravaLog();
     //
     var iLen = 0;

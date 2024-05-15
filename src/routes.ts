@@ -188,7 +188,7 @@ Rotas.put("/Cliente", VerificaUsuario, updateCliente.handle);
 Rotas.put("/AtualizaWabiz", VerificaUsuario, updateWabiz.handle);
 Rotas.put("/AtualizaUsuario", VerificaUsuario, updateUsu.handle);
 Rotas.put("/DadosBancoOn", VerificaUsuario, updateBancoOn.handle);
-Rotas.put("/AtualizaContato", VerificaUsuario, updateContato.handle);
+Rotas.put("/Contato", VerificaUsuario, updateContato.handle);
 Rotas.put("/UpdateLicenca", VerificaUsuario, atualizaLicenca.handle);
 Rotas.put("/ClienteFood", VerificaUsuario, atualizaDadosViaFood.handle);
 Rotas.put("/CancelaCliente", VerificaUsuario, Autoriza, cancelaCli.handle);
@@ -196,7 +196,7 @@ Rotas.put("/Contrato", VerificaUsuario, Autoriza, atualizaContrato.handle);
 Rotas.put("/CancelaContrato", VerificaUsuario, Autoriza, cancelaContrato.handle);
 Rotas.put("/AtualizaCli", VerificaUsuario, Autoriza, atualizaDadosViaFood.handle);
 //DELETE
-Rotas.delete("/RemoveContato/:seq", VerificaUsuario, deleteContao.handle);
+Rotas.delete("/Contato/:seq", VerificaUsuario, deleteContao.handle);
 Rotas.delete("/Suporte/:seq", VerificaUsuario, Autoriza, deleteSuporte.handle);
 //
 export { Rotas };

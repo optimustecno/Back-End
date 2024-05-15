@@ -17,7 +17,7 @@ class ServiceConsultaContatos {
             });
         }
         else{
-            ContatosCli = await contatosRep.find({
+            ContatosCli = await contatosRep.findOne({
                 seq
             });
         }

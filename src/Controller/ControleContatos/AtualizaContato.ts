@@ -8,7 +8,8 @@ class ControleUpdateContato {
             opt_contato,
             opt_fone,
             opt_whatsapp,
-            opt_boletos, } = request.body;
+            opt_boletos,
+            opt_cargo } = request.body;
 
         const updateContato = new ServiceAtualizaContato();
 
@@ -18,7 +19,8 @@ class ControleUpdateContato {
             opt_contato,
             opt_fone,
             opt_whatsapp,
-            opt_boletos
+            opt_boletos,
+            opt_cargo
         });
 
         return response.json(contatoGrava);

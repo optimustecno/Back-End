@@ -7,6 +7,7 @@ interface iContato {
     opt_fone: string;
     opt_whatsapp: string;
     opt_boletos: string;
+    opt_cargo: string;
 }
 
 class ServiceCriaContato {
@@ -14,7 +15,8 @@ class ServiceCriaContato {
         opt_contato,
         opt_fone,
         opt_whatsapp,
-        opt_boletos }: iContato) {
+        opt_boletos,
+        opt_cargo }: iContato) {
 
         const contatosRep = getCustomRepository(ContatosRep);
 
@@ -42,6 +44,8 @@ class ServiceCriaContato {
             opt_fone,
             opt_whatsapp,
             opt_boletos,
+            opt_cargo,
+            tipo: "F"
         });
 
         await contatosRep.save(_contato);

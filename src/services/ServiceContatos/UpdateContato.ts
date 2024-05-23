@@ -8,6 +8,7 @@ interface iContato {
     opt_fone?: string;
     opt_whatsapp?: string;
     opt_boletos?: string;
+    opt_cargo?: string
 }
 
 class ServiceAtualizaContato {
@@ -18,6 +19,7 @@ class ServiceAtualizaContato {
         opt_fone,
         opt_whatsapp,
         opt_boletos,
+        opt_cargo
     }: iContato) {
         const contatosRep = getCustomRepository(ContatosRep);
         const Contato = await contatosRep.update(
@@ -28,6 +30,7 @@ class ServiceAtualizaContato {
                 opt_fone,
                 opt_whatsapp,
                 opt_boletos,
+                opt_cargo
             }
         );
 
@@ -38,6 +41,7 @@ class ServiceAtualizaContato {
             opt_fone,
             opt_whatsapp,
             opt_boletos,
+            opt_cargo
         };
     }
 }

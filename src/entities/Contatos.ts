@@ -17,6 +17,8 @@ class Contatos {
     opt_boletos: string;   // checkBox 0/1
     @Column()
     tipo: string;
+    @Column()
+    opt_cargo: string;
 }
 
 export { Contatos };

@@ -3,7 +3,7 @@ import { ServiceCriaContato } from "../../services/ServiceContatos";
 
 class ControleCriaContato {
     async handle(request: Request, response: Response) {
-        const { opt_cod_cli, opt_contato, opt_fone, opt_whatsapp, opt_boletos } = request.body;
+        const { opt_cod_cli, opt_contato, opt_fone, opt_whatsapp, opt_boletos,opt_cargo } = request.body;
 
         const criaContato = new ServiceCriaContato();
 
@@ -12,7 +12,8 @@ class ControleCriaContato {
             opt_contato,
             opt_fone,
             opt_whatsapp,
-            opt_boletos
+            opt_boletos,
+            opt_cargo
         });
 
         return response.json(ContatoGrava);

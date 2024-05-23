@@ -1,24 +1,22 @@
 import { getCustomRepository } from "typeorm";
 import { ContatosRep } from "../../repositories/ContatosRep";
 
-interface iContato{
+interface iContato {
     opt_cod_cli: string;
     seq?: string;
 }
 
 class ServiceConsultaContatos {
-    async execute({opt_cod_cli, seq}: iContato) {
-        
+    async execute({ opt_cod_cli, seq }: iContato) {
         const contatosRep = getCustomRepository(ContatosRep);
         var ContatosCli;
-        if (!seq){
+        if (!seq) {
             ContatosCli = await contatosRep.find({
-                opt_cod_cli
+                where: { opt_cod_cli, tipo: "F" },
             });
-        }
-        else{
+        } else {
             ContatosCli = await contatosRep.findOne({
-                seq
+                seq,
             });
         }
 

@@ -10,11 +10,13 @@ class Contatos {
     @Column()
     opt_contato: string;   // Nome do Contato
     @Column()
-    opt_fone: string;      // Número do telefone (35)99999-9999
+    opt_fone: string;      // Número do telefone (35) 9 9999-9999
     @Column()
     opt_whatsapp: string;  // CheckBox 0/1
     @Column()
     opt_boletos: string;   // checkBox 0/1
+    @Column()
+    tipo: string;
 }
 
 export { Contatos };

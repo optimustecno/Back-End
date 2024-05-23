@@ -1,4 +1,5 @@
 import { ServiceCriaCargo } from "./CriaGargo";
 import { ServiceConsultaCargos } from "./BuscaCargos";
+import { ServiceAtualizaCargo } from "./AtualizaCargo";
 
-export {ServiceCriaCargo, ServiceConsultaCargos}
+export { ServiceCriaCargo, ServiceConsultaCargos, ServiceAtualizaCargo };

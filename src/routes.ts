@@ -25,6 +25,7 @@ import { ControleUpdateUsu } from "./Controller/ControleUsuario";
 import { ControleUpdateSetor } from "./Controller/ControleSetor";
 import { ControleBuscaCargos } from "./Controller/ControleCargos";
 import { ControleTrocaSenha } from "./Controller/ControleUsuario";
+import { ControleUpdateCargo } from "./Controller/ControleCargos";
 import { ControleCancelaCli } from "./Controller/ControleCliente";
 import { ControleBuscaSetores } from "./Controller/ControleSetor";
 import { ControleConsCliente } from "./Controller/ControleCliente";
@@ -84,6 +85,7 @@ const trocaSenha = new ControleTrocaSenha();
 const criaSuporte = new ControleCriaSuporte();
 const criaCliente = new ControleCriaCliente();
 const updateSetor = new ControleUpdateSetor();
+const updateCargo = new ControleUpdateCargo();
 const buscaCliente = new ControleConsCliente();
 const updateWabiz = new ControleInformaWabiz();
 const consultaSistemas = new ControleListaSis();
@@ -188,6 +190,7 @@ Rotas.post("/ProxStatus", VerificaUsuario, Autoriza, consultaProximoStatus.handl
 Rotas.post("/InsPedidoOptimus", VerificaUsuario, Autoriza, pedidoUaiRangoManual.handle);
 //PUT
 Rotas.put("/Setor", VerificaUsuario, updateSetor.handle);
+Rotas.put("/Cargo", VerificaUsuario, updateCargo.handle);
 Rotas.put("/TrocaSenha", VerificaUsuario, trocaSenha.handle);
 Rotas.put("/Suporte", VerificaUsuario, updateSuporte.handle);
 Rotas.put("/Cliente", VerificaUsuario, updateCliente.handle);

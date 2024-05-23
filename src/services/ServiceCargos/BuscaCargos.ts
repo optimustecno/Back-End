@@ -5,7 +5,7 @@ class ServiceConsultaCargos {
     async execute() {
         const cargosRep = getCustomRepository(CargosRep);
 
-        const Cargos = await cargosRep.find();
+        const Cargos = await cargosRep.find({order:{opt_cargo: "ASC"}});
 
         return Cargos;
     }

@@ -18,6 +18,8 @@ class ViewSuporte {
     readonly prioridade: string;
     @Column()
     readonly titulo: string;
+    @Column()
+    readonly setor: string;
 }
 
 export { ViewSuporte };

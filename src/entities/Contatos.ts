@@ -1,4 +1,3 @@
-// opt_contatos_cli
 import { Entity, PrimaryColumn, Column } from "typeorm";
 
 @Entity("opt_contatos_cli")

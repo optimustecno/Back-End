@@ -10,17 +10,11 @@ interface iFiltro {
     titulo?: any;
     prioridade?: any;
     offset?: any;
+    setor?: any;
 }
 
 class countSuportes {
-    async execute({
-        status,
-        cliente,
-        dataInicial,
-        dataFinal,
-        titulo,
-        prioridade,
-    }: iFiltro) {
+    async execute({ status, cliente, dataInicial, dataFinal, titulo, prioridade, setor }: iFiltro) {
         const ocorrenciaRep = getCustomRepository(SuporteRep);
         var ContaSuportes;
 
@@ -36,6 +30,9 @@ class countSuportes {
         if (!status) {
             status = "";
         }
+        if (!setor) {
+            setor = "";
+        }
 
         if (!dataInicial && !dataFinal) {
             ContaSuportes = await ocorrenciaRep.count();
@@ -44,7 +41,7 @@ class countSuportes {
         } else if (!dataFinal) {
             throw new Error("Não Foi Informada a Data Final!");
         } else {
-            if (!status){
+            if (!status) {
                 ContaSuportes = await ocorrenciaRep.count({
                     where: {
                         opt_nome_cliente: Like(`%${cliente}%`),
@@ -52,9 +49,10 @@ class countSuportes {
                         prioridade: Like(`%${prioridade}%`),
                         status: Not("4"),
                         data: Between(dataInicial, dataFinal),
+                        setor: Like(`%${setor}%`),
                     },
                 });
-            }else{
+            } else {
                 ContaSuportes = await ocorrenciaRep.count({
                     where: {
                         opt_nome_cliente: Like(`%${cliente}%`),
@@ -62,10 +60,10 @@ class countSuportes {
                         prioridade: Like(`%${prioridade}%`),
                         status,
                         data: Between(dataInicial, dataFinal),
+                        setor: Like(`%${setor}%`),
                     },
                 });
             }
-            
         }
         return ContaSuportes;
     }

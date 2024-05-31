@@ -27,9 +27,9 @@ class ServiceCriaAcesso {
         if (!opt_fone) {
             throw new Error("Não Foi Informado o ID de Acesso!");
         }
-        if (!opt_chave_remota){
-            throw new Error("Não Foi Informada a Chave de Acesso!")
-        }
+        // if (!opt_chave_remota){
+        //     throw new Error("Não Foi Informada a Chave de Acesso!")
+        // }
 
         const TestaAcesso = await acessoRep.findOne({
             opt_fone,opt_cod_cli

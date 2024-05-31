@@ -6,6 +6,7 @@ interface iFiltro {
     cliente?: any;
     dataInicial?: any;
     dataFinal?: any;
+    contato?: any;
     hora?: any;
     titulo?: any;
     prioridade?: any;
@@ -24,6 +25,7 @@ class ServiceListaSuportes {
         titulo,
         prioridade,
         setor,
+        contato
     }: iFiltro) {
         const supRep = getCustomRepository(SuporteRep);
         var Suportes;
@@ -43,6 +45,9 @@ class ServiceListaSuportes {
         if (!setor) {
             setor = "";
         }
+        if (!contato){
+            contato = "";
+        }
         if (!status) {
             Suportes = await supRep.find({
                 where: {
@@ -53,6 +58,7 @@ class ServiceListaSuportes {
                     hora: Like(`%${hora}%`),
                     data: Between(dataInicial, dataFinal),
                     setor: Like(`%${setor}%`),
+                    contato: Like(`%${contato}%`)
                 },
                 order: { prioridade: "ASC", data: "ASC" },
                 skip: offset,
@@ -67,7 +73,8 @@ class ServiceListaSuportes {
                     status,
                     hora: Like(`%${hora}%`),
                     data: Between(dataInicial, dataFinal),
-                    setor: Like(`%${setor}%`)
+                    setor: Like(`%${setor}%`),
+                    contato: Like(`%${contato}%`)
                 },
                 order: { prioridade: "ASC", data: "ASC" },
                 skip: offset,

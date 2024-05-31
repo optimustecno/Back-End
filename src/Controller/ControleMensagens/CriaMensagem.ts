@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { ServiceCriaMensagem } from "../../services/ServiceMensagens";
 
-class ControleCriaPerfilCardapio {
+class ControleCriaMensagem {
     async handle(request: Request, response: Response) {
         const { opt_seq_msg,
             opt_seq_contato,
@@ -29,4 +29,4 @@ class ControleCriaPerfilCardapio {
     }
 }
 
-export { ControleCriaPerfilCardapio };
+export { ControleCriaMensagem };

@@ -6,17 +6,17 @@ class AcessoRemoto {
     @PrimaryColumn()
     seq: string; // Auto-incremento
     @Column()
-    opt_cod_cli: string; // Codigo do Cliente onde o Contato Trabalha
+    opt_cod_cli: string; // Codigo do Cliente 
     @Column()
-    opt_contato: string; // Nome do Contato
+    opt_contato: string; // Nome do terminal
     @Column()
-    opt_fone: string; // checkBox 0/1
+    opt_fone: string; // Id do Acesso
     @Column()
-    tipo: string;
+    tipo: string;    // A
     @Column()
-    opt_cargo: string;
+    opt_cargo: string;    // Nome do programa utilizado Ex: Anydesk
     @Column()
-    opt_chave_remota: string;
+    opt_chave_remota: string;  // Senha
 }
 
 export { AcessoRemoto };

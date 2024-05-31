@@ -18,6 +18,8 @@ class Mensagens {
     opt_apelido_arq: string;
     @Column()
     opt_usuario: string;
+    @Column()
+    opt_status: string;
 }
 
 export { Mensagens };

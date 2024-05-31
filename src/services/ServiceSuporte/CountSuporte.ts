@@ -11,10 +11,11 @@ interface iFiltro {
     prioridade?: any;
     offset?: any;
     setor?: any;
+    contato?: any;
 }
 
 class countSuportes {
-    async execute({ status, cliente, dataInicial, dataFinal, titulo, prioridade, setor }: iFiltro) {
+    async execute({ status, cliente, dataInicial, dataFinal, titulo, prioridade, setor, contato }: iFiltro) {
         const ocorrenciaRep = getCustomRepository(SuporteRep);
         var ContaSuportes;
 
@@ -33,6 +34,9 @@ class countSuportes {
         if (!setor) {
             setor = "";
         }
+        if (!contato) {
+            contato = "";
+        }
 
         if (!dataInicial && !dataFinal) {
             ContaSuportes = await ocorrenciaRep.count();
@@ -50,6 +54,7 @@ class countSuportes {
                         status: Not("4"),
                         data: Between(dataInicial, dataFinal),
                         setor: Like(`%${setor}%`),
+                        contato: Like(`%${contato}%`)
                     },
                 });
             } else {
@@ -61,6 +66,7 @@ class countSuportes {
                         status,
                         data: Between(dataInicial, dataFinal),
                         setor: Like(`%${setor}%`),
+                        contato: Like(`%${contato}%`)
                     },
                 });
             }

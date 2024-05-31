@@ -20,6 +20,8 @@ class ViewSuporte {
     readonly titulo: string;
     @Column()
     readonly setor: string;
+    @Column()
+    readonly contato: string;
 }
 
 export { ViewSuporte };

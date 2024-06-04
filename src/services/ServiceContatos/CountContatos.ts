@@ -6,11 +6,10 @@ interface iFiltro {
     opt_contato?: any;
     opt_cargo?: any;
     opt_fone?: any;
-    offset?: any;
 }
 
-class ServiceListaContatos {
-    async execute({ opt_nome_cliente, opt_contato, opt_cargo, opt_fone, offset }: iFiltro) {
+class ServiceContaContatos {
+    async execute({ opt_nome_cliente, opt_contato, opt_cargo, opt_fone }: iFiltro) {
         const conRep = getCustomRepository(ViewContatosRep);
         var Contatos;
 
@@ -27,7 +26,7 @@ class ServiceListaContatos {
             opt_fone = "";
         }
 
-        Contatos = await conRep.find({
+        Contatos = await conRep.count({
             where: {
                 opt_nome_cliente: Like(`%${opt_nome_cliente}%`),
                 opt_contato: Like(`%${opt_contato}%`),
@@ -35,9 +34,6 @@ class ServiceListaContatos {
                 opt_fone: Like(`%${opt_fone}%`),
                 tipo: "F",
             },
-            order: { opt_contato: "ASC", opt_nome_cliente: "ASC" },
-            skip: offset,
-            take: 10,
         });
 
         if (!Contatos) {
@@ -48,4 +44,4 @@ class ServiceListaContatos {
     }
 }
 
-export { ServiceListaContatos };
+export { ServiceContaContatos };

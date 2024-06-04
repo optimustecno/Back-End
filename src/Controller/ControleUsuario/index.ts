@@ -3,6 +3,7 @@ import { ControleInsertUsuario } from "./ControleInsUsuario";
 import { ControleUpdateUsu } from "./ControleAtualizaUsuario";
 import { ControleBuscaUsuario } from "./ControleBuscaUsuario";
 import { ControleListaUsuarios } from "./ControleBuscaUsuarios";
+import { ControleUsuarioSuporte } from "./UsuarioSuporte";
 
 export {
     ControleUpdateUsu,
@@ -10,4 +11,5 @@ export {
     ControleBuscaUsuario,
     ControleListaUsuarios,
     ControleInsertUsuario,
+    ControleUsuarioSuporte,
 };

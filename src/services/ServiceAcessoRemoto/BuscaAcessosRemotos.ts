@@ -9,7 +9,7 @@ interface iFiltro {
     offset?: any;
 }
 
-class ServiceListaContatos {
+class ServiceListaAcessos {
     async execute({ opt_nome_cliente, opt_contato, opt_cargo, opt_fone, offset }: iFiltro) {
         const conRep = getCustomRepository(ViewContatosRep);
         var Contatos;
@@ -33,7 +33,7 @@ class ServiceListaContatos {
                 opt_contato: Like(`%${opt_contato}%`),
                 opt_cargo: Like(`%${opt_cargo}%`),
                 opt_fone: Like(`%${opt_fone}%`),
-                tipo: "F",
+                tipo: "A",
             },
             order: { opt_contato: "ASC", opt_nome_cliente: "ASC" },
             skip: offset,
@@ -48,4 +48,4 @@ class ServiceListaContatos {
     }
 }
 
-export { ServiceListaContatos };
+export { ServiceListaAcessos };

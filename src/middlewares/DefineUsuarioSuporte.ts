@@ -29,12 +29,15 @@ export async function DefineUsuarioSuporte(
         } else if (atendente == opt_codigo_usu) {
             return next();
         } else {
-            const { opt_usuario } = await userRep.findOne({
-                opt_codigo_usu: atendente,
-            });
-            return response.status(403).json({
-                error: `Suporte Está sendo usado pelo atendente: ${opt_usuario}`,
-            });
+            // bloqueio de visualização de suporte sendo utilizado agora será feito pelo front-end
+            // para visualização de suporte sem edição.
+            // const { opt_usuario } = await userRep.findOne({
+            //     opt_codigo_usu: atendente,
+            // });
+            // return response.status(403).json({
+            //     error: `Suporte Está sendo usado pelo atendente: ${opt_usuario}`,
+            // });
+            return next();
         }
     } catch (error) {
         return response.status(403).json({

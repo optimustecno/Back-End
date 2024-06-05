@@ -3,7 +3,7 @@ import { ServiceListaSuportes, countSuportes } from "../../services/ServiceSupor
 
 class ControleListaSuporte {
     async handle(request: Request, response: Response) {
-        var { status, cliente, offset, dataInicial, dataFinal, titulo, prioridade, setor, contato } = request.query;
+        var { status, cliente, offset, dataInicial, dataFinal, titulo, prioridade, setor, contato, take } = request.query;
         var dataIni;
         var dataFim;
         //
@@ -19,6 +19,9 @@ class ControleListaSuporte {
             dataFim = null;
         } else {
             dataFim = dataFinal;
+        }
+        if (!take){
+            take = "10";
         }
 
         var segueURL = "";
@@ -41,9 +44,12 @@ class ControleListaSuporte {
         if (contato) {
             segueURL = segueURL + `&contato=${contato}`;
         }
+        if (take){
+            segueURL = segueURL + `&take=${take}`;
+        }
 
         var Skip = Number(offset);
-        const limit = 10;
+        const limit = Number(take);
         const Conta = new countSuportes();
         const total = await Conta.execute({
             dataInicial: dataIni,
@@ -53,7 +59,7 @@ class ControleListaSuporte {
             titulo,
             prioridade,
             setor,
-            contato
+            contato, 
         });
         //const currentURL = request.baseUrl;
         const currentURL = "/Suportes";
@@ -98,13 +104,15 @@ class ControleListaSuporte {
             titulo,
             prioridade,
             setor,
-            contato
+            contato, 
+            take
         });
 
         return response.json({
             nextUrl,
             previousURL,
             offset,
+            take,
             total,
             suportes,
         });

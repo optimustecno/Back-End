@@ -12,6 +12,7 @@ interface iFiltro {
     prioridade?: any;
     offset?: any;
     setor?: any;
+    take?: any;
 }
 
 class ServiceListaSuportes {
@@ -25,7 +26,8 @@ class ServiceListaSuportes {
         titulo,
         prioridade,
         setor,
-        contato
+        contato, 
+        take
     }: iFiltro) {
         const supRep = getCustomRepository(SuporteRep);
         var Suportes;
@@ -62,7 +64,7 @@ class ServiceListaSuportes {
                 },
                 order: { prioridade: "ASC", data: "ASC" },
                 skip: offset,
-                take: 10,
+                take: take,
             });
         } else {
             Suportes = await supRep.find({
@@ -78,7 +80,7 @@ class ServiceListaSuportes {
                 },
                 order: { prioridade: "ASC", data: "ASC" },
                 skip: offset,
-                take: 10,
+                take: take,
             });
         }
 

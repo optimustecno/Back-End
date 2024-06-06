@@ -7,10 +7,11 @@ interface iFiltro {
     opt_cargo?: any;
     opt_fone?: any;
     offset?: any;
+    take?: any;
 }
 
 class ServiceListaAcessos {
-    async execute({ opt_nome_cliente, opt_contato, opt_cargo, opt_fone, offset }: iFiltro) {
+    async execute({ opt_nome_cliente, opt_contato, opt_cargo, opt_fone, offset, take }: iFiltro) {
         const conRep = getCustomRepository(ViewContatosRep);
         var Contatos;
 
@@ -37,7 +38,7 @@ class ServiceListaAcessos {
             },
             order: { opt_contato: "ASC", opt_nome_cliente: "ASC" },
             skip: offset,
-            take: 10,
+            take: take,
         });
 
         if (!Contatos) {

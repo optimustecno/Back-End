@@ -3,12 +3,14 @@ import { ServiceContaAcessos, ServiceListaAcessos } from "../../services/Service
 
 class ControleListaAcessos {
     async handle(request: Request, response: Response) {
-        var { opt_nome_cliente, opt_contato, opt_cargo, opt_fone, offset } = request.query;
+        var { opt_nome_cliente, opt_contato, opt_cargo, opt_fone, offset, take } = request.query;
         //
         if (!offset) {
             offset = "0";
         }
-
+        if(!take){
+            take = "10";
+        }
         var segueURL = "";
 
         if (opt_nome_cliente) {
@@ -23,9 +25,12 @@ class ControleListaAcessos {
         if (opt_fone) {
             segueURL = segueURL + `&opt_fone=${opt_fone}`;
         }
+        if (take){
+            segueURL = segueURL + `&take=${take}`;
+        }
 
         var Skip = Number(offset);
-        const limit = 10;
+        const limit = Number(take);
         const Conta = new ServiceContaAcessos();
         const total = await Conta.execute({
             opt_nome_cliente,
@@ -34,7 +39,7 @@ class ControleListaAcessos {
             opt_fone,
         });
         //const currentURL = request.baseUrl;
-        const currentURL = "/Suportes";
+        const currentURL = "/Acessos";
         //
         const next = Skip + limit;
         var nextUrl = next < total ? `${currentURL}?offset=${next}${segueURL}` : null;
@@ -43,20 +48,22 @@ class ControleListaAcessos {
         var previousURL = previous != null ? `${currentURL}?offset=${previous}${segueURL}` : null;
         //
         const consultaSuportes = new ServiceListaAcessos();
-        const contatos = await consultaSuportes.execute({
+        const acessos = await consultaSuportes.execute({
             opt_nome_cliente,
             opt_contato,
             opt_cargo,
             opt_fone,
-            offset
+            offset,
+            take
         });
 
         return response.json({
             nextUrl,
             previousURL,
             offset,
+            take,
             total,
-            contatos,
+            acessos,
         });
     }
 }

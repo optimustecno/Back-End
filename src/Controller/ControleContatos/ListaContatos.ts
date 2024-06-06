@@ -3,12 +3,14 @@ import { ServiceContaContatos, ServiceListaContatos } from "../../services/Servi
 
 class ControleListaContatos {
     async handle(request: Request, response: Response) {
-        var { opt_nome_cliente, opt_contato, opt_cargo, opt_fone, offset } = request.query;
+        var { opt_nome_cliente, opt_contato, opt_cargo, opt_fone, offset, take } = request.query;
         //
         if (!offset) {
             offset = "0";
         }
-
+        if(!take){
+            take = "10";
+        }
         var segueURL = "";
 
         if (opt_nome_cliente) {
@@ -23,9 +25,12 @@ class ControleListaContatos {
         if (opt_fone) {
             segueURL = segueURL + `&opt_fone=${opt_fone}`;
         }
+        if (take){
+            segueURL = segueURL + `&take=${take}`;
+        }
 
         var Skip = Number(offset);
-        const limit = 10;
+        const limit = Number(take);
         const Conta = new ServiceContaContatos();
         const total = await Conta.execute({
             opt_nome_cliente,
@@ -34,9 +39,12 @@ class ControleListaContatos {
             opt_fone,
         });
         //const currentURL = request.baseUrl;
-        const currentURL = "/Suportes";
+        const currentURL = "/Contatos";
         //
         const next = Skip + limit;
+        console.log(Skip)
+        console.log(limit)
+
         var nextUrl = next < total ? `${currentURL}?offset=${next}${segueURL}` : null;
         //
         const previous = Skip - limit < 0 ? null : Skip - limit;
@@ -48,13 +56,15 @@ class ControleListaContatos {
             opt_contato,
             opt_cargo,
             opt_fone,
-            offset
+            offset, 
+            take
         });
 
         return response.json({
             nextUrl,
             previousURL,
             offset,
+            take,
             total,
             contatos,
         });

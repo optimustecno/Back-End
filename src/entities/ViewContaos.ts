@@ -20,6 +20,8 @@ class ViewContatos {
     readonly opt_whatsapp: string;
     @Column()
     readonly opt_boletos: string;
+    @Column()
+    readonly opt_cod_cli: string;
 }
 
 export { ViewContatos };

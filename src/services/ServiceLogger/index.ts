@@ -1,3 +1,4 @@
 import { ServiceGravaLog } from "./GravaLog";
+import { ServiceBuscaJson } from "./BuscaPedido";
 
-export { ServiceGravaLog };
+export { ServiceGravaLog, ServiceBuscaJson };

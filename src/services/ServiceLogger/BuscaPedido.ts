@@ -9,7 +9,7 @@ class ServiceBuscaJson {
     async execute({ opt_payload }: iFiltro) {
         const LoggerRep = getCustomRepository(LoggerwebhookRep);
 
-        const pedido = await LoggerRep.find({
+        var pedido = await LoggerRep.findOne({
             where: {
                 opt_payload: Like(`%${opt_payload}%`),
             },
@@ -18,8 +18,9 @@ class ServiceBuscaJson {
         if (!pedido) {
             throw new Error("Nenhum registro a ser exibido!");
         }
+        var Retorno = (pedido.opt_payload).toString
 
-        return pedido;
+        return Retorno;
     }
 }
 

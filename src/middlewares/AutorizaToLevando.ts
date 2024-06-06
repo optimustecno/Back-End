@@ -3,7 +3,7 @@ import { ServiceGravaLog } from "../services/ServiceLogger";
 
 export async function AutToLevando(request: Request, response: Response, next: NextFunction) {
     //var { cod_pedido } = request.body;
-    console.log(request)
+    //console.log(request)
 
     var payload = JSON.stringify(request.body);
     

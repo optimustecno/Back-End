@@ -18,7 +18,7 @@ class ServiceBuscaJson {
         if (!pedido) {
             throw new Error("Nenhum registro a ser exibido!");
         }
-        var Retorno = (pedido.opt_payload).toString
+        var Retorno = pedido.opt_payload
 
         return Retorno;
     }

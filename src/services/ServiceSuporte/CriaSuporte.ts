@@ -36,6 +36,7 @@ class ServiceCriaSuporte {
 
         const verCad = await supRep.findOne({
             titulo,
+            data,
             hora,
             opt_cod_cliente,
         });

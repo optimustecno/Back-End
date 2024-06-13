@@ -1,30 +1,29 @@
 import { Entity, PrimaryColumn, Column } from "typeorm";
-import { collapseTextChangeRangesAcrossMultipleVersions } from "typescript";
 
 @Entity("opt_view_clientes")
 class Clientes {
     @PrimaryColumn()
-    opt_cod_cliente: string;
+    readonly opt_cod_cliente: string;
     @Column()
-    opt_nome_cliente: string;
+    readonly opt_nome_cliente: string;
     @Column()
-    opt_bloqueado: string;
+    readonly opt_bloqueado: string;
     @Column()
-    opt_nome_sistema: string;
+    readonly opt_nome_sistema: string;
     @Column()
-    opt_versao: string;
+    readonly opt_versao: string;
     @Column()
-    opt_ultimo_acesso: string;
+    readonly opt_ultimo_acesso: string;
     @Column()
-    data_cancelamento: string;
+    readonly data_cancelamento: string;
     @Column()
-    suportes: string;
+    readonly suportes: string;
     @Column()
-    abertos: string;
+    readonly abertos: string;
     @Column()
-    encerrados: string;
+    readonly encerrados: string;
     @Column()
-    antigo: string;
+    readonly antigo: string;
 }
 
 export { Clientes };

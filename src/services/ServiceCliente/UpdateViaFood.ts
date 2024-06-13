@@ -29,6 +29,7 @@ class ServiceUpdateViaFood {
                 {
                     opt_ultimo_acesso,
                     opt_versao,
+                    opt_nome_sistema: sistema
                 }
             );
         } else {
@@ -37,6 +38,7 @@ class ServiceUpdateViaFood {
                 {
                     opt_ultimo_acesso,
                     opt_versao_adm,
+                    opt_nome_sistema: sistema
                 }
             );
         }

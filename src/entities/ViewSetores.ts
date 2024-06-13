@@ -7,6 +7,8 @@ class ViewSetores {
     @Column()
     readonly setor: string;
     @Column()
+    readonly suportes: string;
+    @Column()
     readonly abertos: string;
     @Column()
     readonly encerrados: string;

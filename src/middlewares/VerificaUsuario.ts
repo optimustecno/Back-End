@@ -10,6 +10,7 @@ export function VerificaUsuario(request: Request, response: Response, next: Next
     // console.log(`Verifica Usuario ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)
     //console.log(`Verifica USU: ${request.params.codigo}`)
     //console.log(request.headers.authorization)
+    //console.log(request.headers.authorization.split(" ")[1])
     const token = request.headers.authorization.split(" ")[1]
     if (!token) {
         // var tempo = new Date()

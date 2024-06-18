@@ -1,3 +1,4 @@
+import { ControleLicencaOff } from "./LicencaOffLine";
 import { ControleConsCliente } from "./ControleCliente";
 import { ControleBancoOn } from "./ControleBuscaBancoOn";
 import { ControleListaClientes } from "./ControleClientes";
@@ -14,6 +15,7 @@ import { ControleBuscaEmpresasNaoLinkadas } from "./ControleBuscaEmpresasNaoLink
 export {
     ControleBancoOn,
     ControleCancelaCli,
+    ControleLicencaOff,
     ControleCriaCliente,
     ControleConsCliente,
     ControleListaClientes,

@@ -29,6 +29,7 @@ import { ControleUpdateCargo } from "./Controller/ControleCargos";
 import { ControleCancelaCli } from "./Controller/ControleCliente";
 import { ControleBuscaSetores } from "./Controller/ControleSetor";
 import { ControleBuscaPedido } from "./Controller/ControleLogger";
+import { ControleLicencaOff } from "./Controller/ControleCliente";
 import { ControleConsCliente } from "./Controller/ControleCliente";
 import { ControleCriaCliente } from "./Controller/ControleCliente";
 import { ControleCriaSuporte } from "./Controller/ControleSuporte";
@@ -108,6 +109,7 @@ const consultaPedidos = new ControleConsPedido();
 //
 const loggerToLevando = new ControleLogger();
 //
+const licencaOff = new ControleLicencaOff();
 const criaContato = new ControleCriaContato();
 const buscaCargos = new ControleBuscaCargos();
 const buscaAcesso = new ControleBuscaAcesso();
@@ -200,6 +202,7 @@ Rotas.post("/Cliente", VerificaUsuario, criaCliente.handle);
 Rotas.post("/Suporte", VerificaUsuario, criaSuporte.handle);
 Rotas.post("/Contato", VerificaUsuario, criaContato.handle);
 Rotas.post("/Mensagem", VerificaUsuario, criaMensagem.handle);
+Rotas.post("/LicencaOff", VerificaUsuario, licencaOff.handle);
 Rotas.post("/PedidosUaiRango", AutUaiRango, BuscaPedidosUaiRango);
 Rotas.post("/Setor", VerificaUsuario, Autoriza, criaSetor.handle);
 Rotas.post("/Contrato", VerificaUsuario, Autoriza, criaContrato.handle);

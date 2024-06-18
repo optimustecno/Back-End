@@ -1,4 +1,5 @@
 import { ServiceBancoOn } from "./BancoOn";
+import { ServiceLicencaOff } from "./ChaveLicenca";
 import { ServiceCriaCliente } from "./CriaCliente";
 import { ServiceCriaReqs } from "./CriaRequestsCli";
 import { ServiceCancelaCli } from "./CancelaCliente";
@@ -17,6 +18,7 @@ import { ServiceConsultaNaoLinkadas } from "./EmpresasNaoLinkadas";
 export {
     ServiceBancoOn,
     ServiceCriaReqs,
+    ServiceLicencaOff,
     ServiceCancelaCli,
     ServiceCriaCliente,
     ServiceWabizCliente,

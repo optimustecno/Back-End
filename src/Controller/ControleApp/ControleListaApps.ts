@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
-import { ServiceContaContatos, ServiceListaContatos } from "../../services/ServiceContatos";
+import { ServiceContaApps, ServiceListaApps } from "../../services/ServiceApp";
 
-class ControleListaContatos {
+class ControleListaApps {
     async handle(request: Request, response: Response) {
-        var { opt_nome_cliente, opt_contato, opt_cargo, opt_fone, offset, take } = request.query;
+        var { opt_nome_cliente, app, offset, take } = request.query;
         //
         if (!offset) {
             offset = "0";
@@ -16,14 +16,8 @@ class ControleListaContatos {
         if (opt_nome_cliente) {
             segueURL = `&opt_nome_cliente=${opt_nome_cliente}`;
         }
-        if (opt_contato) {
-            segueURL = segueURL + `&opt_contato=${opt_contato}`;
-        }
-        if (opt_cargo) {
-            segueURL = segueURL + `&opt_cargo=${opt_cargo}`;
-        }
-        if (opt_fone) {
-            segueURL = segueURL + `&opt_fone=${opt_fone}`;
+        if (app) {
+            segueURL = segueURL + `&app=${app}`;
         }
         if (take){
             segueURL = segueURL + `&take=${take}`;
@@ -31,32 +25,25 @@ class ControleListaContatos {
 
         var Skip = Number(offset);
         const limit = Number(take);
-        const Conta = new ServiceContaContatos();
+        const Conta = new ServiceContaApps();
         const total = await Conta.execute({
             opt_nome_cliente,
-            opt_contato,
-            opt_cargo,
-            opt_fone,
+            app,
         });
         //const currentURL = request.baseUrl;
-        const currentURL = "/Contatos";
+        const currentURL = "/Apps";
         //
         const next = Skip + limit;
-        //console.log(Skip)
-        //console.log(limit)
-
         var nextUrl = next < total ? `${currentURL}?offset=${next}${segueURL}` : null;
         //
         const previous = Skip - limit < 0 ? null : Skip - limit;
         var previousURL = previous != null ? `${currentURL}?offset=${previous}${segueURL}` : null;
         //
-        const consultaSuportes = new ServiceListaContatos();
-        const contatos = await consultaSuportes.execute({
+        const consultaApps = new ServiceListaApps();
+        const apps = await consultaApps.execute({
             opt_nome_cliente,
-            opt_contato,
-            opt_cargo,
-            opt_fone,
-            offset, 
+            app,
+            offset,
             take
         });
 
@@ -66,9 +53,9 @@ class ControleListaContatos {
             offset,
             take,
             total,
-            contatos,
+            apps,
         });
     }
 }
 
-export { ControleListaContatos };
+export { ControleListaApps };

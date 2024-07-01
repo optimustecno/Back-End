@@ -34,6 +34,22 @@ class CadApp {
     validade_token: string;
     @Column()
     aceita_valor_maior: string;
+    @Column()
+    importa_optimus: string;
+    @Column()
+    refresh_token: string;
+    @Column()
+    tempo_request: Number;
+    @Column()
+    status_api: string;
+    @Column()
+    mensagem_status: string;
+    @Column()
+    importa_cod_ext: string;
+    @Column()
+    url: string;
+    @Column()
+    tipo_comanda: string;
 }
 
 export { CadApp };

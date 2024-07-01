@@ -18,6 +18,8 @@ class Apps {
     readonly token: string;
     @Column()
     readonly rede: string;
+    @Column()
+    readonly opt_versao: string;
 }
 
 export { Apps };

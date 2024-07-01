@@ -26,7 +26,7 @@ class ServiceLicencaOff {
         var Mes = DataComp[1];
         var Ano = DataComp[2];
         var Cli = opt_cod_cliente;
-        var DataJunta = `${Ano}${Mes}${Dia}`;
+        //var DataJunta = `${Ano}${Mes}${Dia}`;
         var FatorId = (6 * 15 + 15 - 4) ** Number(process.env.FATOR);
         var FatorId2 = (7 + 5 + 18 + 5 + 14 + 20 + 5)  ** Number(process.env.FATOR);
         var FatorId3 = Number(FatorId) - Number(FatorId2);

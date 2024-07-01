@@ -10,7 +10,9 @@ import { BuscaPedidosUaiRango } from "./middlewares/BuscaPedidosUaiRango";
 //CONTROLLERS
 import { ControleConsApp } from "./Controller/ControleApp";
 import { ControleTeste } from "./Controller/ControleTeste";
+import { ControleBuscaApp } from "./Controller/ControleApp";
 import { ControleCredWabiz } from "./Controller/ControleApp";
+import { ControleListaApps } from "./Controller/ControleApp";
 import { ControleCriaSetor } from "./Controller/ControleSetor";
 import { ControleBancoOn } from "./Controller/ControleCliente";
 //
@@ -81,10 +83,12 @@ import { ControleBuscaEmpresasNaoLinkadas } from "./Controller/ControleCliente";
 
 const Rotas = Router();
 
+const buscaApp = new ControleBuscaApp();
 const criaSetor = new ControleCriaSetor();
 const controleTeste = new ControleTeste();
 const updateUsu = new ControleUpdateUsu();
 const criaCargo = new ControleCriaCargo();
+const listaApps = new ControleListaApps();
 const consultaApps = new ControleConsApp();
 const buscaSenha = new ControleGeraSenha();
 const buscaWabiz = new ControleCredWabiz();
@@ -156,9 +160,11 @@ const consultaTodasOcorrencias = new ControleTodasConsOcorrencias();
 Rotas.get("/Teste", controleTeste.handle);
 Rotas.get("/GruposProd/:codigo", buscaGrupos.handle);
 Rotas.get("/Produtos/:codigo", buscaProdutos.handle);
+Rotas.get("/Apps", VerificaUsuario, listaApps.handle);
+Rotas.get("/App/:seq", VerificaUsuario, buscaApp.handle);
 Rotas.get("/Cargos", VerificaUsuario, buscaCargos.handle);
-Rotas.get("/Setores", VerificaUsuario, buscaSetores.handle);
 Rotas.get("/ConsApp", VerificaUsuario, consultaApps.handle);
+Rotas.get("/Setores", VerificaUsuario, buscaSetores.handle);
 Rotas.get("/Acessos", VerificaUsuario, listaAcessos.handle);
 Rotas.get("/Usuarios", VerificaUsuario, buscaUsuarios.handle);
 Rotas.get("/Contatos", VerificaUsuario, listaContatos.handle);

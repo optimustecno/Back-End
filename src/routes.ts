@@ -10,9 +10,12 @@ import { BuscaPedidosUaiRango } from "./middlewares/BuscaPedidosUaiRango";
 //CONTROLLERS
 import { ControleConsApp } from "./Controller/ControleApp";
 import { ControleTeste } from "./Controller/ControleTeste";
+import { ControleCriaApp } from "./Controller/ControleApp";
 import { ControleBuscaApp } from "./Controller/ControleApp";
+import { ControleDeleteApp } from "./Controller/ControleApp";
 import { ControleCredWabiz } from "./Controller/ControleApp";
 import { ControleListaApps } from "./Controller/ControleApp";
+import { ControleUpdateApp } from "./Controller/ControleApp";
 import { ControleCriaSetor } from "./Controller/ControleSetor";
 import { ControleBancoOn } from "./Controller/ControleCliente";
 //
@@ -83,12 +86,14 @@ import { ControleBuscaEmpresasNaoLinkadas } from "./Controller/ControleCliente";
 
 const Rotas = Router();
 
+const criaApp = new ControleCriaApp();
 const buscaApp = new ControleBuscaApp();
 const criaSetor = new ControleCriaSetor();
 const controleTeste = new ControleTeste();
 const updateUsu = new ControleUpdateUsu();
 const criaCargo = new ControleCriaCargo();
 const listaApps = new ControleListaApps();
+const deleteApp = new ControleDeleteApp();
 const consultaApps = new ControleConsApp();
 const buscaSenha = new ControleGeraSenha();
 const buscaWabiz = new ControleCredWabiz();
@@ -97,6 +102,7 @@ const BuscaJson = new ControleBuscaPedido();
 const cancelaCli = new ControleCancelaCli();
 const trocaSenha = new ControleTrocaSenha();
 const criaAcesso = new ControleCriaAcesso();
+const atualizaApp = new ControleUpdateApp();
 const criaSuporte = new ControleCriaSuporte();
 const criaCliente = new ControleCriaCliente();
 const updateSetor = new ControleUpdateSetor();
@@ -201,6 +207,7 @@ Rotas.post("/Login", autenticaUsuario.handle);
 //
 Rotas.post("/PedidoToLevando", AutToLevando, loggerToLevando.handle);
 //
+Rotas.post("/App", VerificaUsuario, criaApp.handle);
 Rotas.post("/ContaRequest", VerificaUsuario, Autoriza);
 Rotas.post("/Cargo", VerificaUsuario, criaCargo.handle);
 Rotas.post("/Acesso", VerificaUsuario, criaAcesso.handle);
@@ -222,6 +229,7 @@ Rotas.post("/PerfilCadapio", VerificaUsuario, Autoriza, criaPerfilCardapio.handl
 Rotas.post("/ProxStatus", VerificaUsuario, Autoriza, consultaProximoStatus.handle);
 Rotas.post("/InsPedidoOptimus", VerificaUsuario, Autoriza, pedidoUaiRangoManual.handle);
 //PUT
+Rotas.put("/App", VerificaUsuario, atualizaApp.handle);
 Rotas.put("/Setor", VerificaUsuario, updateSetor.handle);
 Rotas.put("/Cargo", VerificaUsuario, updateCargo.handle);
 Rotas.put("/Acesso", VerificaUsuario, updateAcesso.handle);
@@ -240,6 +248,7 @@ Rotas.put("/Contrato", VerificaUsuario, Autoriza, atualizaContrato.handle);
 Rotas.put("/CancelaContrato", VerificaUsuario, Autoriza, cancelaContrato.handle);
 Rotas.put("/AtualizaCli", VerificaUsuario, Autoriza, atualizaDadosViaFood.handle);
 //DELETE
+Rotas.delete("/App/:seq", VerificaUsuario, Autoriza, deleteApp.handle);
 Rotas.delete("/Acesso/:seq", VerificaUsuario, deleteAcesso.handle);
 Rotas.delete("/Contato/:seq", VerificaUsuario, deleteContao.handle);
 Rotas.delete("/Suporte/:seq", VerificaUsuario, Autoriza, deleteSuporte.handle);

@@ -1,11 +1,12 @@
 import { getCustomRepository } from "typeorm";
+import { Espera } from "../../utils/functions";
 import { CadAppRep } from "../../repositories/CadAppRep";
 
 interface iCriaApp {
     opt_cod_cliente: string;
     app: string;
     login: string;
-    senha: string;
+    Senha: string;
     token: string;
     rede?: string;
     hora_inicio: string;
@@ -32,7 +33,7 @@ class ServiceCriaApp {
         opt_cod_cliente,
         app,
         login,
-        senha,
+        Senha,
         token,
         rede,
         hora_inicio,
@@ -51,7 +52,7 @@ class ServiceCriaApp {
         mensagem_status,
         importa_cod_ext,
         url,
-        tipo_comanda
+        tipo_comanda,
     }: iCriaApp) {
         const appRep = getCustomRepository(CadAppRep);
 
@@ -59,7 +60,7 @@ class ServiceCriaApp {
             opt_cod_cliente,
             app,
             login,
-            senha,
+            senha: Senha,
             token,
             rede,
             hora_inicio,
@@ -78,12 +79,24 @@ class ServiceCriaApp {
             mensagem_status,
             importa_cod_ext,
             url,
-            tipo_comanda
+            tipo_comanda,
         });
 
         await appRep.save(_app);
 
-        return _app;
+        await Espera(150);
+
+        console.log(`${opt_cod_cliente},${app},${login}`);
+
+        const appGravado = await appRep.findOne({
+            opt_cod_cliente,
+            app,
+            login,
+            senha: Senha,
+        });
+
+        return appGravado.seq;
     }
 }
+
 export { ServiceCriaApp };

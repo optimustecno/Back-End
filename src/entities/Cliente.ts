@@ -54,6 +54,8 @@ class Clientes {
     data_cancelamento: string;
     @Column()
     opt_cardapio_digital: string;
+    @Column()
+    opt_uid_cli: string;
 }
 
 export { Clientes };

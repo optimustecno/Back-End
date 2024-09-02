@@ -1,5 +1,6 @@
 import { getCustomRepository } from "typeorm";
 import { SuporteRep } from "../../repositories/SuporteRep";
+import { AtualizaUUID } from "../../utils/AtualizaUUIDCli";
 
 interface iSuporte {
     seq?: any;
@@ -28,6 +29,9 @@ class consultaSuporte {
             where: { seq },
             relations: ["cliente", "setor", "Usuario"],
         });
+        const { opt_cod_cliente } = Suporte
+        const At = new AtualizaUUID();
+        const atualizou = await At.execute({opt_cod_cliente: opt_cod_cliente.toString()});
 
         return Suporte;
     }

@@ -33,4 +33,8 @@ class ValidaCardapio {
     }
 }
 
-export { removeEmojis, ValidaCardapio };
+function Espera(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+export { removeEmojis, ValidaCardapio, Espera };

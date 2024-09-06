@@ -36,7 +36,7 @@ class AutorizaConvidado {
                 expiresIn: "1d",
             }
         );
-        return { codigo: cCodigo, nome: user.opt_nome_convidado, opt_tipo_convidado: user.opt_tipo_convidado, token };
+        return { codigo: cCodigo, nome: user.opt_nome_convidado, opt_tipo_convidado: user.opt_tipo_convidado, opt_aprovado: user.opt_aprovado ,token };
         
     }
 }

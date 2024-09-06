@@ -1,6 +1,7 @@
 import { Router } from "express";
 // MIDDLEWARES
 import { Autoriza } from "./middlewares/AutorizaPost";
+import { VerificaSite } from "./middlewares/VerificaSite";
 import { AutUaiRango } from "./middlewares/AutorizaUaiRango";
 import { AutToLevando } from "./middlewares/AutorizaToLevando";
 import { VerificaUsuario } from "./middlewares/VerificaUsuario";
@@ -83,9 +84,10 @@ import { ControleBuscaPerfilCardapio } from "./Controller/ControleCardapio";
 import { ControleBuscaGruposProdutos } from "./Controller/ControleCardapio";
 import { ControleUpdateClienteViaFood } from "./Controller/ControleCliente";
 import { ControleBuscaEmpresasLinkadas } from "./Controller/ControleCliente";
+import { ControleTrocaSenhaConvidado, ControleTrocaSenhaConvidadoAdm } from "./Controller/ControleConvidados";
 import { ControleTodasConsOcorrencias } from "./Controller/ControleOcorrencia";
 import { ControleBuscaEmpresasNaoLinkadas } from "./Controller/ControleCliente";
-import { ControleAutenticaConvidado, ControleBuscaConvidado, ControleCriaConvidado, ControleDeleteConvidado, ControleLiberaConvidado, ControleListaConvidados, ControleUpdateConvidado } from "./Controller/ControleConvidados";
+import { ControleAutenticaConvidado, ControleBuscaConvidado, ControleBuscaConvidados, ControleCriaConvidado, ControleDeleteConvidado, ControleLiberaConvidado, ControleListaConvidados, ControleUpdateConvidado } from "./Controller/ControleConvidados";
 
 const Rotas = Router();
 
@@ -150,7 +152,10 @@ const listaConvidados = new ControleListaConvidados();
 const deleteConvidado = new ControleDeleteConvidado();
 const updateConvidado = new ControleUpdateConvidado();
 const liberaConvidado = new ControleLiberaConvidado();
+const buscaAdmConvidado = new ControleBuscaConvidados();
 const autenticaConvidado = new ControleAutenticaConvidado();
+const trocaSenhaConvidado = new ControleTrocaSenhaConvidado();
+const admSenhaConvidado = new ControleTrocaSenhaConvidadoAdm();
 //
 const criaUsuSuporte = new ControleUsuarioSuporte();
 const updateMensagem = new ControleUpdateMensagem();
@@ -186,7 +191,6 @@ Rotas.get("/Setores", VerificaUsuario, buscaSetores.handle);
 Rotas.get("/Acessos", VerificaUsuario, listaAcessos.handle);
 Rotas.get("/Usuarios", VerificaUsuario, buscaUsuarios.handle);
 Rotas.get("/Contatos", VerificaUsuario, listaContatos.handle);
-Rotas.get("/Convidado", VerificaUsuario, buscaConvidado.handle);
 Rotas.get("/PerfilCardapio/:codigo", buscaPerfilCardapio.handle);
 Rotas.get("/Sistemas", VerificaUsuario, consultaSistemas.handle);
 Rotas.get("/Suportes", VerificaUsuario, consultaSuportes.handle);
@@ -210,7 +214,9 @@ Rotas.get("/Ocorrencias", VerificaUsuario, consultaTodasOcorrencias.handle);
 Rotas.get("/Ocorrencias/:codigo", VerificaUsuario, consultaOcorrencia.handle);
 Rotas.get("/EmpNaoLinkadas/:codigo", VerificaUsuario, buscaNaoLinkadas.handle);
 Rotas.get("/EmpLinkadas/:codigo", VerificaUsuario, buscaEmpresasLinkadas.handle);
+Rotas.get("/Convidado/:opt_seq_convidado", VerificaUsuario, buscaAdmConvidado.handle);
 Rotas.get("/ContratosCli/:opt_cod_cliente", VerificaUsuario, contratosCliente.handle);
+Rotas.get("/CadConvidado", VerificaConvidado, buscaConvidado.handle);
 Rotas.get(
     "/PedidosPendentes/:codigo",
     VerificaUsuario,
@@ -223,17 +229,17 @@ Rotas.post("/Login", autenticaUsuario.handle);
 //
 Rotas.post("/PedidoToLevando", AutToLevando, loggerToLevando.handle);
 //
-Rotas.post("/App", criaApp.handle);
 Rotas.post("/Autentica", autenticaConvidado.handle);
-Rotas.post("/CriaConvidado", insereConvidado.handle);
 Rotas.post("/ContaRequest", VerificaUsuario, Autoriza);
 Rotas.post("/Cargo", VerificaUsuario, criaCargo.handle);
 Rotas.post("/Acesso", VerificaUsuario, criaAcesso.handle);
 Rotas.post("/Cliente", VerificaUsuario, criaCliente.handle);
 Rotas.post("/Suporte", VerificaUsuario, criaSuporte.handle);
 Rotas.post("/Contato", VerificaUsuario, criaContato.handle);
+Rotas.post("/App", VerificaUsuario, Autoriza, criaApp.handle);
 Rotas.post("/Mensagem", VerificaUsuario, criaMensagem.handle);
 Rotas.post("/LicencaOff", VerificaUsuario, licencaOff.handle);
+Rotas.post("/Convidado", VerificaSite, insereConvidado.handle);
 Rotas.post("/PedidosUaiRango", AutUaiRango, BuscaPedidosUaiRango);
 Rotas.post("/Setor", VerificaUsuario, Autoriza, criaSetor.handle);
 Rotas.post("/Contrato", VerificaUsuario, Autoriza, criaContrato.handle);
@@ -266,14 +272,14 @@ Rotas.put("/CancelaCliente", VerificaUsuario, Autoriza, cancelaCli.handle);
 Rotas.put("/Contrato", VerificaUsuario, Autoriza, atualizaContrato.handle);
 Rotas.put("/CancelaContrato", VerificaUsuario, Autoriza, cancelaContrato.handle);
 Rotas.put("/AtualizaCli", VerificaUsuario, Autoriza, atualizaDadosViaFood.handle);
+Rotas.put("/AdmSenhaConvidado", VerificaUsuario, Autoriza, admSenhaConvidado.handle);
 Rotas.put("/Convidado", VerificaConvidado, AutorizaConvidado, updateConvidado.handle);
+Rotas.put("/SenhaConvidado", VerificaConvidado, AutorizaConvidado, trocaSenhaConvidado.handle);
 //DELETE
 Rotas.delete("/Acesso/:seq", VerificaUsuario, deleteAcesso.handle);
 Rotas.delete("/Contato/:seq", VerificaUsuario, deleteContao.handle);
 Rotas.delete("/App/:seq", VerificaUsuario, Autoriza, deleteApp.handle);
-
-Rotas.delete("/Convidado", VerificaUsuario, Autoriza, deleteConvidado.handle);
-
 Rotas.delete("/Suporte/:seq", VerificaUsuario, Autoriza, deleteSuporte.handle);
+Rotas.delete("/Convidado/:opt_seq_convidado", VerificaUsuario, Autoriza, deleteConvidado.handle);
 //
 export { Rotas };

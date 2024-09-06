@@ -10,7 +10,6 @@ class ControleCriaConvidado {
             opt_tipo_convidado,
             opt_fone_convidado,
             opt_finalidade,
-            opt_aprovado,
         } = request.body;
 
         const criaConvidado = new ServiceCriaConvidado();
@@ -22,7 +21,6 @@ class ControleCriaConvidado {
             opt_tipo_convidado,
             opt_fone_convidado,
             opt_finalidade,
-            opt_aprovado,
         });
 
         return response.json(ConvidadoGrava);

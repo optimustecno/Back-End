@@ -6,6 +6,8 @@ import { ServiceDeleteConvidado } from "./DeleteConvidado";
 import { ServiceContaConvidados } from "./CountConvidados";
 import { ServiceUpdateConvidado } from "./AtualizaConvidado";
 import { AutorizaConvidado } from "./ServiceAutorizaConvidado";
+import { ServiceAdmSenhaConvidado } from "./AdmSenhaConvidado";
+import { ServiceTrocaSenhaConvidado } from "./TrocaSenhaConvidado";
 
 export {
     AutorizaConvidado,
@@ -16,4 +18,6 @@ export {
     ServiceLiberaConvidado,
     ServiceDeleteConvidado,
     ServiceContaConvidados,
+    ServiceAdmSenhaConvidado,
+    ServiceTrocaSenhaConvidado,
 };

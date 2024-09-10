@@ -23,6 +23,11 @@ class ServiceCriaConvidado {
     }: iCriaConvidado) {
         const guestRep = getCustomRepository(ConvidadosRep);
 
+        const convidadaExiste = await guestRep.find({opt_email_convidado});
+        if (convidadaExiste){
+            throw new Error("E-mail já Cadastrado como Convidado!");
+        }
+
         const SenhaHash = await hash(opt_acesso_convidado, 8);
 
         const _guest = await guestRep.create({

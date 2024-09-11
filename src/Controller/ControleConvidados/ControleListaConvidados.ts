@@ -3,7 +3,7 @@ import { ServiceContaConvidados, ServiceListaConvidados } from "../../services/S
 
 class ControleListaConvidados {
     async handle(request: Request, response: Response) {
-        var { opt_aprovado, offset, take } = request.query;
+        var { opt_aprovado, opt_tipo_convidado, offset, take } = request.query;
         //
         if (!offset) {
             offset = "0";
@@ -15,6 +15,9 @@ class ControleListaConvidados {
 
         if (opt_aprovado) {
             segueURL = `&opt_aprovado=${opt_aprovado}`;
+        }
+        if (opt_tipo_convidado){
+            segueURL = segueURL + `&opt_tipo_convidado=${opt_tipo_convidado}`;
         }
         if (take){
             segueURL = segueURL + `&take=${take}`;

@@ -10,6 +10,7 @@ interface iCriaConvidado {
     opt_acesso_convidado: string;
     opt_tipo_convidado: string;
     opt_finalidade: string;
+    opt_data_cad: string;
 }
 
 class ServiceCriaConvidado {
@@ -19,12 +20,14 @@ class ServiceCriaConvidado {
         opt_acesso_convidado,
         opt_tipo_convidado,
         opt_fone_convidado,
+        opt_data_cad,
         opt_finalidade,
     }: iCriaConvidado) {
         const guestRep = getCustomRepository(ConvidadosRep);
 
-        const convidadaExiste = await guestRep.find({opt_email_convidado});
+        const convidadaExiste = await guestRep.findOne({opt_email_convidado});
         if (convidadaExiste){
+            console.log(convidadaExiste)
             throw new Error("E-mail já Cadastrado como Convidado!");
         }
 
@@ -37,6 +40,7 @@ class ServiceCriaConvidado {
             opt_fone_convidado,
             opt_tipo_convidado,
             opt_finalidade,
+            opt_data_cad,
             opt_aprovado: '0',
         });
 

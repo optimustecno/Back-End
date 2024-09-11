@@ -18,6 +18,8 @@ class Convidados {
     opt_finalidade: string;
     @Column()
     opt_aprovado: string;
+    @Column()
+    opt_data_cad: string;
 }
 
 export { Convidados };

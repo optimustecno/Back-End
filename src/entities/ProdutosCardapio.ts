@@ -21,7 +21,7 @@ class ProdutosCardapio {
     @Column()
     ordem: string;
     @Column()
-    
+    cod_grupo: string;
 }
 
 export { ProdutosCardapio };

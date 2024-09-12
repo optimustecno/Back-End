@@ -20,6 +20,8 @@ class ProdutosCardapio {
     valor: Number;
     @Column()
     ordem: string;
+    @Column()
+    
 }
 
 export { ProdutosCardapio };

@@ -30,7 +30,7 @@ class ServiceAdmSenhaConvidado {
         );
 
         return {
-            message: "Dados Atualizados",
+            message: `Nova Senha: ${nova_senha}`,
         };
     }
 }

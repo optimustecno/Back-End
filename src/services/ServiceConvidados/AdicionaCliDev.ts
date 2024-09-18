@@ -6,12 +6,14 @@ import { ClientesRep } from "../../repositories/ClienteRep";
 interface iCriaVinculo {
     opt_seq_convidado: string;
     uuid_cliente: string;
+    data_insercao: string;
 }
 
 class ServiceCriaVinculo {
     async execute({
         opt_seq_convidado,
         uuid_cliente,
+        data_insercao
     }: iCriaVinculo) {
         const ClienteDev = getCustomRepository(ConvidadosClientesRep);
 
@@ -32,12 +34,14 @@ class ServiceCriaVinculo {
         const vinculo = await ClienteDev.create({
             opt_seq_convidado,
             opt_cod_cliente: cliente.opt_cod_cliente,
+            data_insercao
         });
 
         await ClienteDev.save(vinculo);
 
         return {opt_seq_convidado,
-                opt_cod_cliente: cliente.opt_cod_cliente
+                opt_cod_cliente: cliente.opt_cod_cliente,
+                data_insercao
         };
     }
 }

@@ -3,7 +3,7 @@ import { ServiceInsereAlteraProduto } from "../../services/ServiceCardapio";
 
 class ControleCriaAlteraProduto {
     async handle(request: Request, response: Response) {
-        const { opt_cod_cliente, cod_produto, grupo, produto, descricao, destaque, valor } =
+        const { opt_cod_cliente, cod_produto, grupo, produto, descricao, destaque, valor, cod_grupo } =
             request.body;
 
         const criaProd = new ServiceInsereAlteraProduto();
@@ -16,6 +16,7 @@ class ControleCriaAlteraProduto {
             descricao,
             destaque,
             valor,
+            cod_grupo
         });
 
         return response.json(produtoGrava);

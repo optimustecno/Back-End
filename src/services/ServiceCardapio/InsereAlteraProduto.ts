@@ -9,11 +9,12 @@ interface iCardapio {
     descricao?: string | null;
     destaque?: string | '0';
     valor: Number;
+    cod_grupo: string;
 }
 
 class ServiceInsereAlteraProduto {
     async execute({
-        opt_cod_cliente, cod_produto, grupo, produto, descricao, destaque, valor
+        opt_cod_cliente, cod_produto, grupo, produto, descricao, destaque, valor, cod_grupo
     }: iCardapio) {
         const ProdutosRep = getCustomRepository(ProdCardapioRep);
 
@@ -45,7 +46,8 @@ class ServiceInsereAlteraProduto {
                     produto, 
                     descricao, 
                     destaque, 
-                    valor
+                    valor, 
+                    cod_grupo
                 }
             );
         }
@@ -58,7 +60,8 @@ class ServiceInsereAlteraProduto {
                 produto, 
                 descricao, 
                 destaque, 
-                valor
+                valor,
+                cod_grupo
             });
             await ProdutosRep.save(_prod);
         }

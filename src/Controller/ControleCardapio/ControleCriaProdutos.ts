@@ -12,10 +12,11 @@ class ControleCriaProdutos {
                 item.descricao,
                 item.destaque,
                 item.valor,
+                item.cod_grupo,
             ]);
-            
+
             const criaProd = new ServiceInsereAlteraProduto();
-            
+
             itens.forEach(async (_item) => {
                 var itemGrava = await criaProd.execute({
                     opt_cod_cliente: _item[0],
@@ -25,6 +26,7 @@ class ControleCriaProdutos {
                     descricao: _item[4],
                     destaque: _item[5],
                     valor: _item[6],
+                    cod_grupo: _item[7],
                 });
             });
 

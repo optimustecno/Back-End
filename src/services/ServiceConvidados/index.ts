@@ -1,6 +1,7 @@
 import { ServiceCriaVinculo } from "./AdicionaCliDev";
 import { ServiceCriaConvidado } from "./CriaConvidados";
 import { ServiceConsConvidado } from "./BuscaConvidado";
+import { ServiceListaVinculos } from "./RetornaVinculos";
 import { ServiceListaConvidados } from "./ListaConvidados";
 import { ServiceLiberaConvidado } from "./LiberaConvidado";
 import { ServiceDeleteConvidado } from "./DeleteConvidado";
@@ -15,6 +16,7 @@ export {
     ServiceCriaVinculo,
     ServiceCriaConvidado,
     ServiceConsConvidado,
+    ServiceListaVinculos,
     ServiceListaConvidados,
     ServiceUpdateConvidado,
     ServiceLiberaConvidado,

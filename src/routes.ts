@@ -72,6 +72,7 @@ import { ControleCriaAcesso } from "./Controller/ControleAcessoRemoto";
 import { ControleBuscaAcesso } from "./Controller/ControleAcessoRemoto";
 import { ControleUpdateMensagem } from "./Controller/ControleMensagens";
 import { ControleCancelaContrato } from "./Controller/ControleContrato";
+import { ControleListaVinculos } from "./Controller/ControleConvidados";
 import { ControleDeleteAcesso } from "./Controller/ControleAcessoRemoto";
 import { ControleUpdateAcesso } from "./Controller/ControleAcessoRemoto";
 import { ControleAtualizaContrato } from "./Controller/ControleContrato";
@@ -136,6 +137,7 @@ const updateAcesso = new ControleUpdateAcesso();
 const criaMensagem = new ControleCriaMensagem();
 const listaAcessos = new ControleListaAcessos();
 const deleteContao = new ControleDeleteContato();
+const listaVinculos = new ControleListaVinculos();
 const listaContatos = new ControleListaContatos();
 const buscaProdutos = new ControleBuscaProdutos();
 const buscaUsuarios = new ControleListaUsuarios();
@@ -199,6 +201,7 @@ Rotas.get("/Suportes", VerificaUsuario, consultaSuportes.handle);
 Rotas.get("/Contrato/:seq", VerificaUsuario, consContrato.handle);
 Rotas.get("/Convidados", VerificaUsuario,  listaConvidados.handle);
 Rotas.get("/BancoOn/:codigo", VerificaUsuario, buscaBancoOn.handle);
+Rotas.get("/CadConvidado", VerificaConvidado, buscaConvidado.handle);
 ///////////////////////////// ROTAS QUE ALTERAM UUID //////////////////////////////////////////////
 Rotas.get("/Cliente/:codigo", VerificaUsuario, buscaCliente.handle);
 Rotas.get("/Usuarios/:codigo", VerificaUsuario, buscaUsuario.handle);
@@ -216,9 +219,9 @@ Rotas.get("/Ocorrencias", VerificaUsuario, consultaTodasOcorrencias.handle);
 Rotas.get("/Ocorrencias/:codigo", VerificaUsuario, consultaOcorrencia.handle);
 Rotas.get("/EmpNaoLinkadas/:codigo", VerificaUsuario, buscaNaoLinkadas.handle);
 Rotas.get("/EmpLinkadas/:codigo", VerificaUsuario, buscaEmpresasLinkadas.handle);
+Rotas.get("/Vinculos", VerificaConvidado, AutorizaConvidado, listaVinculos.handle);
 Rotas.get("/Convidado/:opt_seq_convidado", VerificaUsuario, buscaAdmConvidado.handle);
 Rotas.get("/ContratosCli/:opt_cod_cliente", VerificaUsuario, contratosCliente.handle);
-Rotas.get("/CadConvidado", VerificaConvidado, buscaConvidado.handle);
 Rotas.get(
     "/PedidosPendentes/:codigo",
     VerificaUsuario,
@@ -226,6 +229,7 @@ Rotas.get(
     BuscaPedidosAccon,
     consultaPedidos.handle
 );
+
 //POST
 Rotas.post("/Login", autenticaUsuario.handle);
 //

@@ -1,3 +1,4 @@
+import { ControleDeleteVinculo } from "./RemoveVinculo";
 import { ControleCriaConvidado } from "./CriaConvidado";
 import { ControleCriaVinculo } from "./ControleCriaVinculo";
 import { ControleDeleteConvidado } from "./RemoveConvidado";
@@ -13,6 +14,7 @@ import { ControleTrocaSenhaConvidadoAdm } from "./ControleTrocaSenhaConvidadoAdm
 
 export {
     ControleCriaVinculo,
+    ControleDeleteVinculo,
     ControleCriaConvidado,
     ControleListaVinculos,
     ControleBuscaConvidado,

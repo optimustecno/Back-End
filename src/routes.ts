@@ -73,6 +73,7 @@ import { ControleBuscaAcesso } from "./Controller/ControleAcessoRemoto";
 import { ControleUpdateMensagem } from "./Controller/ControleMensagens";
 import { ControleCancelaContrato } from "./Controller/ControleContrato";
 import { ControleListaVinculos } from "./Controller/ControleConvidados";
+import { ControleDeleteVinculo } from "./Controller/ControleConvidados";
 import { ControleDeleteAcesso } from "./Controller/ControleAcessoRemoto";
 import { ControleUpdateAcesso } from "./Controller/ControleAcessoRemoto";
 import { ControleAtualizaContrato } from "./Controller/ControleContrato";
@@ -161,6 +162,7 @@ const autenticaConvidado = new ControleAutenticaConvidado();
 const trocaSenhaConvidado = new ControleTrocaSenhaConvidado();
 const admSenhaConvidado = new ControleTrocaSenhaConvidadoAdm();
 //
+const removeVinculo = new ControleDeleteVinculo();
 const criaUsuSuporte = new ControleUsuarioSuporte();
 const updateMensagem = new ControleUpdateMensagem();
 const consultaSuportes = new ControleListaSuporte();
@@ -288,5 +290,6 @@ Rotas.delete("/Contato/:seq", VerificaUsuario, deleteContao.handle);
 Rotas.delete("/App/:seq", VerificaUsuario, Autoriza, deleteApp.handle);
 Rotas.delete("/Suporte/:seq", VerificaUsuario, Autoriza, deleteSuporte.handle);
 Rotas.delete("/Convidado/:opt_seq_convidado", VerificaUsuario, Autoriza, deleteConvidado.handle);
+Rotas.delete("/venculo/:opt_cod_cliente", VerificaConvidado, AutorizaConvidado, removeVinculo.handle);
 //
 export { Rotas };

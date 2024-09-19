@@ -290,6 +290,6 @@ Rotas.delete("/Contato/:seq", VerificaUsuario, deleteContao.handle);
 Rotas.delete("/App/:seq", VerificaUsuario, Autoriza, deleteApp.handle);
 Rotas.delete("/Suporte/:seq", VerificaUsuario, Autoriza, deleteSuporte.handle);
 Rotas.delete("/Convidado/:opt_seq_convidado", VerificaUsuario, Autoriza, deleteConvidado.handle);
-Rotas.delete("/venculo/:opt_cod_cliente", VerificaConvidado, AutorizaConvidado, removeVinculo.handle);
+Rotas.delete("/Vinculo/:opt_cod_cliente", VerificaConvidado, AutorizaConvidado, removeVinculo.handle);
 //
 export { Rotas };

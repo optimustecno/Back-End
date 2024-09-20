@@ -3,6 +3,7 @@ import { ControleCriaConvidado } from "./CriaConvidado";
 import { ControleCriaVinculo } from "./ControleCriaVinculo";
 import { ControleDeleteConvidado } from "./RemoveConvidado";
 import { ControleListaVinculos } from "./ControleListaVinculos";
+import { ControleAprovaVinculo } from "./ControleAutorizaVinculo";
 import { ControleBuscaConvidado } from "./ControleBuscaConvidado";
 import { ControleBuscaConvidados } from "./ControleBuscaConvidados";
 import { ControleUpdateConvidado } from "./ControleUpdateConvidado";
@@ -17,6 +18,7 @@ export {
     ControleDeleteVinculo,
     ControleCriaConvidado,
     ControleListaVinculos,
+    ControleAprovaVinculo,
     ControleBuscaConvidado,
     ControleListaConvidados,
     ControleDeleteConvidado,

@@ -1,7 +1,7 @@
 import { getCustomRepository } from "typeorm";
 //import { Espera } from "../../utils/functions";
-import { ConvidadosClientesRep } from "../../repositories/ConvidadosCliRep";
 import { ClientesRep } from "../../repositories/ClienteRep";
+import { ConvidadosClientesRep } from "../../repositories/ConvidadosCliRep";
 
 interface iCriaVinculo {
     opt_seq_convidado: string;

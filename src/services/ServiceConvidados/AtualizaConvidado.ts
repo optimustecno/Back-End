@@ -5,7 +5,6 @@ interface iConvidado {
     opt_seq_convidado: string;
     opt_nome_convidado: string;
     opt_email_convidado: string;
-    opt_tipo_convidado: string;
     opt_fone_convidado: string;
     opt_finalidade: string;
 }
@@ -15,7 +14,6 @@ class ServiceUpdateConvidado {
         opt_seq_convidado,
         opt_nome_convidado,
         opt_email_convidado,
-        opt_tipo_convidado,
         opt_fone_convidado,
         opt_finalidade,
     }: iConvidado) {
@@ -30,7 +28,6 @@ class ServiceUpdateConvidado {
             {
                 opt_nome_convidado,
                 opt_email_convidado,
-                opt_tipo_convidado,
                 opt_fone_convidado,
                 opt_finalidade,
             }
@@ -40,7 +37,6 @@ class ServiceUpdateConvidado {
             opt_seq_convidado,
             opt_nome_convidado,
             opt_email_convidado,
-            opt_tipo_convidado,
             opt_fone_convidado,
             opt_finalidade,
         };

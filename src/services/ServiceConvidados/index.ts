@@ -3,10 +3,12 @@ import { ServiceDeleteVinculo } from "./DeleteVinculo";
 import { ServiceCriaConvidado } from "./CriaConvidados";
 import { ServiceConsConvidado } from "./BuscaConvidado";
 import { ServiceListaVinculos } from "./RetornaVinculos";
+import { ServiceAprovaVinculo } from "./AutorizaVinculo";
 import { ServiceListaConvidados } from "./ListaConvidados";
 import { ServiceLiberaConvidado } from "./LiberaConvidado";
 import { ServiceDeleteConvidado } from "./DeleteConvidado";
 import { ServiceContaConvidados } from "./CountConvidados";
+import { ServiceAdmListaVinculos } from "./ListaVinculos";
 import { ServiceUpdateConvidado } from "./AtualizaConvidado";
 import { AutorizaConvidado } from "./ServiceAutorizaConvidado";
 import { ServiceAdmSenhaConvidado } from "./AdmSenhaConvidado";
@@ -19,11 +21,13 @@ export {
     ServiceCriaConvidado,
     ServiceConsConvidado,
     ServiceListaVinculos,
+    ServiceAprovaVinculo,
     ServiceListaConvidados,
     ServiceUpdateConvidado,
     ServiceLiberaConvidado,
     ServiceDeleteConvidado,
     ServiceContaConvidados,
+    ServiceAdmListaVinculos,
     ServiceAdmSenhaConvidado,
     ServiceTrocaSenhaConvidado,
 };

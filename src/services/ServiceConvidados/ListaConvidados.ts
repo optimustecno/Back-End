@@ -31,10 +31,6 @@ class ServiceListaConvidados {
             take: take,
         });
 
-        if (!Guests) {
-            throw new Error("Nenhum registro a ser exibido!");
-        }
-
         return Guests;
     }
 }

@@ -1,5 +1,5 @@
 import { getCustomRepository, Like } from "typeorm";
-import { ConvidadosRep } from "../../repositories/ConvidadosRep";
+import { ViewVinculosRep } from "../../repositories/ViewVinculosRep";
 
 interface iFiltro {
     opt_aprovado: any;
@@ -8,7 +8,7 @@ interface iFiltro {
 
 class ServiceContaVinculos {
     async execute({ opt_aprovado, opt_nome_convidado }: iFiltro) {
-        const guestRep = getCustomRepository(ConvidadosRep);
+        const guestRep = getCustomRepository(ViewVinculosRep);
         var Guests;
 
         if (!opt_aprovado) {
@@ -20,7 +20,7 @@ class ServiceContaVinculos {
 
         Guests = await guestRep.count({
             where: {
-                opt_aprovado: Like(`%${opt_aprovado}%`),
+                aprov: Like(`%${opt_aprovado}%`),
                 opt_nome_convidado: Like(`%${opt_nome_convidado}%`)
             },
         });

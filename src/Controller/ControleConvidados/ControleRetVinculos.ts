@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
-import { ServiceAdmListaVinculos } from "../../services/ServiceConvidados";
+import { ServiceAdmListaVinculos, ServiceContaVinculos } from "../../services/ServiceConvidados";
 
-class ControleListaVinculos {
+class ControleAdmListaVinculos {
     async handle(request: Request, response: Response) {
-        var { opt_aprovado, opt_tipo_convidado, offset, take } = request.query;
+        var { opt_aprovado, opt_nome_convidado, offset, take } = request.query;
         //
         if (!offset) {
             offset = "0";
@@ -16,8 +16,8 @@ class ControleListaVinculos {
         if (opt_aprovado) {
             segueURL = `&opt_aprovado=${opt_aprovado}`;
         }
-        if (opt_tipo_convidado){
-            segueURL = segueURL + `&opt_tipo_convidado=${opt_tipo_convidado}`;
+        if (opt_nome_convidado){
+            segueURL = segueURL + `&opt_nome_convidado=${opt_nome_convidado}`;
         }
         if (take){
             segueURL = segueURL + `&take=${take}`;
@@ -25,12 +25,13 @@ class ControleListaVinculos {
 
         var Skip = Number(offset);
         const limit = Number(take);
-        const Conta = new ServiceContaConvidados();
+        const Conta = new ServiceContaVinculos();
         const total = await Conta.execute({
             opt_aprovado,
+            opt_nome_convidado
         });
         //const currentURL = request.baseUrl;
-        const currentURL = "/Convidados";
+        const currentURL = "/AdmVinculos";
         //
         const next = Skip + limit;
         var nextUrl = next < total ? `${currentURL}?offset=${next}${segueURL}` : null;
@@ -38,9 +39,10 @@ class ControleListaVinculos {
         const previous = Skip - limit < 0 ? null : Skip - limit;
         var previousURL = previous != null ? `${currentURL}?offset=${previous}${segueURL}` : null;
         //
-        const consultaConvidados = new ServiceListaConvidados();
-        const convidados = await consultaConvidados.execute({
+        const consultaConvidados = new ServiceAdmListaVinculos();
+        const vinculos = await consultaConvidados.execute({
             opt_aprovado,
+            opt_nome_convidado,
             offset,
             take
         });
@@ -51,9 +53,9 @@ class ControleListaVinculos {
             offset,
             take,
             total,
-            convidados,
+            vinculos,
         });
     }
 }
 
-export { ControleListaVinculos };
+export { ControleAdmListaVinculos };

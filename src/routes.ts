@@ -59,7 +59,7 @@ import { ControleDeleteSuporte } from "./Controller/ControleSuporte";
 import { ControleUpdateCliente } from "./Controller/ControleCliente";
 import { ControleCriaProdutos } from "./Controller/ControleCardapio";
 import { ControleBuscaContato } from "./Controller/ControleContatos";
-import { ControleAprovaVinculo, ControleCriaVinculo } from "./Controller/ControleConvidados";
+import { ControleAdmListaVinculos, ControleAprovaVinculo, ControleCriaVinculo } from "./Controller/ControleConvidados";
 import { ControleCriaMensagem } from "./Controller/ControleMensagens";
 import { ControleDeleteContato } from "./Controller/ControleContatos";
 import { ControleUpdateContato } from "./Controller/ControleContatos";
@@ -177,6 +177,7 @@ const contratosCliente = new ControleConsContratosCli();
 const atualizaContrato = new ControleAtualizaContrato();
 const consultaOcorrencia = new ControleConsOcorrencia();
 const pedidoUaiRangoManual = new ControleInsertManual();
+const listaAdmVinculos = new ControleAdmListaVinculos();
 const criaAlteraProduto = new ControleCriaAlteraProduto();
 const consultaProximoStatus = new ControleMudancaStatus();
 const criaPerfilCardapio = new ControleCriaPerfilCardapio();
@@ -220,9 +221,11 @@ Rotas.get("/BuscaLogJson/:opt_payload", VerificaUsuario, BuscaJson.handle);
 Rotas.get("/CredenciaisWabiz/:codigo", VerificaUsuario, buscaWabiz.handle);
 Rotas.get("/Ocorrencias", VerificaUsuario, consultaTodasOcorrencias.handle);
 Rotas.get("/Ocorrencias/:codigo", VerificaUsuario, consultaOcorrencia.handle);
+Rotas.get("/AdmVinculos", VerificaUsuario, Autoriza, listaAdmVinculos.handle);
 Rotas.get("/EmpNaoLinkadas/:codigo", VerificaUsuario, buscaNaoLinkadas.handle);
 Rotas.get("/EmpLinkadas/:codigo", VerificaUsuario, buscaEmpresasLinkadas.handle);
 Rotas.get("/Vinculos", VerificaConvidado, AutorizaConvidado, listaVinculos.handle);
+// AdmVinculos
 Rotas.get("/Convidado/:opt_seq_convidado", VerificaUsuario, buscaAdmConvidado.handle);
 Rotas.get("/ContratosCli/:opt_cod_cliente", VerificaUsuario, contratosCliente.handle);
 Rotas.get(

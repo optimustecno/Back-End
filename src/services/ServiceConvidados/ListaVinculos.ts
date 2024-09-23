@@ -23,7 +23,7 @@ class ServiceAdmListaVinculos {
 
         Vinculos = await vinculosRep.find({
             where: {
-                opt_aprovado: Like(`%${opt_aprovado}%`),
+                aprov: Like(`%${opt_aprovado}%`),
                 opt_nome_convidado: Like(`%${opt_nome_convidado}%`),
             },
             order: { opt_nome_convidado: "ASC", data_insercao: "ASC" },

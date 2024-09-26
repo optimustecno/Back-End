@@ -5,6 +5,7 @@ import { VerificaSite } from "./middlewares/VerificaSite";
 import { AutUaiRango } from "./middlewares/AutorizaUaiRango";
 import { AutToLevando } from "./middlewares/AutorizaToLevando";
 import { VerificaUsuario } from "./middlewares/VerificaUsuario";
+import { VerificaVinculo } from "./middlewares/VerificaVinculo";
 import { AutorizaConvidado } from "./middlewares/AutorizaConvidado";
 import { BuscaPedidosAccon } from "./middlewares/BuscaPedidosAccon";
 import { VerificaConvidado } from "./middlewares/VerificaConvidado";
@@ -59,7 +60,11 @@ import { ControleDeleteSuporte } from "./Controller/ControleSuporte";
 import { ControleUpdateCliente } from "./Controller/ControleCliente";
 import { ControleCriaProdutos } from "./Controller/ControleCardapio";
 import { ControleBuscaContato } from "./Controller/ControleContatos";
-import { ControleAdmListaVinculos, ControleAprovaVinculo, ControleCriaVinculo } from "./Controller/ControleConvidados";
+import {
+    ControleAdmListaVinculos,
+    ControleAprovaVinculo,
+    ControleCriaVinculo,
+} from "./Controller/ControleConvidados";
 import { ControleCriaMensagem } from "./Controller/ControleMensagens";
 import { ControleDeleteContato } from "./Controller/ControleContatos";
 import { ControleUpdateContato } from "./Controller/ControleContatos";
@@ -87,10 +92,23 @@ import { ControleBuscaPerfilCardapio } from "./Controller/ControleCardapio";
 import { ControleBuscaGruposProdutos } from "./Controller/ControleCardapio";
 import { ControleUpdateClienteViaFood } from "./Controller/ControleCliente";
 import { ControleBuscaEmpresasLinkadas } from "./Controller/ControleCliente";
-import { ControleTrocaSenhaConvidado, ControleTrocaSenhaConvidadoAdm } from "./Controller/ControleConvidados";
+import {
+    ControleTrocaSenhaConvidado,
+    ControleTrocaSenhaConvidadoAdm,
+} from "./Controller/ControleConvidados";
 import { ControleTodasConsOcorrencias } from "./Controller/ControleOcorrencia";
 import { ControleBuscaEmpresasNaoLinkadas } from "./Controller/ControleCliente";
-import { ControleAutenticaConvidado, ControleBuscaConvidado, ControleBuscaConvidados, ControleCriaConvidado, ControleDeleteConvidado, ControleLiberaConvidado, ControleListaConvidados, ControleUpdateConvidado } from "./Controller/ControleConvidados";
+import {
+    ControleAutenticaConvidado,
+    ControleBuscaConvidado,
+    ControleBuscaConvidados,
+    ControleCriaConvidado,
+    ControleDeleteConvidado,
+    ControleLiberaConvidado,
+    ControleListaConvidados,
+    ControleUpdateConvidado,
+} from "./Controller/ControleConvidados";
+import { ControleBuscaGruposProdutosDev, ControleBuscaPersonalizacoesDev, ControleBuscaProdutosDev, ControleCriaGrupo, ControleGrupoPersonalizacaoDev } from "./Controller/ControleCardapioDev";
 
 const Rotas = Router();
 
@@ -149,6 +167,7 @@ const insereUsuario = new ControleInsertUsuario();
 const updateSuporte = new ControleUpdateSuporte();
 const autenticaUsuario = new ControleAutenticao();
 const updateContato = new ControleUpdateContato();
+const produtosDev = new ControleBuscaProdutosDev();
 const buscaSuporte = new ControleConsultaSuporte();
 //
 const insereConvidado = new ControleCriaConvidado();
@@ -162,6 +181,7 @@ const autenticaConvidado = new ControleAutenticaConvidado();
 const trocaSenhaConvidado = new ControleTrocaSenhaConvidado();
 const admSenhaConvidado = new ControleTrocaSenhaConvidadoAdm();
 //
+const gravaGrupos = new ControleCriaGrupo();
 const removeVinculo = new ControleDeleteVinculo();
 const aprovaVinculo = new ControleAprovaVinculo();
 const criaUsuSuporte = new ControleUsuarioSuporte();
@@ -180,30 +200,33 @@ const pedidoUaiRangoManual = new ControleInsertManual();
 const listaAdmVinculos = new ControleAdmListaVinculos();
 const criaAlteraProduto = new ControleCriaAlteraProduto();
 const consultaProximoStatus = new ControleMudancaStatus();
+const grupoProdDev = new ControleBuscaGruposProdutosDev();
 const criaPerfilCardapio = new ControleCriaPerfilCardapio();
+const grupoPersonaDev = new ControleGrupoPersonalizacaoDev();
 const buscaPerfilCardapio = new ControleBuscaPerfilCardapio();
 const buscaNaoLinkadas = new ControleBuscaEmpresasNaoLinkadas();
 const atualizaDadosViaFood = new ControleUpdateClienteViaFood();
+const personalizacoesDev = new ControleBuscaPersonalizacoesDev();
 const buscaEmpresasLinkadas = new ControleBuscaEmpresasLinkadas();
 const consultaTodasOcorrencias = new ControleTodasConsOcorrencias();
 
 //GET
 Rotas.get("/Teste", controleTeste.handle);
 Rotas.get("/GruposProd/:codigo", buscaGrupos.handle);
-Rotas.get("/Produtos/:codigo", buscaProdutos.handle);
 Rotas.get("/Apps", VerificaUsuario, listaApps.handle);
 Rotas.get("/App/:seq", VerificaUsuario, buscaApp.handle);
 Rotas.get("/Cargos", VerificaUsuario, buscaCargos.handle);
 Rotas.get("/ConsApp", VerificaUsuario, consultaApps.handle);
 Rotas.get("/Setores", VerificaUsuario, buscaSetores.handle);
 Rotas.get("/Acessos", VerificaUsuario, listaAcessos.handle);
+Rotas.get("/ProdutosCardapio/:codigo", buscaProdutos.handle);
 Rotas.get("/Usuarios", VerificaUsuario, buscaUsuarios.handle);
 Rotas.get("/Contatos", VerificaUsuario, listaContatos.handle);
 Rotas.get("/PerfilCardapio/:codigo", buscaPerfilCardapio.handle);
 Rotas.get("/Sistemas", VerificaUsuario, consultaSistemas.handle);
 Rotas.get("/Suportes", VerificaUsuario, consultaSuportes.handle);
 Rotas.get("/Contrato/:seq", VerificaUsuario, consContrato.handle);
-Rotas.get("/Convidados", VerificaUsuario,  listaConvidados.handle);
+Rotas.get("/Convidados", VerificaUsuario, listaConvidados.handle);
 Rotas.get("/BancoOn/:codigo", VerificaUsuario, buscaBancoOn.handle);
 Rotas.get("/CadConvidado", VerificaConvidado, buscaConvidado.handle);
 ///////////////////////////// ROTAS QUE ALTERAM UUID //////////////////////////////////////////////
@@ -228,6 +251,36 @@ Rotas.get("/Vinculos", VerificaConvidado, AutorizaConvidado, listaVinculos.handl
 // AdmVinculos
 Rotas.get("/Convidado/:opt_seq_convidado", VerificaUsuario, buscaAdmConvidado.handle);
 Rotas.get("/ContratosCli/:opt_cod_cliente", VerificaUsuario, contratosCliente.handle);
+// Rotas para integração com convidados
+Rotas.get(
+    "/Grupos/:uid_cli",
+    VerificaConvidado,
+    AutorizaConvidado,
+    VerificaVinculo,
+    grupoProdDev.handle
+);
+Rotas.get(
+    "/Produtos/:uid_cli/:cod_grupo",
+    VerificaConvidado,
+    AutorizaConvidado,
+    VerificaVinculo,
+    produtosDev.handle
+);
+Rotas.get(
+    "/GrupoPersonaliza/:uid_cli/:cod_grupo",
+    VerificaConvidado,
+    AutorizaConvidado,
+    VerificaVinculo,
+    grupoPersonaDev.handle
+);
+Rotas.get(
+    "/Personalizacoes/:uid_cli/:cod_grupo",
+    VerificaConvidado,
+    AutorizaConvidado,
+    VerificaVinculo,
+    personalizacoesDev.handle
+);
+// 
 Rotas.get(
     "/PedidosPendentes/:codigo",
     VerificaUsuario,
@@ -265,6 +318,8 @@ Rotas.post("/Vinculo", VerificaConvidado, AutorizaConvidado, criaVinculo.handle)
 Rotas.post("/PerfilCadapio", VerificaUsuario, Autoriza, criaPerfilCardapio.handle);
 Rotas.post("/ProxStatus", VerificaUsuario, Autoriza, consultaProximoStatus.handle);
 Rotas.post("/InsPedidoOptimus", VerificaUsuario, Autoriza, pedidoUaiRangoManual.handle);
+// ROTAS PARA INTEGRAÇÃO COM CONVIDADOS
+Rotas.post("/Grupos", VerificaUsuario, Autoriza, gravaGrupos.handle);
 //PUT
 Rotas.put("/App", VerificaUsuario, atualizaApp.handle);
 Rotas.put("/Setor", VerificaUsuario, updateSetor.handle);

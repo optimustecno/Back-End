@@ -1,4 +1,5 @@
-import { Entity, PrimaryColumn, Column } from "typeorm";
+import { Entity, PrimaryColumn, Column, JoinColumn, OneToMany } from "typeorm";
+import { ProdutosCardapio } from "./ProdutosCardapio";
 
 @Entity("opt_grupos_cardapio")
 class GrupoProdutos {
@@ -16,6 +17,9 @@ class GrupoProdutos {
     preco: Number;
     @Column()
     ordem: string;
+    @JoinColumn({name: 'cod_grupo'})
+    @OneToMany(() => ProdutosCardapio, (produtos) => produtos.grupoproduto)
+    produtos: ProdutosCardapio[];
 }
 
 export { GrupoProdutos };

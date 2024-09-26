@@ -1,6 +1,7 @@
 import { Router } from "express";
 // MIDDLEWARES
 import { Autoriza } from "./middlewares/AutorizaPost";
+import { VerificaDev } from "./middlewares/VerificaDev";
 import { VerificaSite } from "./middlewares/VerificaSite";
 import { AutUaiRango } from "./middlewares/AutorizaUaiRango";
 import { AutToLevando } from "./middlewares/AutorizaToLevando";
@@ -64,6 +65,7 @@ import {
     ControleAdmListaVinculos,
     ControleAprovaVinculo,
     ControleCriaVinculo,
+    ControleUpdateApiKey,
 } from "./Controller/ControleConvidados";
 import { ControleCriaMensagem } from "./Controller/ControleMensagens";
 import { ControleDeleteContato } from "./Controller/ControleContatos";
@@ -129,6 +131,7 @@ const cancelaCli = new ControleCancelaCli();
 const trocaSenha = new ControleTrocaSenha();
 const criaAcesso = new ControleCriaAcesso();
 const atualizaApp = new ControleUpdateApp();
+const novaApiKey = new ControleUpdateApiKey();
 const criaVinculo = new ControleCriaVinculo();
 const criaSuporte = new ControleCriaSuporte();
 const criaCliente = new ControleCriaCliente();
@@ -254,28 +257,28 @@ Rotas.get("/ContratosCli/:opt_cod_cliente", VerificaUsuario, contratosCliente.ha
 // Rotas para integração com convidados
 Rotas.get(
     "/Grupos/:uid_cli",
-    VerificaConvidado,
+    VerificaDev,
     AutorizaConvidado,
     VerificaVinculo,
     grupoProdDev.handle
 );
 Rotas.get(
     "/Produtos/:uid_cli/:cod_grupo",
-    VerificaConvidado,
+    VerificaDev,
     AutorizaConvidado,
     VerificaVinculo,
     produtosDev.handle
 );
 Rotas.get(
     "/GrupoPersonaliza/:uid_cli/:cod_grupo",
-    VerificaConvidado,
+    VerificaDev,
     AutorizaConvidado,
     VerificaVinculo,
     grupoPersonaDev.handle
 );
 Rotas.get(
     "/Personalizacoes/:uid_cli/:cod_grupo",
-    VerificaConvidado,
+    VerificaDev,
     AutorizaConvidado,
     VerificaVinculo,
     personalizacoesDev.handle
@@ -339,6 +342,7 @@ Rotas.put("/ClienteFood", VerificaUsuario, atualizaDadosViaFood.handle);
 Rotas.put("/CancelaCliente", VerificaUsuario, Autoriza, cancelaCli.handle);
 Rotas.put("/Contrato", VerificaUsuario, Autoriza, atualizaContrato.handle);
 Rotas.put("/AprovaVinculo", VerificaUsuario, Autoriza, aprovaVinculo.handle);
+Rotas.put("/ApiKey", VerificaConvidado, AutorizaConvidado, novaApiKey.handle);
 Rotas.put("/CancelaContrato", VerificaUsuario, Autoriza, cancelaContrato.handle);
 Rotas.put("/AtualizaCli", VerificaUsuario, Autoriza, atualizaDadosViaFood.handle);
 Rotas.put("/AdmSenhaConvidado", VerificaUsuario, Autoriza, admSenhaConvidado.handle);

@@ -1,5 +1,6 @@
 import { getCustomRepository } from "typeorm";
 import { ConvidadosRep } from "../../repositories/ConvidadosRep";
+import { ServiceApiKey } from "./ServiceApiKey";
 
 interface iConvidado {
     opt_seq_convidado: string;
@@ -23,6 +24,12 @@ class ServiceLiberaConvidado {
                 opt_aprovado,
             }
         );
+
+        const geraApiKey = new ServiceApiKey();
+
+        const apiKey = await geraApiKey.execute({
+            opt_seq_convidado
+        });
 
         return {
             opt_seq_convidado,

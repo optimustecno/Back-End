@@ -1,3 +1,4 @@
+import { ServiceApiKey } from "./ServiceApiKey";
 import { ServiceCriaVinculo } from "./AdicionaCliDev";
 import { ServiceDeleteVinculo } from "./DeleteVinculo";
 import { ServiceContaVinculos } from "./CountVinculos";
@@ -16,6 +17,7 @@ import { ServiceAdmSenhaConvidado } from "./AdmSenhaConvidado";
 import { ServiceTrocaSenhaConvidado } from "./TrocaSenhaConvidado";
 
 export {
+    ServiceApiKey,
     AutorizaConvidado,
     ServiceCriaVinculo,
     ServiceContaVinculos,

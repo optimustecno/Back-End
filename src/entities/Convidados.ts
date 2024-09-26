@@ -20,6 +20,8 @@ class Convidados {
     opt_aprovado: string;
     @Column()
     opt_data_cad: string;
+    @Column()
+    opt_token: string;
 }
 
 export { Convidados };

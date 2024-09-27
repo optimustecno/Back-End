@@ -17,6 +17,7 @@ class ServiceApiKey {
             throw new Error("Convidado Não Encontrado");
         }
         //Gera Token
+        const cCodigo = opt_seq_convidado.toString();
         const token = sign(
             {
                 codigo: user.opt_seq_convidado,
@@ -24,7 +25,7 @@ class ServiceApiKey {
             },
             process.env.SECRETGUEST,
             {
-                subject: opt_seq_convidado,
+                subject: cCodigo,
             }
         );
 

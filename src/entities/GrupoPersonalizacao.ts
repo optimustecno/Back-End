@@ -1,4 +1,4 @@
-import { Entity, PrimaryColumn, Column, JoinColumn, OneToMany, ManyToMany, JoinTable, ManyToOne, OneToOne } from "typeorm";
+import { Entity, PrimaryColumn, Column, JoinColumn, OneToMany } from "typeorm";
 import { AdicionaisCardapio } from "./AdicionaisCardapio";
 
 @Entity("opt_grupo_personalizacao")
@@ -9,7 +9,7 @@ class GrupoPersonalizacao {
     opt_cod_cliente: string;
     @Column()
     cod_grupo_adicional: string;
-    @JoinColumn({name: 'cod_grupo_adicional'})
+    @JoinColumn({name: 'cod_grupo_adicional' })
     @OneToMany(() => AdicionaisCardapio, (adicionais) => adicionais.grupo)
     adicionais: AdicionaisCardapio[];
     @Column()

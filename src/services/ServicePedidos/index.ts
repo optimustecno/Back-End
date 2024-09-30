@@ -4,6 +4,7 @@ import { ServiceInserePedido } from "./ServiceInserePedio";
 import { ServiceAtualizaStatus } from "./ServiceMudaStatus";
 import { ServiceConsultaProxStatus } from "./ServiceProxStatus";
 import { ServiceInserePedidoManual } from "./ServiceInserePedidoManual";
+import { ServiceFinalizaPedidos } from "./ServiceFinalizaPedidosAntigos";
 import { ServiceAtualizaStatusPorChave } from "./ServiceMudaStatusPorChave";
 
 export {
@@ -11,6 +12,7 @@ export {
     ServiceUpdateToken,
     ServiceInserePedido,
     ServiceAtualizaStatus,
+    ServiceFinalizaPedidos,
     ServiceInserePedidoManual,
     ServiceConsultaProxStatus,
     ServiceAtualizaStatusPorChave,

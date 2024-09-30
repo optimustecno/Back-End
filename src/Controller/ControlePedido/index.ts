@@ -1,4 +1,5 @@
 import { ControleConsPedido } from "./ControleConsPedido";
+import { ControleFinalizaPedidos } from "./FinalizaPedidos";
 import { ControleMudancaStatus } from "./ControleMudaStatus";
 import { ControleUpdateStatus } from "./ControleUpdateStatus";
 import { ControleInsertPedido } from "./ControleInsertPedido";
@@ -10,4 +11,5 @@ export {
     ControleInsertManual,
     ControleUpdateStatus,
     ControleMudancaStatus,
+    ControleFinalizaPedidos,
 };

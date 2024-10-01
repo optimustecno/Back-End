@@ -25,6 +25,7 @@ export async function AutorizaConvidado(
 
     // var tempo = new Date()
     // console.log(`Fim Autoriza Usuario naut ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)
+    console.log(`Não Aprovado`)
     return response.status(403).json({
         error: "Não Autorizado",
     });

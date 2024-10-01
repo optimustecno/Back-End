@@ -17,6 +17,7 @@ export async function VerificaDev(request: Request, response: Response, next: Ne
     if (!token) {
         // var tempo = new Date()
         // console.log(`FIM Verifica Usuario naut ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)
+        console.log(`Token Não Informado`)
         return response.status(401).json({
             error: "Não Autorizado"
         });
@@ -33,8 +34,9 @@ export async function VerificaDev(request: Request, response: Response, next: Ne
         })
 
         if (!_guest){
+            console.log(`Token Ivalido para o Usuario`)
             return response.status(401).json({
-                error: "Não Autorizado"
+                error: "Não Autorizado token inválido"
             });
         }
         
@@ -45,6 +47,7 @@ export async function VerificaDev(request: Request, response: Response, next: Ne
     } catch (error) {
         // var tempo = new Date()
         // console.log(`FIM Verifica Usuario ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)
+        console.log(`erro inesperado`)
         return response.status(401).json({
             error: "Não Autorizado"
         });

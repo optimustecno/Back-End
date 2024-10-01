@@ -11,6 +11,7 @@ export async function VerificaVinculo(request: Request, response: Response, next
     const ClienteRep = getCustomRepository(ClientesRep);
 
     if (!uid_cli) {
+        console.log(`UID Não Informado`)
         return response.status(401).json({
             error: "Cliente Não Informado",
         });
@@ -37,6 +38,7 @@ export async function VerificaVinculo(request: Request, response: Response, next
             throw new Error("Cliente Não Vinculado!");
         }
     } catch (error) {
+        console.log(`Erro Inesperado Vinculo`)
         return response.status(401).json({
             error: "Não Autorizado",
         });

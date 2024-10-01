@@ -14,9 +14,11 @@ class GrupoProdutos {
     @Column()
     aceita_meio_a_meio: string;
     @Column()
-    preco: Number;
+    preco: string;
     @Column()
     ordem: string;
+    @Column()
+    exibir: boolean;
     @JoinColumn({name: 'cod_grupo'})
     @OneToMany(() => ProdutosCardapio, (produtos) => produtos.grupoproduto)
     produtos: ProdutosCardapio[];

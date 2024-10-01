@@ -1,7 +1,7 @@
+import { hash } from "bcryptjs";
 import { getCustomRepository } from "typeorm";
 import { Espera } from "../../utils/functions";
 import { ConvidadosRep } from "../../repositories/ConvidadosRep";
-import { hash } from "bcryptjs";
 
 interface iCriaConvidado {
     opt_nome_convidado: string;

@@ -1,13 +1,15 @@
 import { getCustomRepository } from "typeorm";
 import { GrupoProdRep } from "../../repositories/GrupoProdRep";
+import { Espera } from "../../utils/functions";
 
 interface iCliProds {
     opt_cod_cliente: string;
     cod_grupo: string;
     nome_grupo: string;
     aceita_meio_a_meio: string;
-    preco: Number;
+    preco: string;
     ordem: string;
+    exibir: boolean;
 }
 
 class GravaGruposDev {
@@ -18,6 +20,7 @@ class GravaGruposDev {
         aceita_meio_a_meio,
         preco,
         ordem,
+        exibir,
     }: iCliProds) {
         const gruposRep = getCustomRepository(GrupoProdRep);
 
@@ -47,16 +50,19 @@ class GravaGruposDev {
             aceita_meio_a_meio,
             preco,
             ordem,
+            exibir,
         });
 
         await gruposRep.save(_grupo);
+
+        Espera(150);
 
         const grupoCad = await gruposRep.findOne({
             opt_cod_cliente,
             cod_grupo
         });
 
-        return grupoCad;
+        return grupoCad.seq;
     }
 }
 

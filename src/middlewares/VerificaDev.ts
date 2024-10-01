@@ -47,7 +47,7 @@ export async function VerificaDev(request: Request, response: Response, next: Ne
     } catch (error) {
         // var tempo = new Date()
         // console.log(`FIM Verifica Usuario ${tempo.getHours()}:${tempo.getMinutes()}:${tempo.getSeconds()}:${tempo.getMilliseconds()}`)
-        console.log(`erro inesperado`)
+        console.log(`erro inesperado ${error}`)
         return response.status(401).json({
             error: "Não Autorizado"
         });

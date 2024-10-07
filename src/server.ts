@@ -8,7 +8,7 @@ import express, { NextFunction, Request, Response } from "express";
 const Api = express();
 Api.use(cors());
 
-Api.use(express.json())
+Api.use(express.json( { limit: "50mb" } ))
 
 Api.use(Rotas)
 

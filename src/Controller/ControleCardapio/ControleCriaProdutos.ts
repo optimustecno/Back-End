@@ -13,6 +13,8 @@ class ControleCriaProdutos {
                 item.destaque,
                 item.valor,
                 item.cod_grupo,
+                item.ordem,
+                item.exibir,
             ]);
 
             const criaProd = new ServiceInsereAlteraProduto();
@@ -27,6 +29,8 @@ class ControleCriaProdutos {
                     destaque: _item[5],
                     valor: _item[6],
                     cod_grupo: _item[7],
+                    ordem: _item[8],
+                    exibir: _item[9]
                 });
             });
 

@@ -110,7 +110,7 @@ import {
     ControleListaConvidados,
     ControleUpdateConvidado,
 } from "./Controller/ControleConvidados";
-import { ControleBuscaGruposProdutosDev, ControleBuscaPersonalizacoesDev, ControleBuscaProdutosDev, ControleCriaGrupo, ControleGrupoPersonalizacaoDev } from "./Controller/ControleCardapioDev";
+import { ControleBuscaGruposProdutosDev, ControleBuscaPersonalizacoesDev, ControleBuscaProdutosDev, ControleCriaGrupo, ControleGrupoPersonalizacaoDev, ControleUpdateGrupo } from "./Controller/ControleCardapioDev";
 
 const Rotas = Router();
 
@@ -138,6 +138,7 @@ const criaSuporte = new ControleCriaSuporte();
 const criaCliente = new ControleCriaCliente();
 const updateSetor = new ControleUpdateSetor();
 const updateCargo = new ControleUpdateCargo();
+const updateGrupo = new ControleUpdateGrupo();
 const buscaCliente = new ControleConsCliente();
 const updateWabiz = new ControleInformaWabiz();
 const consultaSistemas = new ControleListaSis();
@@ -279,7 +280,7 @@ Rotas.get(
     grupoPersonaDev.handle
 );
 Rotas.get(
-    "/Personalizacoes/:uid_cli/:cod_grupo",
+    "/Personalizacoes/:uid_cli",
     VerificaDev,
     AutorizaConvidado,
     VerificaVinculo,
@@ -338,6 +339,7 @@ Rotas.put("/Mensagem", VerificaUsuario, updateMensagem.handle);
 Rotas.put("/AtualizaWabiz", VerificaUsuario, updateWabiz.handle);
 Rotas.put("/AtualizaUsuario", VerificaUsuario, updateUsu.handle);
 Rotas.put("/DadosBancoOn", VerificaUsuario, updateBancoOn.handle);
+Rotas.put("/Grupos", VerificaUsuario, Autoriza, updateGrupo.handle);
 Rotas.put("/UpdateLicenca", VerificaUsuario, atualizaLicenca.handle);
 Rotas.put("/StatusConvidado", VerificaUsuario, liberaConvidado.handle);
 Rotas.put("/ClienteFood", VerificaUsuario, atualizaDadosViaFood.handle);

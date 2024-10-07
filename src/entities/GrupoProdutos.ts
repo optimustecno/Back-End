@@ -1,5 +1,6 @@
 import { Entity, PrimaryColumn, Column, JoinColumn, OneToMany } from "typeorm";
 import { ProdutosCardapio } from "./ProdutosCardapio";
+import { GrupoPersonalizacao } from "./GrupoPersonalizacao";
 
 @Entity("opt_grupos_cardapio")
 class GrupoProdutos {
@@ -18,10 +19,13 @@ class GrupoProdutos {
     @Column()
     ordem: string;
     @Column()
-    exibir: boolean;
+    exibir: string;
     @JoinColumn({name: 'cod_grupo'})
     @OneToMany(() => ProdutosCardapio, (produtos) => produtos.grupoproduto)
     produtos: ProdutosCardapio[];
+    @JoinColumn({name: 'cod_grupo'})
+    @OneToMany(() => GrupoPersonalizacao, (grupoPersonaliza) => grupoPersonaliza.grupoProdutos)
+    Personalizacoes: GrupoPersonalizacao[];
 }
 
 export { GrupoProdutos };

@@ -7,14 +7,25 @@ interface iCardapio {
     grupo: string;
     produto: string;
     descricao?: string | null;
-    destaque?: string | '0';
+    destaque?: string | "0";
     valor: Number;
     cod_grupo: string;
+    ordem: string;
+    exibir: string;
 }
 
 class ServiceInsereAlteraProduto {
     async execute({
-        opt_cod_cliente, cod_produto, grupo, produto, descricao, destaque, valor, cod_grupo
+        opt_cod_cliente,
+        cod_produto,
+        grupo,
+        produto,
+        descricao,
+        destaque,
+        valor,
+        cod_grupo,
+        ordem,
+        exibir,
     }: iCardapio) {
         const ProdutosRep = getCustomRepository(ProdCardapioRep);
 
@@ -33,43 +44,47 @@ class ServiceInsereAlteraProduto {
 
         const TestaCad = await ProdutosRep.findOne({
             opt_cod_cliente,
-            cod_produto
+            cod_produto,
         });
 
         var _prod;
+        var venda = + valor / 100;
+
+        // console.log(`${cod_produto} ${valor} ${venda}`)
 
         if (TestaCad) {
             _prod = await ProdutosRep.update(
                 { opt_cod_cliente: opt_cod_cliente, cod_produto: cod_produto },
                 {
-                    grupo, 
-                    produto, 
-                    descricao, 
-                    destaque, 
-                    valor, 
-                    cod_grupo
+                    grupo,
+                    produto,
+                    descricao,
+                    destaque,
+                    valor: venda,
+                    cod_grupo,
+                    ordem,
+                    exibir,
                 }
             );
-        }
-        else
-        {
+        } else {
             _prod = await ProdutosRep.create({
-                opt_cod_cliente, 
-                cod_produto, 
-                grupo, 
-                produto, 
-                descricao, 
-                destaque, 
-                valor,
-                cod_grupo
+                opt_cod_cliente,
+                cod_produto,
+                grupo,
+                produto,
+                descricao,
+                destaque,
+                valor: venda,
+                cod_grupo,
+                ordem,
+                exibir,
             });
             await ProdutosRep.save(_prod);
         }
 
-
         const ProdCad = await ProdutosRep.findOne({
             opt_cod_cliente,
-            cod_produto
+            cod_produto,
         });
 
         return ProdCad;

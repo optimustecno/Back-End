@@ -1,8 +1,8 @@
 import { getCustomRepository } from "typeorm";
 import { GrupoProdRep } from "../../repositories/GrupoProdRep";
-import { Espera } from "../../utils/functions";
 
 interface iCliProds {
+    seq: string;
     opt_cod_cliente: string;
     cod_grupo: string;
     nome_grupo: string;
@@ -12,8 +12,9 @@ interface iCliProds {
     exibir: string;
 }
 
-class GravaGruposDev {
+class UpdateGrupoDev {
     async execute({
+        seq,
         opt_cod_cliente,
         cod_grupo,
         nome_grupo,
@@ -34,36 +35,21 @@ class GravaGruposDev {
             throw new Error("Não Foi Informado o Nome do Grupo!");
         }
 
-        const TestaCad = await gruposRep.findOne({
-            opt_cod_cliente,
-            cod_grupo
-        });
+        const _grupo = await gruposRep.update(
+            { seq },
+            {
+                opt_cod_cliente,
+                cod_grupo,
+                nome_grupo,
+                aceita_meio_a_meio,
+                preco,
+                ordem,
+                exibir,
+            }
+        );
 
-        if (TestaCad) {
-            throw new Error("Grupo Existente!");
-        }
-
-        const _grupo = await gruposRep.create({
-            opt_cod_cliente,
-            cod_grupo,
-            nome_grupo,
-            aceita_meio_a_meio,
-            preco,
-            ordem,
-            exibir,
-        });
-
-        await gruposRep.save(_grupo);
-
-        Espera(150);
-
-        const grupoCad = await gruposRep.findOne({
-            opt_cod_cliente,
-            cod_grupo
-        });
-
-        return grupoCad.seq;
+        return _grupo;
     }
 }
 
-export { GravaGruposDev };
+export { UpdateGrupoDev };

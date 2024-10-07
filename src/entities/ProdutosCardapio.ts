@@ -22,6 +22,8 @@ class ProdutosCardapio {
     @Column()
     ordem: string;
     @Column()
+    exibir: string;
+    @Column()
     cod_grupo: string;
     @JoinColumn({ name: "cod_grupo" })
     @ManyToOne(() => GrupoProdutos, (grupoproduto) => grupoproduto.produtos)

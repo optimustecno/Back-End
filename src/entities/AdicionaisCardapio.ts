@@ -10,7 +10,7 @@ class AdicionaisCardapio {
     @Column()
     cod_grupo_adicional: string;
     @JoinColumn({ name: 'cod_grupo_adicional' })
-    @ManyToOne(() => GrupoPersonalizacao, (grupo) => grupo.adicionais)
+    @ManyToOne(() => GrupoPersonalizacao, (grupo) => grupo.Itens)
     grupo: GrupoPersonalizacao[];
     @Column()
     cod_adicional: string;

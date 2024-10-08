@@ -64,8 +64,11 @@ import { ControleBuscaContato } from "./Controller/ControleContatos";
 import {
     ControleAdmListaVinculos,
     ControleAprovaVinculo,
+    ControleBuscaWebhook,
+    ControleCriaAlteraWebHook,
     ControleCriaVinculo,
     ControleUpdateApiKey,
+    ControleVinculoFood,
 } from "./Controller/ControleConvidados";
 import { ControleCriaMensagem } from "./Controller/ControleMensagens";
 import { ControleDeleteContato } from "./Controller/ControleContatos";
@@ -155,6 +158,7 @@ const licencaOff = new ControleLicencaOff();
 const criaContato = new ControleCriaContato();
 const buscaCargos = new ControleBuscaCargos();
 const buscaAcesso = new ControleBuscaAcesso();
+const vinculoFood = new ControleVinculoFood();
 const buscaContato = new ControleBuscaContato();
 const deleteAcesso = new ControleDeleteAcesso();
 const updateAcesso = new ControleUpdateAcesso();
@@ -187,6 +191,7 @@ const trocaSenhaConvidado = new ControleTrocaSenhaConvidado();
 const admSenhaConvidado = new ControleTrocaSenhaConvidadoAdm();
 //
 const gravaGrupos = new ControleCriaGrupo();
+const buscaWebhook = new ControleBuscaWebhook();
 const removeVinculo = new ControleDeleteVinculo();
 const aprovaVinculo = new ControleAprovaVinculo();
 const criaUsuSuporte = new ControleUsuarioSuporte();
@@ -207,6 +212,7 @@ const listaAdmVinculos = new ControleAdmListaVinculos();
 const criaAlteraProduto = new ControleCriaAlteraProduto();
 const consultaProximoStatus = new ControleMudancaStatus();
 const grupoProdDev = new ControleBuscaGruposProdutosDev();
+const criaAlteraWebhook = new ControleCriaAlteraWebHook();
 const criaPerfilCardapio = new ControleCriaPerfilCardapio();
 const grupoPersonaDev = new ControleGrupoPersonalizacaoDev();
 const buscaPerfilCardapio = new ControleBuscaPerfilCardapio();
@@ -249,10 +255,12 @@ Rotas.get("/ConsultaClientes", VerificaUsuario, consultaClientes.handle);
 Rotas.get("/BuscaLogJson/:opt_payload", VerificaUsuario, BuscaJson.handle);
 Rotas.get("/CredenciaisWabiz/:codigo", VerificaUsuario, buscaWabiz.handle);
 Rotas.get("/Ocorrencias", VerificaUsuario, consultaTodasOcorrencias.handle);
+Rotas.get("/Vinculo/:codigo", VerificaUsuario, Autoriza, vinculoFood.handle);
 Rotas.get("/Ocorrencias/:codigo", VerificaUsuario, consultaOcorrencia.handle);
 Rotas.get("/AdmVinculos", VerificaUsuario, Autoriza, listaAdmVinculos.handle);
 Rotas.get("/EmpNaoLinkadas/:codigo", VerificaUsuario, buscaNaoLinkadas.handle);
 Rotas.get("/EmpLinkadas/:codigo", VerificaUsuario, buscaEmpresasLinkadas.handle);
+Rotas.get("/Webhook", VerificaConvidado, AutorizaConvidado, buscaWebhook.handle);
 Rotas.get("/Vinculos", VerificaConvidado, AutorizaConvidado, listaVinculos.handle);
 // AdmVinculos
 Rotas.get("/Convidado/:opt_seq_convidado", VerificaUsuario, buscaAdmConvidado.handle);
@@ -313,6 +321,7 @@ Rotas.post("/LicencaOff", VerificaUsuario, licencaOff.handle);
 Rotas.post("/Convidado", VerificaSite, insereConvidado.handle);
 Rotas.post("/PedidosUaiRango", AutUaiRango, BuscaPedidosUaiRango);
 Rotas.post("/Setor", VerificaUsuario, Autoriza, criaSetor.handle);
+Rotas.post("/Grupos", VerificaUsuario, Autoriza, gravaGrupos.handle);
 Rotas.post("/Contrato", VerificaUsuario, Autoriza, criaContrato.handle);
 Rotas.post("/InsUsuario", VerificaUsuario, Autoriza, insereUsuario.handle);
 Rotas.post("/UpdateStatus", VerificaUsuario, Autoriza, updateStatus.handle);
@@ -323,9 +332,8 @@ Rotas.post("/NovaOcorrencia", VerificaUsuario, Autoriza, criaOcorrencia.handle);
 Rotas.post("/Vinculo", VerificaConvidado, AutorizaConvidado, criaVinculo.handle);
 Rotas.post("/PerfilCadapio", VerificaUsuario, Autoriza, criaPerfilCardapio.handle);
 Rotas.post("/ProxStatus", VerificaUsuario, Autoriza, consultaProximoStatus.handle);
+Rotas.post("/Webhook", VerificaConvidado,AutorizaConvidado, criaAlteraWebhook.handle);
 Rotas.post("/InsPedidoOptimus", VerificaUsuario, Autoriza, pedidoUaiRangoManual.handle);
-// ROTAS PARA INTEGRAÇÃO COM CONVIDADOS
-Rotas.post("/Grupos", VerificaUsuario, Autoriza, gravaGrupos.handle);
 //PUT
 Rotas.put("/App", VerificaUsuario, atualizaApp.handle);
 Rotas.put("/Setor", VerificaUsuario, updateSetor.handle);

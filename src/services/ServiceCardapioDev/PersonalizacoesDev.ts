@@ -9,7 +9,7 @@ interface iCliProds {
 
 class ConsultaPersonalizacoesDev {
     async execute({ opt_cod_cliente, cod_grupo }: iCliProds) {
-        const adicionaisRep = getCustomRepository(GrupoPersonalizaRep);
+        // const adicionaisRep = getCustomRepository(GrupoPersonalizaRep);
         const grupoProdRep = getCustomRepository(GrupoProdRep);
 
         if (!cod_grupo) {
@@ -20,7 +20,6 @@ class ConsultaPersonalizacoesDev {
             {
                 where: {opt_cod_cliente, cod_grupo: Like(`%${cod_grupo}%`)}, 
                 relations: ["Personalizacoes", "Personalizacoes.Itens"],
-                // relations: [{grupoPersoanlizacao: {adicionais:true}}]
             }
         )
 

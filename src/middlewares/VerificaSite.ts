@@ -8,7 +8,7 @@ interface ISite {
 export function VerificaSite(request: Request, response: Response, next: NextFunction) {
     const token = request.headers.authorization.split(" ")[1];
     
-    console.log(token)
+    // console.log(token)
     
     if (!token) {
         return response.status(401).json({

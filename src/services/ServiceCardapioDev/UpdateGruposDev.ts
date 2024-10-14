@@ -1,16 +1,7 @@
+import { iCliGrupos } from "./interfaces"
 import { getCustomRepository } from "typeorm";
 import { GrupoProdRep } from "../../repositories/GrupoProdRep";
-
-interface iCliProds {
-    seq: string;
-    opt_cod_cliente: string;
-    cod_grupo: string;
-    nome_grupo: string;
-    aceita_meio_a_meio: string;
-    preco: string;
-    ordem: string;
-    exibir: string;
-}
+import { AtivaWebhook } from "./AtivaWebhook";
 
 class UpdateGrupoDev {
     async execute({
@@ -22,7 +13,7 @@ class UpdateGrupoDev {
         preco,
         ordem,
         exibir,
-    }: iCliProds) {
+    }: iCliGrupos) {
         const gruposRep = getCustomRepository(GrupoProdRep);
 
         if (!opt_cod_cliente) {
@@ -48,7 +39,19 @@ class UpdateGrupoDev {
             }
         );
 
-        return _grupo;
+        try{
+            const atGrupo = await gruposRep.findOne({seq})
+            const disparoWebhook = new AtivaWebhook();
+            const webhook = await disparoWebhook.execute({
+                opt_cod_cliente, 
+                opt_finalidade: "1",
+                Data: JSON.parse(JSON.stringify(atGrupo))
+            })
+            return _grupo;
+        }
+        catch{
+            throw new Error("Falha no Webhook");
+        }
     }
 }
 

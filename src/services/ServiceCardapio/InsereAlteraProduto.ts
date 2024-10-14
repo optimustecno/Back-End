@@ -1,5 +1,6 @@
 import { getCustomRepository } from "typeorm";
 import { ProdCardapioRep } from "../../repositories/ProdutosCardapioRep";
+import { AtivaWebhook } from "../ServiceCardapioDev/AtivaWebhook";
 
 interface iCardapio {
     opt_cod_cliente: string;
@@ -82,10 +83,17 @@ class ServiceInsereAlteraProduto {
             await ProdutosRep.save(_prod);
         }
 
-        const ProdCad = await ProdutosRep.findOne({
+        const ProdCad = await ProdutosRep.find({
             opt_cod_cliente,
             cod_produto,
         });
+
+        // const disparoWebhook = new AtivaWebhook();
+        //     const webhook = await disparoWebhook.execute({
+        //         opt_cod_cliente, 
+        //         opt_finalidade: "2",
+        //         Data: JSON.parse(JSON.stringify(ProdCad))
+        //     })
 
         return ProdCad;
     }

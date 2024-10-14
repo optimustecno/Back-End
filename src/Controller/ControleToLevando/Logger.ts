@@ -4,7 +4,7 @@ class ControleLogger {
     async handle(request: Request, response: Response) {
         const corpoReq = request.body;
 
-        console.log(corpoReq);
+        // console.log(corpoReq);
 
         return response.json("OK");
     }

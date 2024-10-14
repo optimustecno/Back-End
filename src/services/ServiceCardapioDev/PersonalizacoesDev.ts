@@ -1,5 +1,4 @@
-import { getCustomRepository, getRepository, Like } from "typeorm";
-import { GrupoPersonalizaRep } from "../../repositories/GrupoPersonalizaRep";
+import { getCustomRepository, Like } from "typeorm";
 import { GrupoProdRep } from "../../repositories/GrupoProdRep";
 
 interface iCliProds {

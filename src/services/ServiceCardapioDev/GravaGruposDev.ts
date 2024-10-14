@@ -1,16 +1,8 @@
+import { iCliGrupos } from "./interfaces";
+import { AtivaWebhook } from "./AtivaWebhook";
 import { getCustomRepository } from "typeorm";
-import { GrupoProdRep } from "../../repositories/GrupoProdRep";
 import { Espera } from "../../utils/functions";
-
-interface iCliProds {
-    opt_cod_cliente: string;
-    cod_grupo: string;
-    nome_grupo: string;
-    aceita_meio_a_meio: string;
-    preco: string;
-    ordem: string;
-    exibir: string;
-}
+import { GrupoProdRep } from "../../repositories/GrupoProdRep";
 
 class GravaGruposDev {
     async execute({
@@ -21,7 +13,7 @@ class GravaGruposDev {
         preco,
         ordem,
         exibir,
-    }: iCliProds) {
+    }: iCliGrupos) {
         const gruposRep = getCustomRepository(GrupoProdRep);
 
         if (!opt_cod_cliente) {
@@ -61,8 +53,20 @@ class GravaGruposDev {
             opt_cod_cliente,
             cod_grupo
         });
-
-        return grupoCad.seq;
+        
+        try{
+            const disparoWebhook = new AtivaWebhook();
+            const webhook = await disparoWebhook.execute({
+                opt_cod_cliente, 
+                opt_finalidade: "1",
+                Data: JSON.parse(JSON.stringify(grupoCad))
+            })
+            
+            return grupoCad.seq;
+        }
+        catch{
+            throw new Error("Falha no Webhook");
+        }
     }
 }
 

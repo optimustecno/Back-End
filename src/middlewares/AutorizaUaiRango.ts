@@ -7,7 +7,7 @@ export async function AutUaiRango(request: Request, response: Response, next: Ne
 
     const chaveUai = request.headers["x-uairango-key"];
 
-    console.log(`x-uairango-key ${chaveUai}`)
+    // console.log(`x-uairango-key ${chaveUai}`)
 
     const CriaLog = new ServiceGravaLog();
     //
@@ -28,7 +28,7 @@ export async function AutUaiRango(request: Request, response: Response, next: Ne
     segundos = segundos.substring(iLen, iLen - 2);
     const MomentoH = `${horas}:${minutos}:${segundos}`;
     //
-    console.log(request.body)
+    // console.log(request.body)
     // 
     const _log = await CriaLog.execute({
         opt_payload: JSON.stringify(request.body),

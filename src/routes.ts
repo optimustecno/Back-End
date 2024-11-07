@@ -114,6 +114,8 @@ import {
     ControleUpdateConvidado,
 } from "./Controller/ControleConvidados";
 import { ControleBuscaGruposProdutosDev, ControleBuscaPersonalizacoesDev, ControleBuscaProdutosDev, ControleCriaGrupo, ControleGrupoPersonalizacaoDev, ControleUpdateGrupo } from "./Controller/ControleCardapioDev";
+import { ControleAtualizaFinanceiro, ControleBuscaFinanceiroContrato, ControleCriaFinanceiro, ControleEstornaPagamento, ControleInformaPagamento } from "./Controller/ControleFinanceiro";
+import { ControleBuscaParcela } from "./Controller/ControleFinanceiro/BuscaParcela";
 
 const Rotas = Router();
 
@@ -192,8 +194,10 @@ const admSenhaConvidado = new ControleTrocaSenhaConvidadoAdm();
 //
 const gravaGrupos = new ControleCriaGrupo();
 const buscaWebhook = new ControleBuscaWebhook();
+const buscaParcela = new ControleBuscaParcela();
 const removeVinculo = new ControleDeleteVinculo();
 const aprovaVinculo = new ControleAprovaVinculo();
+const criaFinanceiro = new ControleCriaFinanceiro();
 const criaUsuSuporte = new ControleUsuarioSuporte();
 const updateMensagem = new ControleUpdateMensagem();
 const consultaSuportes = new ControleListaSuporte();
@@ -209,10 +213,13 @@ const atualizaContrato = new ControleAtualizaContrato();
 const consultaOcorrencia = new ControleConsOcorrencia();
 const pedidoUaiRangoManual = new ControleInsertManual();
 const listaAdmVinculos = new ControleAdmListaVinculos();
+const informaPagamento = new ControleInformaPagamento();
+const estornaPagamento = new ControleEstornaPagamento();
 const criaAlteraProduto = new ControleCriaAlteraProduto();
 const consultaProximoStatus = new ControleMudancaStatus();
 const grupoProdDev = new ControleBuscaGruposProdutosDev();
 const criaAlteraWebhook = new ControleCriaAlteraWebHook();
+const atualizaFinanceiro = new ControleAtualizaFinanceiro();
 const criaPerfilCardapio = new ControleCriaPerfilCardapio();
 const grupoPersonaDev = new ControleGrupoPersonalizacaoDev();
 const buscaPerfilCardapio = new ControleBuscaPerfilCardapio();
@@ -221,6 +228,7 @@ const atualizaDadosViaFood = new ControleUpdateClienteViaFood();
 const personalizacoesDev = new ControleBuscaPersonalizacoesDev();
 const buscaEmpresasLinkadas = new ControleBuscaEmpresasLinkadas();
 const consultaTodasOcorrencias = new ControleTodasConsOcorrencias();
+const consultaFinanceiroContrato = new ControleBuscaFinanceiroContrato ();
 
 //GET
 Rotas.get("/Teste", controleTeste.handle);
@@ -239,6 +247,7 @@ Rotas.get("/Sistemas", VerificaUsuario, consultaSistemas.handle);
 Rotas.get("/Suportes", VerificaUsuario, consultaSuportes.handle);
 Rotas.get("/Contrato/:seq", VerificaUsuario, consContrato.handle);
 Rotas.get("/Convidados", VerificaUsuario, listaConvidados.handle);
+Rotas.get("/Parcela/:codigo", VerificaUsuario, buscaParcela.handle);
 Rotas.get("/BancoOn/:codigo", VerificaUsuario, buscaBancoOn.handle);
 Rotas.get("/CadConvidado", VerificaConvidado, buscaConvidado.handle);
 ///////////////////////////// ROTAS QUE ALTERAM UUID //////////////////////////////////////////////
@@ -262,6 +271,7 @@ Rotas.get("/EmpNaoLinkadas/:codigo", VerificaUsuario, buscaNaoLinkadas.handle);
 Rotas.get("/EmpLinkadas/:codigo", VerificaUsuario, buscaEmpresasLinkadas.handle);
 Rotas.get("/Webhook", VerificaConvidado, AutorizaConvidado, buscaWebhook.handle);
 Rotas.get("/Vinculos", VerificaConvidado, AutorizaConvidado, listaVinculos.handle);
+Rotas.get("/Financeiro/:codigo", VerificaUsuario, consultaFinanceiroContrato.handle);
 // AdmVinculos
 Rotas.get("/Convidado/:opt_seq_convidado", VerificaUsuario, buscaAdmConvidado.handle);
 Rotas.get("/ContratosCli/:opt_cod_cliente", VerificaUsuario, contratosCliente.handle);
@@ -324,6 +334,7 @@ Rotas.post("/Setor", VerificaUsuario, Autoriza, criaSetor.handle);
 Rotas.post("/Grupos", VerificaUsuario, Autoriza, gravaGrupos.handle);
 Rotas.post("/Contrato", VerificaUsuario, Autoriza, criaContrato.handle);
 Rotas.post("/InsUsuario", VerificaUsuario, Autoriza, insereUsuario.handle);
+Rotas.post("/Financeiro", VerificaUsuario, Autoriza, criaFinanceiro.handle);
 Rotas.post("/UpdateStatus", VerificaUsuario, Autoriza, updateStatus.handle);
 Rotas.post("/Produto", VerificaUsuario, Autoriza, criaAlteraProduto.handle);
 Rotas.post("/Produtos", VerificaUsuario, Autoriza, criaAlteraProdutos.handle);
@@ -355,6 +366,9 @@ Rotas.put("/CancelaCliente", VerificaUsuario, Autoriza, cancelaCli.handle);
 Rotas.put("/Contrato", VerificaUsuario, Autoriza, atualizaContrato.handle);
 Rotas.put("/AprovaVinculo", VerificaUsuario, Autoriza, aprovaVinculo.handle);
 Rotas.put("/ApiKey", VerificaConvidado, AutorizaConvidado, novaApiKey.handle);
+Rotas.put("/QuitaParcela", VerificaUsuario, Autoriza, informaPagamento.handle);
+Rotas.put("/Financeiro", VerificaUsuario, Autoriza, atualizaFinanceiro.handle);
+Rotas.put("/EstornaParcela", VerificaUsuario, Autoriza, estornaPagamento.handle);
 Rotas.put("/CancelaContrato", VerificaUsuario, Autoriza, cancelaContrato.handle);
 Rotas.put("/AtualizaCli", VerificaUsuario, Autoriza, atualizaDadosViaFood.handle);
 Rotas.put("/AdmSenhaConvidado", VerificaUsuario, Autoriza, admSenhaConvidado.handle);

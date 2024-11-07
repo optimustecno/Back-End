@@ -1,5 +1,6 @@
 import { getCustomRepository } from "typeorm";
 import { FinanceiroRep } from "../../repositories/FinanceiroRep";
+import { Espera } from "../../utils/functions";
 
 interface iFin {
     seq: string;
@@ -18,6 +19,8 @@ class ServiceQuitaFinanceiro {
                 pago: "1",
             }
         );
+
+        Espera(150);
 
         const finAtual = await finRep.findOne({
             seq,

@@ -1,35 +1,43 @@
 import { Request, Response } from "express";
-import { ServiceCriaFinanceiro } from "../../services/ServiceFinanceiro";
+import { ServiceAtualizaFinanceiro } from "../../services/ServiceFinanceiro";
 
 class ControleAtualizaFinanceiro {
     async handle(request: Request, response: Response) {
         const {
+            seq,
             opt_seq_contrato,
             opt_cod_cliente,
             vencimento,
             valor,
             parcela,
             tipo,
-            pago,
             identificador,
         } = request.body;
 
-        const criaFinanceiro = new ServiceCriaFinanceiro();
+        const atualizaFinanceiro = new ServiceAtualizaFinanceiro();
 
-        var valValor = valor * 100;
+        //var valValor = valor * 100;
 
-        const finGrava = await criaFinanceiro.execute({
+        const finGrava = await atualizaFinanceiro.execute({
+            seq,
             opt_seq_contrato,
             opt_cod_cliente,
             vencimento,
-            valor: valValor,
+            valor,
             parcela,
             tipo,
-            pago,
             identificador,
         });
 
-        return response.json(finGrava);
+        return response.json({
+            seq,
+            opt_seq_contrato,
+            opt_cod_cliente,
+            vencimento,
+            valor,
+            parcela,
+            tipo,
+            identificador});
     }
 }
 

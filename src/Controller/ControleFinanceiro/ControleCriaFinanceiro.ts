@@ -16,13 +16,13 @@ class ControleCriaFinanceiro {
 
         const criaFinanceiro = new ServiceCriaFinanceiro();
 
-        var valValor = valor * 100;
+        // var valValor = valor * 100;
 
         const finGrava = await criaFinanceiro.execute({
             opt_seq_contrato,
             opt_cod_cliente,
             vencimento,
-            valor: valValor,
+            valor,
             parcela,
             tipo,
             pago,

@@ -9,7 +9,6 @@ interface iFin {
     valor: number;
     parcela: string;
     tipo: string;
-    pago: string;
     identificador: string;
 }
 class ServiceAtualizaFinanceiro {
@@ -21,7 +20,6 @@ class ServiceAtualizaFinanceiro {
         valor,
         parcela,
         tipo,
-        pago,
         identificador,
     }: iFin) {
         const finRep = getCustomRepository(FinanceiroRep);
@@ -37,7 +35,6 @@ class ServiceAtualizaFinanceiro {
                 valor,
                 parcela,
                 tipo,
-                pago,
                 identificador,
             }
         );

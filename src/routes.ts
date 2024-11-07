@@ -114,8 +114,7 @@ import {
     ControleUpdateConvidado,
 } from "./Controller/ControleConvidados";
 import { ControleBuscaGruposProdutosDev, ControleBuscaPersonalizacoesDev, ControleBuscaProdutosDev, ControleCriaGrupo, ControleGrupoPersonalizacaoDev, ControleUpdateGrupo } from "./Controller/ControleCardapioDev";
-import { ControleAtualizaFinanceiro, ControleBuscaFinanceiroContrato, ControleCriaFinanceiro, ControleEstornaPagamento, ControleInformaPagamento } from "./Controller/ControleFinanceiro";
-import { ControleBuscaParcela } from "./Controller/ControleFinanceiro/BuscaParcela";
+import { ControleBuscaParcela, ControleAtualizaFinanceiro, ControleBuscaFinanceiroContrato, ControleCriaFinanceiro, ControleEstornaPagamento, ControleInformaPagamento, ControleCancelaParcela } from "./Controller/ControleFinanceiro";
 
 const Rotas = Router();
 
@@ -203,6 +202,7 @@ const updateMensagem = new ControleUpdateMensagem();
 const consultaSuportes = new ControleListaSuporte();
 const criaOcorrencia = new ControleCriaOcorrencia();
 const atualizaLicenca = new ControleUpdateLicenca();
+const cancelaParcela = new ControleCancelaParcela();
 const consultaClientes = new ControleListaClientes();
 const finalizaPedidos = new ControleFinalizaPedidos();
 const buscaGrupos = new ControleBuscaGruposProdutos();
@@ -368,6 +368,7 @@ Rotas.put("/AprovaVinculo", VerificaUsuario, Autoriza, aprovaVinculo.handle);
 Rotas.put("/ApiKey", VerificaConvidado, AutorizaConvidado, novaApiKey.handle);
 Rotas.put("/QuitaParcela", VerificaUsuario, Autoriza, informaPagamento.handle);
 Rotas.put("/Financeiro", VerificaUsuario, Autoriza, atualizaFinanceiro.handle);
+Rotas.put("/CancelaParcela", VerificaUsuario, Autoriza, cancelaParcela.handle);
 Rotas.put("/EstornaParcela", VerificaUsuario, Autoriza, estornaPagamento.handle);
 Rotas.put("/CancelaContrato", VerificaUsuario, Autoriza, cancelaContrato.handle);
 Rotas.put("/AtualizaCli", VerificaUsuario, Autoriza, atualizaDadosViaFood.handle);

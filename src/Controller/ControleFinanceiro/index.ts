@@ -1,4 +1,5 @@
 import { ControleBuscaParcela } from "./BuscaParcela";
+import { ControleCancelaParcela } from "./ControleCancelaParcela";
 import { ControleCriaFinanceiro } from "./ControleCriaFinanceiro";
 import { ControleBuscaFinanceiroContrato } from "./BuscaFinanceiro";
 import { ControleInformaPagamento } from "./ControleInformaPagamento";
@@ -11,4 +12,6 @@ export {
     ControleBuscaFinanceiroContrato,
     ControleInformaPagamento,
     ControleEstornaPagamento,
+    ControleCancelaParcela,
+    ControleBuscaParcela
 };

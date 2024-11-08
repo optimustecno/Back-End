@@ -10,7 +10,6 @@ class ControleCriaFinanceiro {
             valor,
             parcela,
             tipo,
-            pago,
             identificador,
         } = request.body;
 
@@ -25,7 +24,6 @@ class ControleCriaFinanceiro {
             valor,
             parcela,
             tipo,
-            pago,
             identificador,
         });
 

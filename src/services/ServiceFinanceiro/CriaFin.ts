@@ -8,7 +8,6 @@ interface iFin {
     valor: number;
     parcela: string;
     tipo: string;
-    pago: string;
     identificador: string;
 }
 class ServiceCriaFinanceiro {
@@ -19,7 +18,6 @@ class ServiceCriaFinanceiro {
         valor,
         parcela,
         tipo,
-        pago,
         identificador,
     }: iFin) {
         const finRep = getCustomRepository(FinanceiroRep);
@@ -28,7 +26,7 @@ class ServiceCriaFinanceiro {
 
         const verCont = await finRep.findOne({
             opt_seq_contrato,
-            vencimento
+            vencimento,
         });
 
         if (verCont) {
@@ -41,7 +39,7 @@ class ServiceCriaFinanceiro {
             valor,
             parcela,
             tipo,
-            pago,
+            pago: "0",
             identificador,
         });
 
@@ -49,7 +47,7 @@ class ServiceCriaFinanceiro {
 
         const finCriado = await finRep.findOne({
             opt_seq_contrato,
-            vencimento
+            vencimento,
         });
 
         return finCriado;

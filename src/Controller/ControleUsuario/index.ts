@@ -1,9 +1,10 @@
+import { ControleUsuarioSuporte } from "./UsuarioSuporte";
 import { ControleTrocaSenha } from "./ControleTrocaSenha";
 import { ControleInsertUsuario } from "./ControleInsUsuario";
 import { ControleUpdateUsu } from "./ControleAtualizaUsuario";
 import { ControleBuscaUsuario } from "./ControleBuscaUsuario";
 import { ControleListaUsuarios } from "./ControleBuscaUsuarios";
-import { ControleUsuarioSuporte } from "./UsuarioSuporte";
+import { ControleTrocaNivelUsuario } from "./ControleTrocaNivel";
 
 export {
     ControleUpdateUsu,
@@ -12,4 +13,5 @@ export {
     ControleListaUsuarios,
     ControleInsertUsuario,
     ControleUsuarioSuporte,
+    ControleTrocaNivelUsuario
 };

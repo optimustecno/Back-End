@@ -3,8 +3,6 @@ import { FinanceiroRep } from "../../repositories/FinanceiroRep";
 
 interface iFin {
     seq: string;
-    opt_seq_contrato: string;
-    opt_cod_cliente: string;
     vencimento: Date;
     valor: number;
     parcela: string;
@@ -14,8 +12,6 @@ interface iFin {
 class ServiceAtualizaFinanceiro {
     async execute({
         seq,
-        opt_seq_contrato,
-        opt_cod_cliente,
         vencimento,
         valor,
         parcela,
@@ -29,8 +25,6 @@ class ServiceAtualizaFinanceiro {
         const _financeiro = await finRep.update(
             { seq: seq },
             {
-                opt_seq_contrato,
-                opt_cod_cliente,
                 vencimento: dataCria,
                 valor,
                 parcela,

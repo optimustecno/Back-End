@@ -10,6 +10,8 @@ class usuario {
     opt_email: string;
     @Column()
     ativo: string;
+    @Column()
+    opt_nivel: string;
 }
 
 export { usuario };

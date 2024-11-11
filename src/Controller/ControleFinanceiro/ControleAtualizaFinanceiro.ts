@@ -3,16 +3,7 @@ import { ServiceAtualizaFinanceiro } from "../../services/ServiceFinanceiro";
 
 class ControleAtualizaFinanceiro {
     async handle(request: Request, response: Response) {
-        const {
-            seq,
-            opt_seq_contrato,
-            opt_cod_cliente,
-            vencimento,
-            valor,
-            parcela,
-            tipo,
-            identificador,
-        } = request.body;
+        const { seq, vencimento, valor, parcela, tipo, identificador } = request.body;
 
         const atualizaFinanceiro = new ServiceAtualizaFinanceiro();
 
@@ -20,8 +11,6 @@ class ControleAtualizaFinanceiro {
 
         const finGrava = await atualizaFinanceiro.execute({
             seq,
-            opt_seq_contrato,
-            opt_cod_cliente,
             vencimento,
             valor,
             parcela,
@@ -29,15 +18,7 @@ class ControleAtualizaFinanceiro {
             identificador,
         });
 
-        return response.json({
-            seq,
-            opt_seq_contrato,
-            opt_cod_cliente,
-            vencimento,
-            valor,
-            parcela,
-            tipo,
-            identificador});
+        return response.json(finGrava);
     }
 }
 

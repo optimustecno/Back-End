@@ -46,7 +46,7 @@ class ServiceInsereUsuario {
             opt_usuario,
             opt_email,
             opt_senha: SenhaHash,
-            opt_nivel,
+            opt_nivel: '1',
             ativo,
         });
 

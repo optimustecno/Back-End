@@ -27,7 +27,7 @@ class ServiceCriaConvidado {
 
         const convidadaExiste = await guestRep.findOne({opt_email_convidado});
         if (convidadaExiste){
-            console.log(convidadaExiste)
+            // console.log(convidadaExiste)
             throw new Error("E-mail já Cadastrado como Convidado!");
         }
 

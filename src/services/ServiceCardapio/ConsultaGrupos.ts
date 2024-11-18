@@ -13,7 +13,7 @@ class ConsultaGrupos {
         const Valida = new ValidaCardapio();
         const bUsaCardapio = await Valida.execute({opt_cod_cliente})
         if (!bUsaCardapio){
-            throw new Error("Cardápio Digital Indisponível");
+            throw new Error("Cardápio Digital Indisponível Grupo");
         }
 
         const gruposRep = getCustomRepository(ViewGruposProdRep);

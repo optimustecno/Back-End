@@ -6,8 +6,10 @@ import { ControleConsApp } from "./ControleConsApp";
 import { ControleListaApps } from "./ControleListaApps";
 import { ControleCredWabiz } from "./ControleBuscaWabiz";
 import { ControleInformaWabiz } from "./ControleInfoWabiz";
+import { ControleBuscaAppsCliente } from "./BuscaAppsCliente";
 
 export {
+    ControleBuscaAppsCliente,
     ControleInformaWabiz,
     ControleUpdateApp,
     ControleCredWabiz,

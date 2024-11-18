@@ -27,7 +27,7 @@ class ServiceCriaVinculo {
 
         const vinculoExiste = await ClienteDev.findOne({opt_seq_convidado, opt_cod_cliente: cliente.opt_cod_cliente});
         if (vinculoExiste){
-            console.log(vinculoExiste)
+            // console.log(vinculoExiste)
             throw new Error("Cliente Já Vinculado ao Desenvolvedor!");
         }
 

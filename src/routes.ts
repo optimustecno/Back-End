@@ -13,7 +13,7 @@ import { VerificaConvidado } from "./middlewares/VerificaConvidado";
 import { DefineUsuarioSuporte } from "./middlewares/DefineUsuarioSuporte";
 import { BuscaPedidosUaiRango } from "./middlewares/BuscaPedidosUaiRango";
 //CONTROLLERS
-import { ControleConsApp } from "./Controller/ControleApp";
+import { ControleBuscaAppsCliente, ControleConsApp } from "./Controller/ControleApp";
 import { ControleTeste } from "./Controller/ControleTeste";
 import { ControleCriaApp } from "./Controller/ControleApp";
 import { ControleBuscaApp } from "./Controller/ControleApp";
@@ -215,6 +215,7 @@ const pedidoUaiRangoManual = new ControleInsertManual();
 const listaAdmVinculos = new ControleAdmListaVinculos();
 const informaPagamento = new ControleInformaPagamento();
 const estornaPagamento = new ControleEstornaPagamento();
+const buscaAppsCliente = new ControleBuscaAppsCliente();
 const atualizaNivelUsu = new ControleTrocaNivelUsuario();
 const criaAlteraProduto = new ControleCriaAlteraProduto();
 const consultaProximoStatus = new ControleMudancaStatus();
@@ -273,6 +274,7 @@ Rotas.get("/EmpLinkadas/:codigo", VerificaUsuario, buscaEmpresasLinkadas.handle)
 Rotas.get("/Webhook", VerificaConvidado, AutorizaConvidado, buscaWebhook.handle);
 Rotas.get("/Vinculos", VerificaConvidado, AutorizaConvidado, listaVinculos.handle);
 Rotas.get("/Financeiro/:codigo", VerificaUsuario, consultaFinanceiroContrato.handle);
+Rotas.get("/AppsCliente/:codigo", VerificaUsuario, Autoriza, buscaAppsCliente.handle);
 // AdmVinculos
 Rotas.get("/Convidado/:opt_seq_convidado", VerificaUsuario, buscaAdmConvidado.handle);
 Rotas.get("/ContratosCli/:opt_cod_cliente", VerificaUsuario, contratosCliente.handle);

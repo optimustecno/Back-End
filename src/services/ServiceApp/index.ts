@@ -4,6 +4,7 @@ import { ServiceDeleteApp } from "./DeleteApp";
 import { ServiceListaApps } from "./ListaApps";
 import { ServiceContaApps } from "./CountApps";
 import { ServiceAtualizaApp } from "./AtualizaApp";
+import { ServiceConsAppsCliente } from "./AppsCliente"; 
 
 export {
     ServiceConsApp,
@@ -12,4 +13,5 @@ export {
     ServiceAtualizaApp,
     ServiceListaApps,
     ServiceContaApps,
+    ServiceConsAppsCliente
 };

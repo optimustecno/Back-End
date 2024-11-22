@@ -113,8 +113,9 @@ import {
     ControleListaConvidados,
     ControleUpdateConvidado,
 } from "./Controller/ControleConvidados";
-import { ControleBuscaGruposProdutosDev, ControleBuscaPersonalizacoesDev, ControleBuscaProdutosDev, ControleCriaGrupo, ControleGrupoPersonalizacaoDev, ControleUpdateGrupo } from "./Controller/ControleCardapioDev";
+import { ControleBuscaGruposProdutosDev, ControleBuscaPersonalizacoesDev, ControleBuscaProdutosDev, ControleCriaGrupo, ControleGrupoPersonalizacaoDev, ControleUpdateGrupo, ControleUpdateGrupoAdd } from "./Controller/ControleCardapioDev";
 import { ControleBuscaParcela, ControleAtualizaFinanceiro, ControleBuscaFinanceiroContrato, ControleCriaFinanceiro, ControleEstornaPagamento, ControleInformaPagamento, ControleCancelaParcela } from "./Controller/ControleFinanceiro";
+import { ControleBuscaNota, ControleCriaNota, ControleListaNotas, ControleUpdateNota } from "./Controller/ControleNotas";
 
 const Rotas = Router();
 
@@ -191,11 +192,17 @@ const autenticaConvidado = new ControleAutenticaConvidado();
 const trocaSenhaConvidado = new ControleTrocaSenhaConvidado();
 const admSenhaConvidado = new ControleTrocaSenhaConvidadoAdm();
 //
+const criaNota = new ControleCriaNota();
+const buscaNota = new ControleBuscaNota();
 const gravaGrupos = new ControleCriaGrupo();
+const listaNotas = new ControleListaNotas();
+const criaGrupoAdd = new ControleCriaGrupo();
+const atualizaNota = new ControleUpdateNota();
 const buscaWebhook = new ControleBuscaWebhook();
 const buscaParcela = new ControleBuscaParcela();
 const removeVinculo = new ControleDeleteVinculo();
 const aprovaVinculo = new ControleAprovaVinculo();
+const updateGrupoAdd = new ControleUpdateGrupoAdd();
 const criaFinanceiro = new ControleCriaFinanceiro();
 const criaUsuSuporte = new ControleUsuarioSuporte();
 const updateMensagem = new ControleUpdateMensagem();
@@ -236,8 +243,10 @@ const consultaFinanceiroContrato = new ControleBuscaFinanceiroContrato ();
 Rotas.get("/Teste", controleTeste.handle);
 Rotas.get("/GruposProd/:codigo", buscaGrupos.handle);
 Rotas.get("/Apps", VerificaUsuario, listaApps.handle);
+Rotas.get("/Notas", VerificaUsuario, listaNotas.handle);
 Rotas.get("/App/:seq", VerificaUsuario, buscaApp.handle);
 Rotas.get("/Cargos", VerificaUsuario, buscaCargos.handle);
+Rotas.get("/Nota/:seq", VerificaUsuario, buscaNota.handle);
 Rotas.get("/ConsApp", VerificaUsuario, consultaApps.handle);
 Rotas.get("/Setores", VerificaUsuario, buscaSetores.handle);
 Rotas.get("/Acessos", VerificaUsuario, listaAcessos.handle);
@@ -322,6 +331,7 @@ Rotas.post("/Login", autenticaUsuario.handle);
 Rotas.post("/PedidoToLevando", AutToLevando, loggerToLevando.handle);
 //
 Rotas.post("/Autentica", autenticaConvidado.handle);
+Rotas.post("/Nota", VerificaUsuario, criaNota.handle);
 Rotas.post("/ContaRequest", VerificaUsuario, Autoriza);
 Rotas.post("/Cargo", VerificaUsuario, criaCargo.handle);
 Rotas.post("/Acesso", VerificaUsuario, criaAcesso.handle);
@@ -335,6 +345,7 @@ Rotas.post("/Convidado", VerificaSite, insereConvidado.handle);
 Rotas.post("/PedidosUaiRango", AutUaiRango, BuscaPedidosUaiRango);
 Rotas.post("/Setor", VerificaUsuario, Autoriza, criaSetor.handle);
 Rotas.post("/Grupos", VerificaUsuario, Autoriza, gravaGrupos.handle);
+Rotas.post("/GrupoAdd", VerificaUsuario, Autoriza, criaGrupoAdd.handle);
 Rotas.post("/Contrato", VerificaUsuario, Autoriza, criaContrato.handle);
 Rotas.post("/InsUsuario", VerificaUsuario, Autoriza, insereUsuario.handle);
 Rotas.post("/Financeiro", VerificaUsuario, Autoriza, criaFinanceiro.handle);
@@ -353,6 +364,7 @@ Rotas.put("/App", VerificaUsuario, atualizaApp.handle);
 Rotas.put("/Setor", VerificaUsuario, updateSetor.handle);
 Rotas.put("/Cargo", VerificaUsuario, updateCargo.handle);
 Rotas.put("/Usuario", VerificaUsuario, updateUsu.handle);
+Rotas.put("/Nota", VerificaUsuario, atualizaNota.handle);
 Rotas.put("/Acesso", VerificaUsuario, updateAcesso.handle);
 Rotas.put("/TrocaSenha", VerificaUsuario, trocaSenha.handle);
 Rotas.put("/Suporte", VerificaUsuario, updateSuporte.handle);
@@ -365,6 +377,7 @@ Rotas.put("/Grupos", VerificaUsuario, Autoriza, updateGrupo.handle);
 Rotas.put("/UpdateLicenca", VerificaUsuario, atualizaLicenca.handle);
 Rotas.put("/StatusConvidado", VerificaUsuario, liberaConvidado.handle);
 Rotas.put("/ClienteFood", VerificaUsuario, atualizaDadosViaFood.handle);
+Rotas.put("/GrupoAdd", VerificaUsuario, Autoriza, updateGrupoAdd.handle);
 Rotas.put("/CancelaCliente", VerificaUsuario, Autoriza, cancelaCli.handle);
 Rotas.put("/Contrato", VerificaUsuario, Autoriza, atualizaContrato.handle);
 Rotas.put("/AprovaVinculo", VerificaUsuario, Autoriza, aprovaVinculo.handle);

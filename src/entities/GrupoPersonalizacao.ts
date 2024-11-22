@@ -20,6 +20,8 @@ class GrupoPersonalizacao {
     @JoinColumn({ name: 'cod_grupo' })
     @ManyToOne(() => GrupoProdutos, (grupo) => grupo.Personalizacoes)
     grupoProdutos: GrupoProdutos[];
+    @Column()
+    exibir: string;
 }
 
 export { GrupoPersonalizacao };

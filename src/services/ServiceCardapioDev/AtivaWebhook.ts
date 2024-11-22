@@ -55,6 +55,7 @@ class AtivaWebhook {
                     });
                     break;
                 case "3":
+                    console.log("Grupo de Adicionais")
                     break;
                 case "4":
                     break;

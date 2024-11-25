@@ -113,7 +113,7 @@ import {
     ControleListaConvidados,
     ControleUpdateConvidado,
 } from "./Controller/ControleConvidados";
-import { ControleBuscaGruposProdutosDev, ControleBuscaPersonalizacoesDev, ControleBuscaProdutosDev, ControleCriaGrupo, ControleGrupoPersonalizacaoDev, ControleUpdateGrupo, ControleUpdateGrupoAdd } from "./Controller/ControleCardapioDev";
+import { ControleBuscaGruposProdutosDev, ControleBuscaPersonalizacoesDev, ControleBuscaProdutosDev, ControleCriaGrupo, ControleCriaGrupoAdd, ControleGrupoPersonalizacaoDev, ControleUpdateGrupo, ControleUpdateGrupoAdd } from "./Controller/ControleCardapioDev";
 import { ControleBuscaParcela, ControleAtualizaFinanceiro, ControleBuscaFinanceiroContrato, ControleCriaFinanceiro, ControleEstornaPagamento, ControleInformaPagamento, ControleCancelaParcela } from "./Controller/ControleFinanceiro";
 import { ControleBuscaNota, ControleCriaNota, ControleListaNotas, ControleUpdateNota } from "./Controller/ControleNotas";
 
@@ -196,8 +196,8 @@ const criaNota = new ControleCriaNota();
 const buscaNota = new ControleBuscaNota();
 const gravaGrupos = new ControleCriaGrupo();
 const listaNotas = new ControleListaNotas();
-const criaGrupoAdd = new ControleCriaGrupo();
 const atualizaNota = new ControleUpdateNota();
+const criaGrupoAdd = new ControleCriaGrupoAdd();
 const buscaWebhook = new ControleBuscaWebhook();
 const buscaParcela = new ControleBuscaParcela();
 const removeVinculo = new ControleDeleteVinculo();

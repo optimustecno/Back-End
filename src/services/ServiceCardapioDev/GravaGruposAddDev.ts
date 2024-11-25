@@ -29,7 +29,8 @@ class GravaGruposAddDev {
 
         const TestaCad = await gruposRep.findOne({
             opt_cod_cliente,
-            cod_grupo_adicional
+            cod_grupo_adicional,
+            cod_grupo
         });
 
         if (TestaCad) {

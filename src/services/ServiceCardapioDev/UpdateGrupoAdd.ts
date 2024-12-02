@@ -9,7 +9,6 @@ class UpdateGrupoAdd {
         opt_cod_cliente,
         cod_grupo,
         nome,
-        cod_grupo_adicional,
         exibir,
     }: iCliGrupoAdd) {
         const gruposRep = getCustomRepository(GrupoPersonalizaRep);
@@ -19,9 +18,6 @@ class UpdateGrupoAdd {
         }
         if (!cod_grupo) {
             throw new Error("Não Foi Informado o Código do Grupo!");
-        }
-        if (!cod_grupo_adicional) {
-            throw new Error("Não Foi Informado o Código do Grupo Adicional!");
         }
         if (!nome) {
             throw new Error("Não Foi Informado o Nome do Grupo!");
@@ -33,7 +29,6 @@ class UpdateGrupoAdd {
                 opt_cod_cliente,
                 cod_grupo,
                 nome,
-                cod_grupo_adicional,
                 exibir,
             }
         );

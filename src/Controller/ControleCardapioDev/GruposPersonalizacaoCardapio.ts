@@ -8,8 +8,8 @@ class ControleGrupoPersonalizacaoDev {
         const ConsPersonalizacao = new ConsultaGruposPersonalizacaoDev();
 
         const produtos = await ConsPersonalizacao.execute({
-            opt_cod_cliente: codigo_Cli,
-            cod_grupo,
+            cod_cliente: codigo_Cli,
+            cod_grupo_produto: cod_grupo,
         });
 
         return response.json(produtos);

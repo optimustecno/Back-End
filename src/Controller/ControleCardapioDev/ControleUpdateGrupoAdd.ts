@@ -3,7 +3,7 @@ import { UpdateGrupoAdd } from "../../services/ServiceCardapioDev";
 
 class ControleUpdateGrupoAdd {
     async handle(request: Request, response: Response) {
-        const { opt_cod_cliente, cod_grupo, nome, cod_grupo_adicional, exibir, seq } =
+        const { opt_cod_cliente, cod_grupo, nome, exibir, seq } =
             request.body;
 
         const criaGrupo = new UpdateGrupoAdd();
@@ -13,7 +13,6 @@ class ControleUpdateGrupoAdd {
             opt_cod_cliente,
             cod_grupo,
             nome,
-            cod_grupo_adicional,
             exibir,
         });
 

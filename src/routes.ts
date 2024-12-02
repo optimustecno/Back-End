@@ -113,7 +113,7 @@ import {
     ControleListaConvidados,
     ControleUpdateConvidado,
 } from "./Controller/ControleConvidados";
-import { ControleBuscaGruposProdutosDev, ControleBuscaPersonalizacoesDev, ControleBuscaProdutosDev, ControleCriaGrupo, ControleCriaGrupoAdd, ControleGrupoPersonalizacaoDev, ControleUpdateGrupo, ControleUpdateGrupoAdd } from "./Controller/ControleCardapioDev";
+import { ControleBuscaGruposProdutosDev, ControleBuscaPersonalizacoesDev, ControleBuscaProdutosDev, ControleCriaGrupo, ControleCriaGrupoAdd, ControleCriaLinkGrupoAdd, ControleGrupoPersonalizacaoDev, ControleUpdateGrupo, ControleUpdateGrupoAdd } from "./Controller/ControleCardapioDev";
 import { ControleBuscaParcela, ControleAtualizaFinanceiro, ControleBuscaFinanceiroContrato, ControleCriaFinanceiro, ControleEstornaPagamento, ControleInformaPagamento, ControleCancelaParcela } from "./Controller/ControleFinanceiro";
 import { ControleBuscaNota, ControleCriaNota, ControleListaNotas, ControleUpdateNota } from "./Controller/ControleNotas";
 
@@ -210,6 +210,7 @@ const consultaSuportes = new ControleListaSuporte();
 const criaOcorrencia = new ControleCriaOcorrencia();
 const atualizaLicenca = new ControleUpdateLicenca();
 const cancelaParcela = new ControleCancelaParcela();
+const linkGrupoAdd = new ControleCriaLinkGrupoAdd();
 const consultaClientes = new ControleListaClientes();
 const finalizaPedidos = new ControleFinalizaPedidos();
 const buscaGrupos = new ControleBuscaGruposProdutos();
@@ -345,6 +346,7 @@ Rotas.post("/Convidado", VerificaSite, insereConvidado.handle);
 Rotas.post("/PedidosUaiRango", AutUaiRango, BuscaPedidosUaiRango);
 Rotas.post("/Setor", VerificaUsuario, Autoriza, criaSetor.handle);
 Rotas.post("/Grupos", VerificaUsuario, Autoriza, gravaGrupos.handle);
+Rotas.post("/LinkAdd", VerificaUsuario, Autoriza, linkGrupoAdd.handle);
 Rotas.post("/GrupoAdd", VerificaUsuario, Autoriza, criaGrupoAdd.handle);
 Rotas.post("/Contrato", VerificaUsuario, Autoriza, criaContrato.handle);
 Rotas.post("/InsUsuario", VerificaUsuario, Autoriza, insereUsuario.handle);

@@ -12,8 +12,15 @@ export interface iCliGrupos {
 export interface iCliGrupoAdd {
     seq?: string;
     opt_cod_cliente: string;
-    cod_grupo_adicional: string;
     nome: string;
     cod_grupo: string;
     exibir: string;
+}
+
+export interface iLinkGrupoAdd {
+    seq?: string;
+    opt_cod_cliente: string;
+    opt_grupo_produto: string;
+    opt_grupo_adicional: string;
+    opt_exibir: string;
 }

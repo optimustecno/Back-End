@@ -4,6 +4,7 @@ import { ControleBuscaProdutosDev } from "./ProdutosCardapio";
 import { ControleCriaGrupoAdd } from "./ControleCriaGrupoAdd";
 import { ControleBuscaGruposProdutosDev } from "./GruposCardapio";
 import { ControleUpdateGrupoAdd } from "./ControleUpdateGrupoAdd";
+import { ControleCriaLinkGrupoAdd } from "./ControleCriaLinkGrupoAdd"; 
 import { ControleBuscaPersonalizacoesDev } from "./PersonalizacoesDev";
 import { ControleGrupoPersonalizacaoDev } from "./GruposPersonalizacaoCardapio";
 
@@ -12,6 +13,7 @@ export {
     ControleUpdateGrupo,
     ControleCriaGrupoAdd,
     ControleUpdateGrupoAdd,
+    ControleCriaLinkGrupoAdd,
     ControleBuscaProdutosDev,
     ControleBuscaGruposProdutosDev,
     ControleGrupoPersonalizacaoDev,

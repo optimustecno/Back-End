@@ -1,20 +1,16 @@
 import { getCustomRepository } from "typeorm";
-import { GrupoPersonalizaRep } from "../../repositories/GrupoPersonalizaRep"; 
-
+import { ViewGruposAddRep } from "../../repositories/ViewGrupoAdicionais";
 
 interface iDevGruposPersonalizacao {
-    opt_cod_cliente: string;
-    cod_grupo: string;
+    cod_cliente: string;
+    cod_grupo_produto: string;
 }
 
 class ConsultaGruposPersonalizacaoDev {
-    async execute({ opt_cod_cliente, cod_grupo }: iDevGruposPersonalizacao) {
+    async execute({ cod_cliente, cod_grupo_produto }: iDevGruposPersonalizacao) {
+        const personalizaRep = getCustomRepository(ViewGruposAddRep);
 
-        const personalizaRep = getCustomRepository(GrupoPersonalizaRep);
-
-        const Grupos = await personalizaRep.find(
-            { opt_cod_cliente, cod_grupo }
-        );
+        const Grupos = await personalizaRep.find({ cod_cliente, cod_grupo_produto });
 
         return Grupos;
     }

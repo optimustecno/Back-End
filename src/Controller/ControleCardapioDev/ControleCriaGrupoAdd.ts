@@ -3,7 +3,7 @@ import { GravaGruposAddDev } from "../../services/ServiceCardapioDev";
 
 class ControleCriaGrupoAdd {
     async handle(request: Request, response: Response) {
-        const { opt_cod_cliente,cod_grupo,nome,cod_grupo_adicional,exibir } = request.body;
+        const { opt_cod_cliente,cod_grupo,nome,exibir } = request.body;
 
         const criaGrupo = new GravaGruposAddDev();
 
@@ -11,7 +11,6 @@ class ControleCriaGrupoAdd {
             opt_cod_cliente,
             cod_grupo,
             nome,
-            cod_grupo_adicional,
             exibir,
         });
 

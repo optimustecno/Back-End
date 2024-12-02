@@ -1,17 +1,17 @@
-import { Entity, PrimaryColumn, Column, JoinColumn, ManyToMany, ManyToOne } from "typeorm";
-import { GrupoPersonalizacao } from "./GrupoPersonalizacao";
+import { Entity, PrimaryColumn, Column, JoinColumn, ManyToOne } from "typeorm";
+import { ViewGruposAdd } from "./ViewGruposAdicionais";
 
 @Entity("opt_adicionais_cardapio")
 class AdicionaisCardapio {
     @PrimaryColumn()
-    seq: string;
+    codigo_adicional: string;
     @Column()
     opt_cod_cliente: string;
     @Column()
     cod_grupo_adicional: string;
     @JoinColumn({ name: 'cod_grupo_adicional' })
-    @ManyToOne(() => GrupoPersonalizacao, (grupo) => grupo.Itens)
-    grupo: GrupoPersonalizacao[];
+    @ManyToOne(() => ViewGruposAdd, (grupo) => grupo.Itens)
+    grupo: ViewGruposAdd[];
     @Column()
     cod_adicional: string;
     @Column()
@@ -20,6 +20,8 @@ class AdicionaisCardapio {
     valor: Number;
     @Column()
     aceita_quantidade: string;
+    @Column()
+    exibir: string;
 }
 
 export { AdicionaisCardapio };

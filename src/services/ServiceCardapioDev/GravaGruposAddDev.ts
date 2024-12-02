@@ -9,7 +9,6 @@ class GravaGruposAddDev {
         opt_cod_cliente,
         cod_grupo,
         nome,
-        cod_grupo_adicional,
         exibir
     }: iCliGrupoAdd) {
         const gruposRep = getCustomRepository(GrupoPersonalizaRep);
@@ -20,16 +19,12 @@ class GravaGruposAddDev {
         if (!cod_grupo) {
             throw new Error("Não Foi Informado o Código do Grupo!");
         }
-        if (!cod_grupo_adicional) {
-            throw new Error("Não Foi Informado o Código do Grupo Adicional!");
-        }
         if (!nome) {
             throw new Error("Não Foi Informado o Nome do Grupo de Adicionais!");
         }
 
         const TestaCad = await gruposRep.findOne({
             opt_cod_cliente,
-            cod_grupo_adicional,
             cod_grupo
         });
 
@@ -41,7 +36,6 @@ class GravaGruposAddDev {
             opt_cod_cliente,
             cod_grupo,
             nome,
-            cod_grupo_adicional,
             exibir
         });
 
@@ -51,7 +45,7 @@ class GravaGruposAddDev {
 
         const grupoCad = await gruposRep.findOne({
             opt_cod_cliente,
-            cod_grupo_adicional
+            cod_grupo
         });
         
         try{

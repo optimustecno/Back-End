@@ -24,3 +24,12 @@ export interface iLinkGrupoAdd {
     opt_grupo_adicional: string;
     opt_exibir: string;
 }
+export interface iPersonalizacoes {
+    opt_cod_cliente: string;
+    cod_grupo_adicional: string;
+    cod_adicional: string;
+    nome: string;
+    valor: Number;
+    aceita_quantidade: string;
+    exibir: string;
+}

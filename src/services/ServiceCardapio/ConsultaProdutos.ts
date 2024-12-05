@@ -21,7 +21,8 @@ class ConsultaProdutos {
                 opt_cod_cliente,
             },
             order: {
-                ordem: "ASC",
+                grupo: "ASC",
+                produto: "ASC"
             },
         });
         return Prods;

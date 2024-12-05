@@ -113,7 +113,7 @@ import {
     ControleListaConvidados,
     ControleUpdateConvidado,
 } from "./Controller/ControleConvidados";
-import { ControleBuscaGruposProdutosDev, ControleBuscaPersonalizacoesDev, ControleBuscaProdutosDev, ControleCriaGrupo, ControleCriaGrupoAdd, ControleCriaLinkGrupoAdd, ControleGrupoPersonalizacaoDev, ControleUpdateGrupo, ControleUpdateGrupoAdd } from "./Controller/ControleCardapioDev";
+import { ControleBuscaGruposProdutosDev, ControleBuscaPersonalizacoesDev, ControleBuscaProdutosDev, ControleCriaAdd, ControleCriaGrupo, ControleCriaGrupoAdd, ControleCriaLinkGrupoAdd, ControleGrupoPersonalizacaoDev, ControleUpdateGrupo, ControleUpdateGrupoAdd } from "./Controller/ControleCardapioDev";
 import { ControleBuscaParcela, ControleAtualizaFinanceiro, ControleBuscaFinanceiroContrato, ControleCriaFinanceiro, ControleEstornaPagamento, ControleInformaPagamento, ControleCancelaParcela } from "./Controller/ControleFinanceiro";
 import { ControleBuscaNota, ControleCriaNota, ControleListaNotas, ControleUpdateNota } from "./Controller/ControleNotas";
 
@@ -192,6 +192,7 @@ const autenticaConvidado = new ControleAutenticaConvidado();
 const trocaSenhaConvidado = new ControleTrocaSenhaConvidado();
 const admSenhaConvidado = new ControleTrocaSenhaConvidadoAdm();
 //
+const criaAdd = new ControleCriaAdd();
 const criaNota = new ControleCriaNota();
 const buscaNota = new ControleBuscaNota();
 const gravaGrupos = new ControleCriaGrupo();
@@ -349,6 +350,7 @@ Rotas.post("/Grupos", VerificaUsuario, Autoriza, gravaGrupos.handle);
 Rotas.post("/LinkAdd", VerificaUsuario, Autoriza, linkGrupoAdd.handle);
 Rotas.post("/GrupoAdd", VerificaUsuario, Autoriza, criaGrupoAdd.handle);
 Rotas.post("/Contrato", VerificaUsuario, Autoriza, criaContrato.handle);
+Rotas.post("/Personalizacoes", VerificaUsuario, Autoriza, criaAdd.handle);
 Rotas.post("/InsUsuario", VerificaUsuario, Autoriza, insereUsuario.handle);
 Rotas.post("/Financeiro", VerificaUsuario, Autoriza, criaFinanceiro.handle);
 Rotas.post("/UpdateStatus", VerificaUsuario, Autoriza, updateStatus.handle);

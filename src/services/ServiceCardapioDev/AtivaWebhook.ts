@@ -55,11 +55,38 @@ class AtivaWebhook {
                     });
                     break;
                 case "3":
-                    console.log("Grupo de Adicionais")
+                    hookGrupoProd = Webhook.map((Link) => [Link.opt_tipo, Link.opt_url]);
+                    hookGrupoProd.forEach(async (_Link) => {
+                        
+                        var requestOptions = {
+                            method: _Link[0],
+                            headers: {
+                                "Content-Type": "application/json",
+                                Accepts: "*",
+                            },
+                            body: JSON.stringify([Data]),
+                        };
+                        var WebhookResponse = await fetch(`${_Link[1]}`, requestOptions);
+                        
+                    });
                     break;
                 case "4":
+                    hookGrupoProd = Webhook.map((Link) => [Link.opt_tipo, Link.opt_url]);
+                    hookGrupoProd.forEach(async (_Link) => {
+                        
+                        var requestOptions = {
+                            method: _Link[0],
+                            headers: {
+                                "Content-Type": "application/json",
+                                Accepts: "*",
+                            },
+                            body: JSON.stringify(Data),
+                        };
+                        var WebhookResponse = await fetch(`${_Link[1]}`, requestOptions);
+                    });
                     break;
                 case "5":
+                    console.log(`Vinculo de grupos`)
                     break;
                 default:
                     break;

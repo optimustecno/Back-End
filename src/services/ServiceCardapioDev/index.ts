@@ -6,6 +6,7 @@ import { ConsultaProdutosDev } from "./ProdutosDev";
 import { GravaGruposAddDev } from "./GravaGruposAddDev";
 import { GravaLinkGruposAdd } from "./GravaLinkGrupoAdd";
 import { ConsultaPersonalizacoesDev } from "./PersonalizacoesDev";
+import { ServiceInsereAlteraAdd } from "./InsereAlteraPersonalizacoes";
 import { ConsultaGruposPersonalizacaoDev } from "./GruposPersonalizacao";
 
 export {
@@ -16,6 +17,7 @@ export {
     GravaGruposAddDev,
     GravaLinkGruposAdd,
     ConsultaProdutosDev,
+    ServiceInsereAlteraAdd,
     ConsultaPersonalizacoesDev,
     ConsultaGruposPersonalizacaoDev,
 };

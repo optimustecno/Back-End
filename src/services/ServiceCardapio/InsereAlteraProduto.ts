@@ -40,7 +40,8 @@ class ServiceInsereAlteraProduto {
             throw new Error("Não Foi Informado o Nome do Produto!");
         }
         if (!valor) {
-            throw new Error("Não Foi Informado o Valor do Produto!");
+            console.log(`valor: ${valor}`)
+            valor=0;
         }
 
         const TestaCad = await ProdutosRep.findOne({
@@ -50,8 +51,6 @@ class ServiceInsereAlteraProduto {
 
         var _prod;
         var venda = + valor / 100;
-
-        // console.log(`${cod_produto} ${valor} ${venda}`)
 
         if (TestaCad) {
             _prod = await ProdutosRep.update(

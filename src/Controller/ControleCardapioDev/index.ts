@@ -1,3 +1,4 @@
+import { ControleCriaAdd } from "./ControleCriaAdd";
 import { ControleCriaGrupo } from "./ControleCriaGrupo";
 import { ControleUpdateGrupo } from "./ControleUpdateGrupo";
 import { ControleBuscaProdutosDev } from "./ProdutosCardapio";
@@ -9,9 +10,10 @@ import { ControleBuscaPersonalizacoesDev } from "./PersonalizacoesDev";
 import { ControleGrupoPersonalizacaoDev } from "./GruposPersonalizacaoCardapio";
 
 export {
+    ControleCriaAdd,
     ControleCriaGrupo,
     ControleUpdateGrupo,
-    ControleCriaGrupoAdd,
+    ControleCriaGrupoAdd, 
     ControleUpdateGrupoAdd,
     ControleCriaLinkGrupoAdd,
     ControleBuscaProdutosDev,

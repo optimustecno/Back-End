@@ -30,7 +30,7 @@ class ServiceInsereAlteraAdd {
             aceita_quantidade = "0";
         }
         if (!valor) {
-            console.log(`valor: ${valor}`);
+            // console.log(`valor: ${valor}`);
             valor = 0;
         }
         if (!exibir) {
@@ -54,6 +54,7 @@ class ServiceInsereAlteraAdd {
                     valor: venda,
                     aceita_quantidade,
                     exibir,
+                    webhook: "0"
                 }
             );
         } else {
@@ -65,6 +66,7 @@ class ServiceInsereAlteraAdd {
                 valor: venda,
                 aceita_quantidade,
                 exibir,
+                webhook: "0"
             });
             await AddRep.save(_add);
         }

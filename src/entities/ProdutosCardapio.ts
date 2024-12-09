@@ -1,5 +1,6 @@
 import { Entity, PrimaryColumn, Column, ManyToOne, JoinColumn } from "typeorm";
 import { GrupoProdutos } from "./GrupoProdutos";
+import { ViewGruposProdutos } from "./ViewGrupos";
 
 @Entity("opt_produtos_cardapio")
 class ProdutosCardapio {
@@ -28,6 +29,11 @@ class ProdutosCardapio {
     @JoinColumn({ name: "cod_grupo" })
     @ManyToOne(() => GrupoProdutos, (grupoproduto) => grupoproduto.produtos)
     grupoproduto: GrupoProdutos[];
+    @JoinColumn({ name: "cod_grupo" })
+    @ManyToOne(() => ViewGruposProdutos, (grupoproduto) => grupoproduto.produtos)
+    vwgrupoproduto: ViewGruposProdutos[];
+    @Column()
+    webhook: string;
 }
 
 export { ProdutosCardapio };

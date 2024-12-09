@@ -32,6 +32,7 @@ export async function VerificaVinculo(request: Request, response: Response, next
 
         if (vinculo) {
             request.opt_cod_cliente = cliente.opt_cod_cliente;
+            request.id_cliente = uid_cli;
             return next();
         }
         else {

@@ -10,10 +10,11 @@ class UpdateGrupoAdd {
         cod_grupo,
         nome,
         exibir,
+        id_cliente
     }: iCliGrupoAdd) {
         const gruposRep = getCustomRepository(GrupoPersonalizaRep);
 
-        if (!opt_cod_cliente) {
+        if (!id_cliente) {
             throw new Error("Não Foi Informado o Código de Cliente!");
         }
         if (!cod_grupo) {

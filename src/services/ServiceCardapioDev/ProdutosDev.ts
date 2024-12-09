@@ -1,19 +1,20 @@
 import { getCustomRepository } from "typeorm";
-import { ProdCardapioRep } from "../../repositories/ProdutosCardapioRep"; 
+import { ViewProdRep } from "../../repositories/ViewProdutosRep"; 
 
 
 interface iCliProds {
     opt_cod_cliente: string;
     cod_grupo: string;
+    id_cliente: string;
 }
 
 class ConsultaProdutosDev {
-    async execute({ opt_cod_cliente, cod_grupo }: iCliProds) {
+    async execute({ opt_cod_cliente, cod_grupo, id_cliente }: iCliProds) {
 
-        const produtosRep = getCustomRepository(ProdCardapioRep);
+        const produtosRep = getCustomRepository(ViewProdRep);
 
         const Grupos = await produtosRep.find(
-            { opt_cod_cliente, cod_grupo }
+            { id_cliente, cod_grupo }
         );
 
         return Grupos;

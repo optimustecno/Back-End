@@ -17,8 +17,8 @@ class ConsultaGrupos {
         const gruposRep = getCustomRepository(ViewGruposProdRep);
 
         const Grupos = await gruposRep.find({
-            where: { opt_cod_cliente },
-            order: { grupo: "ASC" },
+            where: { id_cliente: opt_cod_cliente },
+            order: { nome_grupo: "ASC" },
         });
 
         return Grupos;

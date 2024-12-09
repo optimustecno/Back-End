@@ -113,9 +113,36 @@ import {
     ControleListaConvidados,
     ControleUpdateConvidado,
 } from "./Controller/ControleConvidados";
-import { ControleBuscaGruposProdutosDev, ControleBuscaPersonalizacoesDev, ControleBuscaProdutosDev, ControleCriaAdd, ControleCriaGrupo, ControleCriaGrupoAdd, ControleCriaLinkGrupoAdd, ControleGrupoPersonalizacaoDev, ControleUpdateGrupo, ControleUpdateGrupoAdd } from "./Controller/ControleCardapioDev";
-import { ControleBuscaParcela, ControleAtualizaFinanceiro, ControleBuscaFinanceiroContrato, ControleCriaFinanceiro, ControleEstornaPagamento, ControleInformaPagamento, ControleCancelaParcela } from "./Controller/ControleFinanceiro";
-import { ControleBuscaNota, ControleCriaNota, ControleListaNotas, ControleUpdateNota } from "./Controller/ControleNotas";
+import {
+    ControleAtivaWebhook,
+    ControleBuscaAddDev,
+    ControleBuscaGruposProdutosDev,
+    ControleBuscaLinkGrupos,
+    ControleBuscaPersonalizacoesDev,
+    ControleBuscaProdutosDev,
+    ControleCriaAdd,
+    ControleCriaGrupo,
+    ControleCriaGrupoAdd,
+    ControleCriaLinkGrupoAdd,
+    ControleGrupoPersonalizacaoDev,
+    ControleUpdateGrupo,
+    ControleUpdateGrupoAdd,
+} from "./Controller/ControleCardapioDev";
+import {
+    ControleBuscaParcela,
+    ControleAtualizaFinanceiro,
+    ControleBuscaFinanceiroContrato,
+    ControleCriaFinanceiro,
+    ControleEstornaPagamento,
+    ControleInformaPagamento,
+    ControleCancelaParcela,
+} from "./Controller/ControleFinanceiro";
+import {
+    ControleBuscaNota,
+    ControleCriaNota,
+    ControleListaNotas,
+    ControleUpdateNota,
+} from "./Controller/ControleNotas";
 
 const Rotas = Router();
 
@@ -198,6 +225,8 @@ const buscaNota = new ControleBuscaNota();
 const gravaGrupos = new ControleCriaGrupo();
 const listaNotas = new ControleListaNotas();
 const atualizaNota = new ControleUpdateNota();
+const addCardapio = new ControleBuscaAddDev();
+const webhookLote = new ControleAtivaWebhook();
 const criaGrupoAdd = new ControleCriaGrupoAdd();
 const buscaWebhook = new ControleBuscaWebhook();
 const buscaParcela = new ControleBuscaParcela();
@@ -217,6 +246,7 @@ const finalizaPedidos = new ControleFinalizaPedidos();
 const buscaGrupos = new ControleBuscaGruposProdutos();
 const cancelaContrato = new ControleCancelaContrato();
 const criaAlteraProdutos = new ControleCriaProdutos();
+const buscaLinkGrupos = new ControleBuscaLinkGrupos();
 const contratosCliente = new ControleConsContratosCli();
 const atualizaContrato = new ControleAtualizaContrato();
 const consultaOcorrencia = new ControleConsOcorrencia();
@@ -239,7 +269,7 @@ const atualizaDadosViaFood = new ControleUpdateClienteViaFood();
 const personalizacoesDev = new ControleBuscaPersonalizacoesDev();
 const buscaEmpresasLinkadas = new ControleBuscaEmpresasLinkadas();
 const consultaTodasOcorrencias = new ControleTodasConsOcorrencias();
-const consultaFinanceiroContrato = new ControleBuscaFinanceiroContrato ();
+const consultaFinanceiroContrato = new ControleBuscaFinanceiroContrato();
 
 //GET
 Rotas.get("/Teste", controleTeste.handle);
@@ -290,13 +320,7 @@ Rotas.get("/AppsCliente/:codigo", VerificaUsuario, Autoriza, buscaAppsCliente.ha
 Rotas.get("/Convidado/:opt_seq_convidado", VerificaUsuario, buscaAdmConvidado.handle);
 Rotas.get("/ContratosCli/:opt_cod_cliente", VerificaUsuario, contratosCliente.handle);
 // Rotas para integração com convidados
-Rotas.get(
-    "/Grupos/:uid_cli",
-    VerificaDev,
-    AutorizaConvidado,
-    VerificaVinculo,
-    grupoProdDev.handle
-);
+Rotas.get("/Grupos/:uid_cli", VerificaDev, AutorizaConvidado, VerificaVinculo, grupoProdDev.handle);
 Rotas.get(
     "/Produtos/:uid_cli/:cod_grupo",
     VerificaDev,
@@ -305,11 +329,18 @@ Rotas.get(
     produtosDev.handle
 );
 Rotas.get(
-    "/GrupoPersonaliza/:uid_cli/:cod_grupo",
+    "/GruposPersonalizacao/:uid_cli",
     VerificaDev,
     AutorizaConvidado,
     VerificaVinculo,
     grupoPersonaDev.handle
+);
+Rotas.get(
+    "/LinkGrupos/:uid_cli",
+    VerificaDev,
+    AutorizaConvidado,
+    VerificaVinculo,
+    buscaLinkGrupos.handle
 );
 Rotas.get(
     "/Personalizacoes/:uid_cli",
@@ -318,13 +349,20 @@ Rotas.get(
     VerificaVinculo,
     personalizacoesDev.handle
 );
-// 
+//
 Rotas.get(
     "/PedidosPendentes/:codigo",
     VerificaUsuario,
     Autoriza,
     BuscaPedidosAccon,
     consultaPedidos.handle
+);
+Rotas.get(
+    "/ItensPersonalizacao/:uid_cli",
+    VerificaDev,
+    AutorizaConvidado,
+    VerificaVinculo,
+    addCardapio.handle
 );
 
 //POST
@@ -351,6 +389,7 @@ Rotas.post("/LinkAdd", VerificaUsuario, Autoriza, linkGrupoAdd.handle);
 Rotas.post("/GrupoAdd", VerificaUsuario, Autoriza, criaGrupoAdd.handle);
 Rotas.post("/Contrato", VerificaUsuario, Autoriza, criaContrato.handle);
 Rotas.post("/Personalizacoes", VerificaUsuario, Autoriza, criaAdd.handle);
+Rotas.post("/WebhhokLote", VerificaUsuario, Autoriza, webhookLote.handle);
 Rotas.post("/InsUsuario", VerificaUsuario, Autoriza, insereUsuario.handle);
 Rotas.post("/Financeiro", VerificaUsuario, Autoriza, criaFinanceiro.handle);
 Rotas.post("/UpdateStatus", VerificaUsuario, Autoriza, updateStatus.handle);
@@ -361,7 +400,7 @@ Rotas.post("/NovaOcorrencia", VerificaUsuario, Autoriza, criaOcorrencia.handle);
 Rotas.post("/Vinculo", VerificaConvidado, AutorizaConvidado, criaVinculo.handle);
 Rotas.post("/PerfilCadapio", VerificaUsuario, Autoriza, criaPerfilCardapio.handle);
 Rotas.post("/ProxStatus", VerificaUsuario, Autoriza, consultaProximoStatus.handle);
-Rotas.post("/Webhook", VerificaConvidado,AutorizaConvidado, criaAlteraWebhook.handle);
+Rotas.post("/Webhook", VerificaConvidado, AutorizaConvidado, criaAlteraWebhook.handle);
 Rotas.post("/InsPedidoOptimus", VerificaUsuario, Autoriza, pedidoUaiRangoManual.handle);
 //PUT
 Rotas.put("/App", VerificaUsuario, atualizaApp.handle);

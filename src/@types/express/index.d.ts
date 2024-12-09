@@ -3,5 +3,6 @@ declare namespace Express {
         opt_codigo_usu: string;
         opt_seq_convidado: string;
         opt_cod_cliente: string;
+        id_cliente: string;
     }
 }

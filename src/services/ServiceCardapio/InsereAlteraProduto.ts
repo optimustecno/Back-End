@@ -40,7 +40,7 @@ class ServiceInsereAlteraProduto {
             throw new Error("Não Foi Informado o Nome do Produto!");
         }
         if (!valor) {
-            console.log(`valor: ${valor}`)
+            // console.log(`valor: ${valor}`)
             valor=0;
         }
 
@@ -64,6 +64,7 @@ class ServiceInsereAlteraProduto {
                     cod_grupo,
                     ordem,
                     exibir,
+                    webhook: "0"
                 }
             );
         } else {
@@ -78,6 +79,7 @@ class ServiceInsereAlteraProduto {
                 cod_grupo,
                 ordem,
                 exibir,
+                webhook: "0"
             });
             await ProdutosRep.save(_prod);
         }

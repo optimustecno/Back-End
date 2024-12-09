@@ -23,26 +23,24 @@ class AtivaWebhook {
         if (Webhook) {
             switch (opt_finalidade) {
                 case "1":
+                    // console.log("Grupo Prod")
                     hookGrupoProd = Webhook.map((Link) => [Link.opt_tipo, Link.opt_url]);
                     hookGrupoProd.forEach(async (_Link) => {
-                        
                         var requestOptions = {
                             method: _Link[0],
                             headers: {
                                 "Content-Type": "application/json",
                                 Accepts: "*",
                             },
-                            body: JSON.stringify([Data]),
+                            body: Data,
                         };
                         var WebhookResponse = await fetch(`${_Link[1]}`, requestOptions);
-                        
                     });
                     break;
                 case "2":
                     // console.log("produtos")
                     hookGrupoProd = Webhook.map((Link) => [Link.opt_tipo, Link.opt_url]);
                     hookGrupoProd.forEach(async (_Link) => {
-                        
                         var requestOptions = {
                             method: _Link[0],
                             headers: {
@@ -55,25 +53,24 @@ class AtivaWebhook {
                     });
                     break;
                 case "3":
+                    // console.log("Grupos Add")
                     hookGrupoProd = Webhook.map((Link) => [Link.opt_tipo, Link.opt_url]);
                     hookGrupoProd.forEach(async (_Link) => {
-                        
                         var requestOptions = {
                             method: _Link[0],
                             headers: {
                                 "Content-Type": "application/json",
                                 Accepts: "*",
                             },
-                            body: JSON.stringify([Data]),
+                            body: Data,
                         };
                         var WebhookResponse = await fetch(`${_Link[1]}`, requestOptions);
-                        
                     });
                     break;
                 case "4":
+                    // console.log("Add")
                     hookGrupoProd = Webhook.map((Link) => [Link.opt_tipo, Link.opt_url]);
                     hookGrupoProd.forEach(async (_Link) => {
-                        
                         var requestOptions = {
                             method: _Link[0],
                             headers: {
@@ -86,7 +83,19 @@ class AtivaWebhook {
                     });
                     break;
                 case "5":
-                    console.log(`Vinculo de grupos`)
+                    // console.log("Vinculos")
+                    hookGrupoProd = Webhook.map((Link) => [Link.opt_tipo, Link.opt_url]);
+                    hookGrupoProd.forEach(async (_Link) => {
+                        var requestOptions = {
+                            method: _Link[0],
+                            headers: {
+                                "Content-Type": "application/json",
+                                Accepts: "*",
+                            },
+                            body: Data,
+                        };
+                        var WebhookResponse = await fetch(`${_Link[1]}`, requestOptions);
+                    });
                     break;
                 default:
                     break;

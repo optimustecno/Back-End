@@ -1,16 +1,29 @@
 import { getCustomRepository } from "typeorm";
-import { ViewGruposAddRep } from "../../repositories/ViewGrupoAdicionais";
+import { GrupoPersonalizaRep } from "../../repositories/GrupoPersonalizaRep";
 
 interface iDevGruposPersonalizacao {
     cod_cliente: string;
-    cod_grupo_produto: string;
+    id_cliente: string;
 }
 
 class ConsultaGruposPersonalizacaoDev {
-    async execute({ cod_cliente, cod_grupo_produto }: iDevGruposPersonalizacao) {
-        const personalizaRep = getCustomRepository(ViewGruposAddRep);
+    async execute({ cod_cliente, id_cliente }: iDevGruposPersonalizacao) {
+        const personalizaRep = getCustomRepository(GrupoPersonalizaRep);
 
-        const Grupos = await personalizaRep.find({ cod_cliente, cod_grupo_produto });
+        // const Grupos = await personalizaRep.find({ opt_cod_cliente: cod_cliente });
+
+        // console.log(id_cliente)
+        const Grupos = await personalizaRep
+            .createQueryBuilder("opt_grupo_personalizacao")
+            .setParameter("id_cliente", id_cliente)
+            .where("opt_cod_cliente = :cod_cliente", { cod_cliente })
+            .select([
+                ":id_cliente as id_cliente",
+                "seq as cod_grupo_adicional",
+                "nome",
+                "exibir",
+            ])
+            .getRawMany();
 
         return Grupos;
     }

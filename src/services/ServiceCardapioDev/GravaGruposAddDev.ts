@@ -9,7 +9,8 @@ class GravaGruposAddDev {
         opt_cod_cliente,
         cod_grupo,
         nome,
-        exibir
+        exibir,
+        id_cliente
     }: iCliGrupoAdd) {
         const gruposRep = getCustomRepository(GrupoPersonalizaRep);
 
@@ -47,13 +48,15 @@ class GravaGruposAddDev {
             opt_cod_cliente,
             cod_grupo
         });
-        
+
         try{
+            const itemGravado = `[{"id_cliente":"${id_cliente}","cod_grupo_adicional": ${grupoCad.seq},"nome": "${nome}","exibir": "${exibir}"}]`;
+            // console.log(itemGravado)
             const disparoWebhook = new AtivaWebhook();
             const webhook = await disparoWebhook.execute({
                 opt_cod_cliente, 
                 opt_finalidade: "3",
-                Data: JSON.parse(JSON.stringify(grupoCad))
+                Data: JSON.parse(JSON.stringify(itemGravado))
             })
             
             return grupoCad.seq;

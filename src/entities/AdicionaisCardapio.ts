@@ -22,6 +22,8 @@ class AdicionaisCardapio {
     aceita_quantidade: string;
     @Column()
     exibir: string;
+    @Column()
+    webhook: string;
 }
 
 export { AdicionaisCardapio };

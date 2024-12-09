@@ -11,6 +11,7 @@ class ControleBuscaGruposProdutosDev {
             opt_cod_cliente: codigo_Cli,
             inclui_produtos: Boolean(inclui_produtos),
             grupos_ativos: grupos_ativos,
+            id_cliente: request.id_cliente
         });
 
         return response.json(Grupos);

@@ -13,10 +13,11 @@ class GravaGruposDev {
         preco,
         ordem,
         exibir,
+        id_cliente,
     }: iCliGrupos) {
         const gruposRep = getCustomRepository(GrupoProdRep);
 
-        if (!opt_cod_cliente) {
+        if (!id_cliente) {
             throw new Error("Não Foi Informado o Código de Cliente!");
         }
         if (!cod_grupo) {
@@ -54,12 +55,22 @@ class GravaGruposDev {
             cod_grupo,
         });
 
+        const itemGravado = `[
+                                {"id_cliente":"${id_cliente}",
+                                "cod_grupo": ${grupoCad.seq},
+                                "nome_grupo": "${nome_grupo}",
+                                "aceita_meio_a_meio":"${aceita_meio_a_meio}",
+                                "preco":"${preco}",
+                                "ordem":"${ordem}",
+                                "exibir": "${exibir}"}
+                            ]`;
+
         try {
             const disparoWebhook = new AtivaWebhook();
             const webhook = await disparoWebhook.execute({
                 opt_cod_cliente,
                 opt_finalidade: "1",
-                Data: JSON.parse(JSON.stringify(grupoCad)),
+                Data: JSON.parse(JSON.stringify(itemGravado)),
             });
 
             return grupoCad.seq;

@@ -7,6 +7,7 @@ export interface iCliGrupos {
     preco: string;
     ordem: string;
     exibir: string;
+    id_cliente: string;
 }
 
 export interface iCliGrupoAdd {
@@ -15,6 +16,7 @@ export interface iCliGrupoAdd {
     nome: string;
     cod_grupo: string;
     exibir: string;
+    id_cliente: string;
 }
 
 export interface iLinkGrupoAdd {
@@ -23,6 +25,9 @@ export interface iLinkGrupoAdd {
     opt_grupo_produto: string;
     opt_grupo_adicional: string;
     opt_exibir: string;
+    id_cliente: string;
+    nome_grupo_prod: string;
+    nome_grupo_adicional: string;
 }
 export interface iPersonalizacoes {
     opt_cod_cliente: string;
@@ -32,4 +37,5 @@ export interface iPersonalizacoes {
     valor: Number;
     aceita_quantidade: string;
     exibir: string;
+    id_cliente: string;
 }

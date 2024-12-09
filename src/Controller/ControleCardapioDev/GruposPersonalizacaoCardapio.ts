@@ -3,13 +3,13 @@ import { ConsultaGruposPersonalizacaoDev } from "../../services/ServiceCardapioD
 
 class ControleGrupoPersonalizacaoDev {
     async handle(request: Request, response: Response) {
-        const { cod_grupo } = request.params;
+        const {id_cliente} = request;
         const codigo_Cli = request.opt_cod_cliente;
         const ConsPersonalizacao = new ConsultaGruposPersonalizacaoDev();
 
         const produtos = await ConsPersonalizacao.execute({
             cod_cliente: codigo_Cli,
-            cod_grupo_produto: cod_grupo,
+            id_cliente
         });
 
         return response.json(produtos);

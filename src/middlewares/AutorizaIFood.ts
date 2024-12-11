@@ -13,7 +13,7 @@ export async function AutIFood(request: Request, response: Response, next: NextF
         ChaveValida = "" + chaveIFood
     }
 
-    console.log(`Resposta comparação ${verifyHmacSHA256(request.body,ChaveValida)}`)
+    console.log(`Resposta comparação ${verifyHmacSHA256(ChaveValida)}`)
     
     var payload = JSON.stringify(request.body);
 
@@ -57,7 +57,7 @@ export async function AutIFood(request: Request, response: Response, next: NextF
         return hexString;
     }
     
-    async function verifyHmacSHA256( data: string, expectedSignature: string) {
+    async function verifyHmacSHA256( expectedSignature: string) {
         try {
 
             const encoder = new TextEncoder();
@@ -72,10 +72,10 @@ export async function AutIFood(request: Request, response: Response, next: NextF
             const signature = await crypto.subtle.sign(
                 "HMAC",
                 key,
-                encoder.encode(data)
+                encoder.encode(request.body)
             );
-    
-            const hexSignature = bytesToHexString(new Uint8Array(signature));
+            let conv = bytesToHexString(new Uint8Array(signature));
+            const hexSignature = conv;
             return hexSignature === expectedSignature;
 
 

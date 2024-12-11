@@ -60,31 +60,13 @@ export async function AutIFood(request: Request, response: Response, next: NextF
     async function verifyHmacSHA256( expectedSignature: string) {
         try {
 
-            const encoder = new TextEncoder();
-            const key = await crypto.subtle.importKey(
-                "raw",
-                encoder.encode(process.env.SECRET_IFOOD),
-                { name: "HMAC", hash: { name: "SHA-256" } },
-                false,
-                ["sign", "verify"]
-            );
-    
-            const signature = await crypto.subtle.sign(
-                "HMAC",
-                key,
-                encoder.encode(request.body)
-            );
-            let conv = bytesToHexString(new Uint8Array(signature));
-            const hexSignature = conv;
-            return hexSignature === expectedSignature;
-
-
-            // const hmac = createHmac('sha256', process.env.SECRET_IFOOD);
-            // hmac.update(data, 'utf8');
-            // const hmacBytes = hmac.digest();
-            // let conv = bytesToHexString(hmacBytes)
-            // console.log(`HMAC: ${conv})}`)
-            // return conv === expectedSignature;
+            
+            const hmac = createHmac('sha256', process.env.SECRET_IFOOD);
+            hmac.update(request.body, 'utf8');
+            const hmacBytes = hmac.digest();
+            let conv = bytesToHexString(hmacBytes)
+            console.log(`HMAC: ${conv})}`)
+            return conv === expectedSignature;
         } catch (error) {
             console.log(error)
             return false;

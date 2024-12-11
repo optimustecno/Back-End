@@ -62,7 +62,7 @@ export async function AutIFood(request: Request, response: Response, next: NextF
 
             
             const hmac = createHmac('sha256', process.env.SECRET_IFOOD);
-            hmac.update(request.body, 'utf8');
+            hmac.update(JSON.stringify(request.body), 'utf8');
             const hmacBytes = hmac.digest();
             let conv = bytesToHexString(hmacBytes)
             console.log(`HMAC: ${conv})}`)

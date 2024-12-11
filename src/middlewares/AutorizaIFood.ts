@@ -8,8 +8,12 @@ export async function AutIFood(request: Request, response: Response, next: NextF
     // console.log(request.headers)
     const chaveIFood = request.headers["x-ifood-signature"];
     console.log(`Headder: ${chaveIFood}`)
+    let ChaveValida;
+    if (chaveIFood){
+        ChaveValida = "" + chaveIFood
+    }
 
-    console.log(`Resposta comparação ${verifyHmacSHA256(request.body,chaveIFood)}`)
+    console.log(`Resposta comparação ${verifyHmacSHA256(request.body,ChaveValida)}`)
     
     var payload = JSON.stringify(request.body);
 
@@ -53,14 +57,34 @@ export async function AutIFood(request: Request, response: Response, next: NextF
         return hexString;
     }
     
-    function verifyHmacSHA256( data, expectedSignature) {
+    async function verifyHmacSHA256( data: string, expectedSignature: string) {
         try {
-            const hmac = createHmac('sha256', process.env.SECRET_IFOOD);
-            hmac.update(data, 'utf8');
-            const hmacBytes = hmac.digest();
-            let conv = bytesToHexString(hmacBytes)
-            console.log(`HMAC: ${conv})}`)
-            return conv === expectedSignature;
+
+            const encoder = new TextEncoder();
+            const key = await crypto.subtle.importKey(
+                "raw",
+                encoder.encode(process.env.SECRET_IFOOD),
+                { name: "HMAC", hash: { name: "SHA-256" } },
+                false,
+                ["sign", "verify"]
+            );
+    
+            const signature = await crypto.subtle.sign(
+                "HMAC",
+                key,
+                encoder.encode(data)
+            );
+    
+            const hexSignature = bytesToHexString(new Uint8Array(signature));
+            return hexSignature === expectedSignature;
+
+
+            // const hmac = createHmac('sha256', process.env.SECRET_IFOOD);
+            // hmac.update(data, 'utf8');
+            // const hmacBytes = hmac.digest();
+            // let conv = bytesToHexString(hmacBytes)
+            // console.log(`HMAC: ${conv})}`)
+            // return conv === expectedSignature;
         } catch (error) {
             console.log(error)
             return false;

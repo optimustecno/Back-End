@@ -12,7 +12,7 @@ export async function AutIFood(request: Request, response: Response, next: NextF
     if (chaveIFood){
         ChaveValida = "" + chaveIFood
     }
-    let Teste = verifyHmacSHA256(JSON.stringify(request.body), ChaveValida)
+    let Teste = await verifyHmacSHA256(JSON.stringify(request.body), ChaveValida)
     console.log(`Resposta comparação ${Teste}`)
     
     var payload = JSON.stringify(request.body);
@@ -61,7 +61,6 @@ export async function AutIFood(request: Request, response: Response, next: NextF
         let bRet = false;
         try {
 
-            
             const hmac = createHmac('sha256', process.env.SECRET_IFOOD);
             hmac.update(data, 'utf8');
             const hmacBytes = hmac.digest();

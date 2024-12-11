@@ -1,19 +1,16 @@
 import { createHmac } from "crypto";
 import { NextFunction, Request, Response } from "express";
 import { ServiceGravaLog } from "../services/ServiceLogger";
+import { Espera } from "../utils/functions";
 
 export async function AutIFood(request: Request, response: Response, next: NextFunction) {
-    //var { cod_pedido } = request.body;
-    // console.log(request)
-    // console.log(request.headers)
+    
     const chaveIFood = request.headers["x-ifood-signature"];
-    console.log(`Headder: ${chaveIFood}`)
     let ChaveValida;
     if (chaveIFood){
         ChaveValida = "" + chaveIFood
     }
-    let Teste = await verifyHmacSHA256(JSON.stringify(request.body), ChaveValida)
-    console.log(`Resposta comparação ${Teste}`)
+    let testeIFood = await verifyHmacSHA256(JSON.stringify(request.body), ChaveValida)
     
     var payload = JSON.stringify(request.body);
 
@@ -36,16 +33,20 @@ export async function AutIFood(request: Request, response: Response, next: NextF
     segundos = segundos.substring(iLen, iLen - 2);
     const MomentoH = `${horas}:${minutos}:${segundos}`;
     //
+    //
     const _log = await CriaLog.execute({
         opt_payload: payload,
         opt_data: MomentoD,
         opt_hora: MomentoH,
-        opt_origem: "IFood",
+        opt_origem: `IFood-${testeIFood}`,
     });
 
-    //if (chaveUai === process.env.CHAVE_UAI_RANGO) {
-    return next();
-    //}
+    if (testeIFood) {
+        return next();
+    }
+    else {
+        throw new Error("Não Autorizado");
+    }
     //senha ok?
     //throw new Error("Não Autorizado");
     function bytesToHexString(bytes) {
@@ -65,7 +66,7 @@ export async function AutIFood(request: Request, response: Response, next: NextF
             hmac.update(data, 'utf8');
             const hmacBytes = hmac.digest();
             let conv = bytesToHexString(hmacBytes)
-            console.log(`HMAC: ${conv})}`)
+            console.log(`HMAC: ${conv}`)
             if (conv === expectedSignature){
                 bRet = true;
             }

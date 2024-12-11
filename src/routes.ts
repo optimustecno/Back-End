@@ -369,6 +369,7 @@ Rotas.get(
 Rotas.post("/Login", autenticaUsuario.handle);
 //
 Rotas.post("/PedidoToLevando", AutToLevando, loggerToLevando.handle);
+Rotas.post("/HookIFood", AutToLevando, loggerToLevando.handle);
 //
 Rotas.post("/Autentica", autenticaConvidado.handle);
 Rotas.post("/Nota", VerificaUsuario, criaNota.handle);

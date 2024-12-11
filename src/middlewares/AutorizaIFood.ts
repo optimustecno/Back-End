@@ -34,18 +34,21 @@ export async function AutIFood(request: Request, response: Response, next: NextF
     const MomentoH = `${horas}:${minutos}:${segundos}`;
     //
     //
-    const _log = await CriaLog.execute({
-        opt_payload: payload,
-        opt_data: MomentoD,
-        opt_hora: MomentoH,
-        opt_origem: `IFood-${testeIFood}`,
-    });
+    var responseJson = await request.body.json();
+    if (responseJson.fullCode != "KEEPALIVE"){
+        const _log = await CriaLog.execute({
+            opt_payload: payload,
+            opt_data: MomentoD,
+            opt_hora: MomentoH,
+            opt_origem: `IFood-${testeIFood}`,
+        });
+    }
 
     if (testeIFood) {
         return next();
     }
     else {
-        throw new Error("Não Autorizado");
+        throw new Error("Não Autorizado Falha na Assinatura");
     }
     //senha ok?
     //throw new Error("Não Autorizado");

@@ -12,8 +12,8 @@ export async function AutIFood(request: Request, response: Response, next: NextF
     if (chaveIFood){
         ChaveValida = "" + chaveIFood
     }
-
-    console.log(`Resposta comparação ${verifyHmacSHA256(ChaveValida)}`)
+    let Teste = verifyHmacSHA256(JSON.stringify(request.body), ChaveValida)
+    console.log(`Resposta comparação ${Teste}`)
     
     var payload = JSON.stringify(request.body);
 
@@ -57,12 +57,12 @@ export async function AutIFood(request: Request, response: Response, next: NextF
         return hexString;
     }
     
-    async function verifyHmacSHA256( expectedSignature: string) {
+    async function verifyHmacSHA256( data: string, expectedSignature: string) {
         try {
 
             
             const hmac = createHmac('sha256', process.env.SECRET_IFOOD);
-            hmac.update(JSON.stringify(request.body), 'utf8');
+            hmac.update(data, 'utf8');
             const hmacBytes = hmac.digest();
             let conv = bytesToHexString(hmacBytes)
             console.log(`HMAC: ${conv})}`)

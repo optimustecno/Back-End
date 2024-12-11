@@ -5,6 +5,7 @@ import { ServiceGravaLog } from "../services/ServiceLogger";
 export async function AutToLevando(request: Request, response: Response, next: NextFunction) {
     //var { cod_pedido } = request.body;
     //console.log(request)
+    console.log("Teste")
     const chaveIFood = request.headers["X-IFood-Signature"];
     console.log(`Headder: ${chaveIFood}`)
 

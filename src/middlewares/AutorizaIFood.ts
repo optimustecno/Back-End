@@ -62,6 +62,7 @@ export async function AutIFood(request: Request, response: Response, next: NextF
             console.log(`HMAC: ${conv})}`)
             return conv === expectedSignature;
         } catch (error) {
+            console.log(error)
             return false;
         }
     }

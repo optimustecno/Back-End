@@ -5,11 +5,11 @@ import { ServiceGravaLog } from "../services/ServiceLogger";
 export async function AutIFood(request: Request, response: Response, next: NextFunction) {
     //var { cod_pedido } = request.body;
     //console.log(request)
-    console.log("Teste")
+    // console.log(request.headers)
     const chaveIFood = request.headers["X-IFood-Signature"];
-    console.log(`Headder: ${chaveIFood}`)
+    // console.log(`Headder: ${chaveIFood}`)
 
-    console.log(`Resposta comparação ${verifyHmacSHA256(request.body,chaveIFood)}`)
+    // console.log(`Resposta comparação ${verifyHmacSHA256(request.body,chaveIFood)}`)
     
     var payload = JSON.stringify(request.body);
 
@@ -59,7 +59,7 @@ export async function AutIFood(request: Request, response: Response, next: NextF
             hmac.update(data, 'utf8');
             const hmacBytes = hmac.digest();
             let conv = bytesToHexString(hmacBytes)
-            console.log(`HMAC: ${conv})}`)
+            // console.log(`HMAC: ${conv})}`)
             return conv === expectedSignature;
         } catch (error) {
             return false;

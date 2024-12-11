@@ -4,9 +4,9 @@ import { ServiceGravaLog } from "../services/ServiceLogger";
 
 export async function AutIFood(request: Request, response: Response, next: NextFunction) {
     //var { cod_pedido } = request.body;
-    console.log(request)
-    console.log(request.headers)
-    const chaveIFood = request.headers["X-IFood-Signature"];
+    // console.log(request)
+    // console.log(request.headers)
+    const chaveIFood = request.headers["x-ifood-signature"];
     console.log(`Headder: ${chaveIFood}`)
 
     console.log(`Resposta comparação ${verifyHmacSHA256(request.body,chaveIFood)}`)

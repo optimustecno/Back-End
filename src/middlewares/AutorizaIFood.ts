@@ -34,7 +34,7 @@ export async function AutIFood(request: Request, response: Response, next: NextF
     const MomentoH = `${horas}:${minutos}:${segundos}`;
     //
     //
-    var responseJson = await request.body.json();
+    var responseJson = await JSON.parse(payload) ;
     if (responseJson.fullCode != "KEEPALIVE"){
         const _log = await CriaLog.execute({
             opt_payload: payload,

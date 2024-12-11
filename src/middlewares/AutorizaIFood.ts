@@ -58,6 +58,7 @@ export async function AutIFood(request: Request, response: Response, next: NextF
     }
     
     async function verifyHmacSHA256( data: string, expectedSignature: string) {
+        let bRet = false;
         try {
 
             
@@ -66,7 +67,13 @@ export async function AutIFood(request: Request, response: Response, next: NextF
             const hmacBytes = hmac.digest();
             let conv = bytesToHexString(hmacBytes)
             console.log(`HMAC: ${conv})}`)
-            return conv === expectedSignature;
+            if (conv === expectedSignature){
+                bRet = true;
+            }
+            else {
+                bRet = false;
+            }
+            return bRet;
         } catch (error) {
             console.log(error)
             return false;

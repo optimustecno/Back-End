@@ -1,6 +1,7 @@
 import { Router } from "express";
 // MIDDLEWARES
 import { Autoriza } from "./middlewares/AutorizaPost";
+import { AutIFood } from "./middlewares/AutorizaIFood";
 import { VerificaDev } from "./middlewares/VerificaDev";
 import { VerificaSite } from "./middlewares/VerificaSite";
 import { AutUaiRango } from "./middlewares/AutorizaUaiRango";
@@ -368,8 +369,8 @@ Rotas.get(
 //POST
 Rotas.post("/Login", autenticaUsuario.handle);
 //
+Rotas.post("/HookIFood", AutIFood, loggerToLevando.handle);
 Rotas.post("/PedidoToLevando", AutToLevando, loggerToLevando.handle);
-Rotas.post("/HookIFood", AutToLevando, loggerToLevando.handle);
 //
 Rotas.post("/Autentica", autenticaConvidado.handle);
 Rotas.post("/Nota", VerificaUsuario, criaNota.handle);

@@ -2,7 +2,7 @@ import { createHmac } from "crypto";
 import { NextFunction, Request, Response } from "express";
 import { ServiceGravaLog } from "../services/ServiceLogger";
 
-export async function AutToLevando(request: Request, response: Response, next: NextFunction) {
+export async function AutIFood(request: Request, response: Response, next: NextFunction) {
     //var { cod_pedido } = request.body;
     //console.log(request)
     console.log("Teste")

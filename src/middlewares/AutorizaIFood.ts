@@ -43,6 +43,7 @@ export async function AutIFood(request: Request, response: Response, next: NextF
     }
 
     if (testeIFood) {
+        console.log(responseJson.merchantId)
         const appRep = getCustomRepository(AppRep);
         const app = await appRep.findOne({
             where: {

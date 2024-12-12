@@ -1,7 +1,7 @@
-import { createHmac } from "crypto";
 import { getCustomRepository } from "typeorm";
 import { AppRep } from "../repositories/AppRep";
 import { NextFunction, Request, Response } from "express";
+import { VerificaAssinaturaHMAC } from "../utils/functions";
 import { ServiceGravaLog } from "../services/ServiceLogger";
 
 export async function AutIFood(request: Request, response: Response, next: NextFunction) {
@@ -10,7 +10,11 @@ export async function AutIFood(request: Request, response: Response, next: NextF
     if (chaveIFood) {
         ChaveValida = "" + chaveIFood;
     }
-    let testeIFood = await verifyHmacSHA256(JSON.stringify(request.body), ChaveValida);
+    let testeIFood = await VerificaAssinaturaHMAC(
+        JSON.stringify(request.body),
+        ChaveValida,
+        process.env.SECRET_IFOOD
+    );
 
     var payload = JSON.stringify(request.body);
     const CriaLog = new ServiceGravaLog();
@@ -68,34 +72,5 @@ export async function AutIFood(request: Request, response: Response, next: NextF
         return next();
     } else {
         throw new Error("Não Autorizado Falha na Assinatura");
-    }
-
-    function bytesToHexString(bytes) {
-        let hexString = "";
-        for (const byte of bytes) {
-            const hex = byte.toString(16).padStart(2, "0");
-            hexString += hex;
-        }
-        return hexString;
-    }
-
-    async function verifyHmacSHA256(data: string, expectedSignature: string) {
-        let bRet = false;
-        try {
-            const hmac = createHmac("sha256", process.env.SECRET_IFOOD);
-            hmac.update(data, "utf8");
-            const hmacBytes = hmac.digest();
-            let conv = bytesToHexString(hmacBytes);
-            // console.log(`HMAC: ${conv}`)
-            if (conv === expectedSignature) {
-                bRet = true;
-            } else {
-                bRet = false;
-            }
-            return bRet;
-        } catch (error) {
-            console.log(error);
-            return false;
-        }
     }
 }

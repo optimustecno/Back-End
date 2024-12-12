@@ -1,3 +1,4 @@
+import { createHmac } from "crypto";
 import { getCustomRepository } from "typeorm";
 import { ClientesRep } from "../repositories/ClienteRep";
 
@@ -37,4 +38,33 @@ function Espera(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-export { removeEmojis, ValidaCardapio, Espera };
+function bytesToHexString(bytes) {
+    let hexString = "";
+    for (const byte of bytes) {
+        const hex = byte.toString(16).padStart(2, "0");
+        hexString += hex;
+    }
+    return hexString;
+}
+
+async function VerificaAssinaturaHMAC(data: string, expectedSignature: string, secret: string) {
+    let bRet = false;
+    try {
+        const hmac = createHmac("sha256", secret);
+        hmac.update(data, "utf8");
+        const hmacBytes = hmac.digest();
+        let conv = bytesToHexString(hmacBytes);
+        // console.log(`HMAC: ${conv}`)
+        if (conv === expectedSignature) {
+            bRet = true;
+        } else {
+            bRet = false;
+        }
+        return bRet;
+    } catch (error) {
+        console.log(error);
+        return false;
+    }
+}
+
+export { removeEmojis, ValidaCardapio, Espera, VerificaAssinaturaHMAC };

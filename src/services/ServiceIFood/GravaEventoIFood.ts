@@ -31,8 +31,8 @@ class ServiceCriaEvento {
                 opt_cod_app: opt_cod_app,
                 opt_pedido_app: orderId,
                 ordem: cont.toString(),
-                hora: data.split(" ")[1].substring(0, 5),
-                data: data.split(" ")[0],
+                hora: data.split("T")[1].substring(0, 5),
+                data: data.split("T")[0],
                 status: "0",
                 novo_status: "0",
             });

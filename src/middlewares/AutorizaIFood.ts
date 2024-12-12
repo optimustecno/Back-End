@@ -1,19 +1,18 @@
 import { createHmac } from "crypto";
+import { getCustomRepository } from "typeorm";
+import { AppRep } from "../repositories/AppRep";
 import { NextFunction, Request, Response } from "express";
 import { ServiceGravaLog } from "../services/ServiceLogger";
-import { Espera } from "../utils/functions";
 
 export async function AutIFood(request: Request, response: Response, next: NextFunction) {
-    
     const chaveIFood = request.headers["x-ifood-signature"];
     let ChaveValida;
-    if (chaveIFood){
-        ChaveValida = "" + chaveIFood
+    if (chaveIFood) {
+        ChaveValida = "" + chaveIFood;
     }
-    let testeIFood = await verifyHmacSHA256(JSON.stringify(request.body), ChaveValida)
-    
-    var payload = JSON.stringify(request.body);
+    let testeIFood = await verifyHmacSHA256(JSON.stringify(request.body), ChaveValida);
 
+    var payload = JSON.stringify(request.body);
     const CriaLog = new ServiceGravaLog();
     //
     var iLen = 0;
@@ -33,9 +32,8 @@ export async function AutIFood(request: Request, response: Response, next: NextF
     segundos = segundos.substring(iLen, iLen - 2);
     const MomentoH = `${horas}:${minutos}:${segundos}`;
     //
-    //
-    var responseJson = await JSON.parse(payload) ;
-    if (responseJson.fullCode != "KEEPALIVE"){
+    var responseJson = await JSON.parse(payload);
+    if (responseJson.fullCode != "KEEPALIVE") {
         const _log = await CriaLog.execute({
             opt_payload: payload,
             opt_data: MomentoD,
@@ -45,40 +43,51 @@ export async function AutIFood(request: Request, response: Response, next: NextF
     }
 
     if (testeIFood) {
+        const appRep = getCustomRepository(AppRep);
+        const app = await appRep.findOne({
+            where: {
+                login: responseJson.merchantId,
+            },
+        });
+
+        if (!app) {
+            console.log("Não Encontro Estabelecimento!");
+            return response
+                .status(202)
+                .json({ error: "Pedido Não Pertence a Nenhum Cliente Vinculado" });
+        }
+        request.opt_cod_cliente = app.opt_cod_cliente;
+        request.opt_cod_app = app.seq;
         return next();
-    }
-    else {
+    } else {
         throw new Error("Não Autorizado Falha na Assinatura");
     }
-    //senha ok?
-    //throw new Error("Não Autorizado");
+
     function bytesToHexString(bytes) {
-        let hexString = '';
+        let hexString = "";
         for (const byte of bytes) {
-            const hex = byte.toString(16).padStart(2, '0');
+            const hex = byte.toString(16).padStart(2, "0");
             hexString += hex;
         }
         return hexString;
     }
-    
-    async function verifyHmacSHA256( data: string, expectedSignature: string) {
+
+    async function verifyHmacSHA256(data: string, expectedSignature: string) {
         let bRet = false;
         try {
-
-            const hmac = createHmac('sha256', process.env.SECRET_IFOOD);
-            hmac.update(data, 'utf8');
+            const hmac = createHmac("sha256", process.env.SECRET_IFOOD);
+            hmac.update(data, "utf8");
             const hmacBytes = hmac.digest();
-            let conv = bytesToHexString(hmacBytes)
-            console.log(`HMAC: ${conv}`)
-            if (conv === expectedSignature){
+            let conv = bytesToHexString(hmacBytes);
+            // console.log(`HMAC: ${conv}`)
+            if (conv === expectedSignature) {
                 bRet = true;
-            }
-            else {
+            } else {
                 bRet = false;
             }
             return bRet;
         } catch (error) {
-            console.log(error)
+            console.log(error);
             return false;
         }
     }

@@ -1,4 +1,4 @@
-import { getCustomRepository, Like, Between, Not } from "typeorm";
+import { getCustomRepository, Like } from "typeorm";
 import { LoggerwebhookRep } from "../../repositories/LoggerWebHookRep";
 
 interface iFiltro {

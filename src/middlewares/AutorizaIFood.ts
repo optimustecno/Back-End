@@ -34,6 +34,7 @@ export async function AutIFood(request: Request, response: Response, next: NextF
     //
     var responseJson = await JSON.parse(payload);
     if (responseJson.fullCode != "KEEPALIVE") {
+        console.log(responseJson.merchantId)
         const _log = await CriaLog.execute({
             opt_payload: payload,
             opt_data: MomentoD,
@@ -43,7 +44,6 @@ export async function AutIFood(request: Request, response: Response, next: NextF
     }
 
     if (testeIFood) {
-        console.log(responseJson.merchantId)
         const appRep = getCustomRepository(AppRep);
         const app = await appRep.findOne({
             where: {

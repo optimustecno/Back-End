@@ -71,6 +71,7 @@ import {
     ControleUpdateApiKey,
     ControleVinculoFood,
 } from "./Controller/ControleConvidados";
+import { ControleCriaEvento } from "./Controller/ControleIFood";
 import { ControleCriaMensagem } from "./Controller/ControleMensagens";
 import { ControleDeleteContato } from "./Controller/ControleContatos";
 import { ControleUpdateContato } from "./Controller/ControleContatos";
@@ -185,6 +186,7 @@ const consultaPedidos = new ControleConsPedido();
 const loggerToLevando = new ControleLogger();
 //
 const licencaOff = new ControleLicencaOff();
+const eventoIfood = new ControleCriaEvento();
 const criaContato = new ControleCriaContato();
 const buscaCargos = new ControleBuscaCargos();
 const buscaAcesso = new ControleBuscaAcesso();
@@ -369,7 +371,7 @@ Rotas.get(
 //POST
 Rotas.post("/Login", autenticaUsuario.handle);
 //
-Rotas.post("/HookIFood", AutIFood, loggerToLevando.handle);
+Rotas.post("/HookIFood", AutIFood, eventoIfood.handle);
 Rotas.post("/PedidoToLevando", AutToLevando, loggerToLevando.handle);
 //
 Rotas.post("/Autentica", autenticaConvidado.handle);

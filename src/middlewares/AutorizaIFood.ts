@@ -45,12 +45,13 @@ export async function AutIFood(request: Request, response: Response, next: NextF
 
     if (testeIFood) {
         const appRep = getCustomRepository(AppRep);
+        console.log(`Teste de ID ${responseJson.merchantId}`)
         const app = await appRep.findOne({
             where: {
                 login: responseJson.merchantId,
             },
         });
-
+        console.log(app)
         if (!app) {
             console.log("Não Encontro Estabelecimento!");
             return response

@@ -25,6 +25,7 @@ class ServiceCriaEvento {
         console.log(`Pedido ${orderId}`)
         if (!ped) {
             cont = cont + 1;
+            console.log(data)
             let pedidoIfood = pedidoRep.create({
                 opt_cod_cliente: opt_cod_cliente,
                 opt_cod_app: opt_cod_app,
@@ -43,6 +44,7 @@ class ServiceCriaEvento {
                 opt_pedido_app: orderId,
             },
         });
+        console.log(ped)
         return ped;
 
         // return "";

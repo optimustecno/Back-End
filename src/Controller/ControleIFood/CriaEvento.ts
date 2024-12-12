@@ -17,7 +17,7 @@ class ControleCriaEvento {
                 .json(eventoGrava);
         }
         catch(error){
-
+            console.log(error)
         }
     }
 }

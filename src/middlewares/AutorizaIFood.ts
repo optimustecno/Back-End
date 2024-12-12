@@ -34,7 +34,7 @@ export async function AutIFood(request: Request, response: Response, next: NextF
     //
     var responseJson = await JSON.parse(payload);
     if (responseJson.fullCode != "KEEPALIVE") {
-        console.log(responseJson.merchantId)
+        console.log(responseJson.merchantId);
         const _log = await CriaLog.execute({
             opt_payload: payload,
             opt_data: MomentoD,
@@ -45,19 +45,20 @@ export async function AutIFood(request: Request, response: Response, next: NextF
 
     if (testeIFood) {
         const appRep = getCustomRepository(AppRep);
-        console.log(`Teste de ID ${responseJson.merchantId}`)
+        console.log(`Teste de ID ${responseJson.merchantId}`);
         const app = await appRep.findOne({
             where: {
                 login: responseJson.merchantId,
             },
         });
-        console.log(app)
+        console.log(app);
         if (!app) {
             console.log("Não Encontro Estabelecimento!");
             return response
                 .status(202)
                 .json({ error: "Pedido Não Pertence a Nenhum Cliente Vinculado" });
         }
+        console.log(app.opt_cod_cliente);
         request.opt_cod_cliente = app.opt_cod_cliente;
         request.opt_cod_app = app.seq;
         return next();

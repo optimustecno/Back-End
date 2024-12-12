@@ -1,6 +1,7 @@
 import { iEvent } from "./interfaces";
 import { getCustomRepository } from "typeorm";
 import { PedidoRep } from "../../repositories/PedidoRep";
+import { Espera } from "../../utils/functions";
 
 class ServiceCriaEvento {
     async execute({
@@ -16,11 +17,12 @@ class ServiceCriaEvento {
         let data = createdAt;
         let cont = 0;
         let pedidoRep = getCustomRepository(PedidoRep);
-        const ped = await pedidoRep.findOne({
+        let ped = await pedidoRep.findOne({
             where: {
                 opt_pedido_app: orderId,
             },
         });
+        console.log(`Pedido ${orderId}`)
         if (!ped) {
             cont = cont + 1;
             let pedidoIfood = pedidoRep.create({
@@ -35,10 +37,15 @@ class ServiceCriaEvento {
             });
             await pedidoRep.save(pedidoIfood);
         }
+        Espera(150)
+        ped = await pedidoRep.findOne({
+            where: {
+                opt_pedido_app: orderId,
+            },
+        });
+        return ped;
 
-        // return response.status(200).json({ Message: "OK" });
-
-        return "";
+        // return "";
     }
 }
 

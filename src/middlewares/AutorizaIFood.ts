@@ -41,6 +41,10 @@ export async function AutIFood(request: Request, response: Response, next: NextF
             opt_hora: MomentoH,
             opt_origem: `IFood-${testeIFood}`,
         });
+    } else {
+        return response
+            .status(202)
+            .json({ error: "Pedido Não Pertence a Nenhum Cliente Vinculado" });
     }
 
     if (testeIFood) {

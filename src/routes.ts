@@ -332,6 +332,13 @@ Rotas.get(
     produtosDev.handle
 );
 Rotas.get(
+    "/Produtos/:uid_cli",
+    VerificaDev,
+    AutorizaConvidado,
+    VerificaVinculo,
+    produtosDev.handle
+);
+Rotas.get(
     "/GruposPersonalizacao/:uid_cli",
     VerificaDev,
     AutorizaConvidado,

@@ -24,6 +24,8 @@ class Clientes {
     readonly encerrados: string;
     @Column()
     readonly antigo: string;
+    @Column()
+    readonly opt_doc1: string;
 }
 
 export { Clientes };

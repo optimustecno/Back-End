@@ -8,18 +8,28 @@ interface iFiltro {
     opt_doc1?: any;
 }
 
-class ServiceListaClientes {
-    async execute({ opt_bloqueado, opt_nome_sistema, opt_nome_cliente }: iFiltro) {
+class ServiceListaClientesOld {
+    async execute({ opt_bloqueado, opt_nome_sistema, opt_nome_cliente, opt_doc1 }: iFiltro) {
         var ClientesCad;
 
         const clientesRep = getCustomRepository(ClientesRep);
 
-        if (opt_bloqueado && opt_nome_sistema && opt_nome_cliente) {
+        if (opt_bloqueado && opt_nome_sistema && opt_nome_cliente && opt_doc1) {
             ClientesCad = await clientesRep.find({
                 where: {
                     opt_bloqueado,
                     opt_nome_sistema,
                     opt_nome_cliente: Like(`%${opt_nome_cliente}%`),
+                },
+                order: {
+                    opt_nome_cliente: "ASC",
+                },
+            });
+        } else if (opt_bloqueado && opt_nome_sistema && opt_nome_cliente) {
+            ClientesCad = await clientesRep.find({
+                where: {
+                    opt_bloqueado,
+                    opt_nome_sistema,
                 },
                 order: {
                     opt_nome_cliente: "ASC",
@@ -74,6 +84,31 @@ class ServiceListaClientes {
                 },
             });
         }
+
+        if (!ClientesCad) {
+            throw new Error("Nenhum registro para ser exibido!");
+        }
+        //
+        return ClientesCad;
+    }
+}
+class ServiceListaClientes {
+    async execute({ opt_bloqueado, opt_nome_sistema, opt_nome_cliente, opt_doc1 }: iFiltro) {
+        var ClientesCad;
+
+        const clientesRep = getCustomRepository(ClientesRep);
+
+        ClientesCad = await clientesRep.find({
+            where: {
+                opt_bloqueado: Like(`%${opt_bloqueado}%`),
+                opt_nome_sistema: Like(`%${opt_nome_sistema}%`),
+                opt_nome_cliente: Like(`%${opt_nome_cliente}%`),
+                opt_doc1: Like(`%${opt_doc1}%`)
+            },
+            order: {
+                opt_nome_cliente: "ASC",
+            },
+        });
 
         if (!ClientesCad) {
             throw new Error("Nenhum registro para ser exibido!");

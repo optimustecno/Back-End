@@ -42,6 +42,9 @@ class ServiceCriaEvento {
             });
             await pedidoRep.save(pedidoIfood);
         } else {
+            if (status === "8" && ped.status === "7") {
+                status = ped.status;
+            }
             if (status ===""){
                 status = ped.status;
             }

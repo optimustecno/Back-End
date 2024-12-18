@@ -35,7 +35,6 @@ class ControleAtivaWebhook {
                 });
                 const updateWebhook = new UpdateWebhook();
                 const atRegs = await updateWebhook.execute({ Tipo: "A", opt_cod_cliente });
-
             }
             return response.json(webhook);
         } catch (error) {

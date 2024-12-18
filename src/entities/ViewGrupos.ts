@@ -1,5 +1,4 @@
 import { Column, Entity, JoinColumn, OneToMany, PrimaryColumn } from "typeorm";
-import { ProdutosCardapio } from "./ProdutosCardapio";
 import { ViewGruposAdd } from "./ViewGruposAdicionais";
 import { ViewProdutosCardapio } from "./ViewProdutosCardapio";
 

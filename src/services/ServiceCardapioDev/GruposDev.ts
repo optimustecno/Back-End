@@ -28,7 +28,6 @@ class ConsultaGruposDev {
                     exibir: Like(`%${grupos_ativos}%`),
                 },
                 relations: ["produtos"],
-                select:[]
             });
         } else {
             // console.log(id_cliente)

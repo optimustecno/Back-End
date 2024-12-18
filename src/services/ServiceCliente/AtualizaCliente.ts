@@ -1,4 +1,4 @@
-import { getCustomRepository } from "typeorm";
+import { getCustomRepository, Not } from "typeorm";
 import { ClientesRep } from "../../repositories/ClienteRep";
 
 interface iCadCliente {
@@ -29,6 +29,16 @@ class ServiceAtualizaCliente {
         opt_cardapio_digital,
     }: iCadCliente) {
         const clientesRep = getCustomRepository(ClientesRep);
+        if (opt_doc1 != ""){
+            const verCad = await clientesRep.findOne({
+                opt_doc1,
+                opt_cod_cliente: Not(opt_cod_cliente)
+            });
+            if (verCad) {
+                throw new Error("CPF / CNPJ já incluido no cadastro");
+            }
+        }
+
         const _cliente = await clientesRep.update(
             { opt_cod_cliente: opt_cod_cliente },
             {

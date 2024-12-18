@@ -374,7 +374,6 @@ Rotas.get(
     VerificaVinculo,
     addCardapio.handle
 );
-
 //POST
 Rotas.post("/Login", autenticaUsuario.handle);
 //

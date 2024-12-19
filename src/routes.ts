@@ -399,7 +399,7 @@ Rotas.post("/LinkAdd", VerificaUsuario, Autoriza, linkGrupoAdd.handle);
 Rotas.post("/GrupoAdd", VerificaUsuario, Autoriza, criaGrupoAdd.handle);
 Rotas.post("/Contrato", VerificaUsuario, Autoriza, criaContrato.handle);
 Rotas.post("/Personalizacoes", VerificaUsuario, Autoriza, criaAdd.handle);
-Rotas.post("/WebhhokLote", VerificaUsuario, Autoriza, webhookLote.handle);
+Rotas.post("/WebhookLote", VerificaUsuario, Autoriza, webhookLote.handle);
 Rotas.post("/InsUsuario", VerificaUsuario, Autoriza, insereUsuario.handle);
 Rotas.post("/Financeiro", VerificaUsuario, Autoriza, criaFinanceiro.handle);
 Rotas.post("/UpdateStatus", VerificaUsuario, Autoriza, updateStatus.handle);

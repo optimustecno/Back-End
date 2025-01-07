@@ -41,7 +41,7 @@ class ServiceListaNotas {
                 opt_descricao: Like(`%${descricao}%`),
                 status: Like(`%${status}%`),
             },
-            order: { status: "ASC", seq: "ASC" },
+            order: { status: "ASC", seq: "DESC" },
             skip: offset,
             take: take,
         });

@@ -60,7 +60,7 @@ import { ControleCriaContrato } from "./Controller/ControleContrato";
 import { ControleConsContrato } from "./Controller/ControleContrato";
 import { ControleDeleteSuporte } from "./Controller/ControleSuporte";
 import { ControleUpdateCliente } from "./Controller/ControleCliente";
-import { ControleCriaProdutos } from "./Controller/ControleCardapio";
+import { ControleBuscaAdicionais, ControleCriaProdutos } from "./Controller/ControleCardapio";
 import { ControleBuscaContato } from "./Controller/ControleContatos";
 import {
     ControleAdmListaVinculos,
@@ -145,6 +145,8 @@ import {
     ControleListaNotas,
     ControleUpdateNota,
 } from "./Controller/ControleNotas";
+import { ConverteEvento } from "./utils/DefineTipoEvento";
+import { ConverteUID } from "./middlewares/ConverteUID";
 
 const Rotas = Router();
 
@@ -250,6 +252,7 @@ const buscaGrupos = new ControleBuscaGruposProdutos();
 const cancelaContrato = new ControleCancelaContrato();
 const criaAlteraProdutos = new ControleCriaProdutos();
 const buscaLinkGrupos = new ControleBuscaLinkGrupos();
+const buscaAddCardapio = new ControleBuscaAdicionais();
 const contratosCliente = new ControleConsContratosCli();
 const atualizaContrato = new ControleAtualizaContrato();
 const consultaOcorrencia = new ControleConsOcorrencia();
@@ -276,7 +279,12 @@ const consultaFinanceiroContrato = new ControleBuscaFinanceiroContrato();
 
 //GET
 Rotas.get("/Teste", controleTeste.handle);
-Rotas.get("/GruposProd/:codigo", buscaGrupos.handle);
+// ROTAS CARDÁPIO DIGITAL
+Rotas.get("/GruposProd/:codigo", ConverteUID, buscaGrupos.handle);
+Rotas.get("/ProdutosCardapio/:codigo", ConverteUID, buscaProdutos.handle);
+Rotas.get("/PerfilCardapio/:codigo", ConverteUID, buscaPerfilCardapio.handle);
+Rotas.get("/AdicionaisCardapio/:codigo/:cod_grupo", ConverteUID, buscaAddCardapio.handle)
+// 
 Rotas.get("/Apps", VerificaUsuario, listaApps.handle);
 Rotas.get("/Notas", VerificaUsuario, listaNotas.handle);
 Rotas.get("/App/:seq", VerificaUsuario, buscaApp.handle);
@@ -285,10 +293,8 @@ Rotas.get("/Nota/:seq", VerificaUsuario, buscaNota.handle);
 Rotas.get("/ConsApp", VerificaUsuario, consultaApps.handle);
 Rotas.get("/Setores", VerificaUsuario, buscaSetores.handle);
 Rotas.get("/Acessos", VerificaUsuario, listaAcessos.handle);
-Rotas.get("/ProdutosCardapio/:codigo", buscaProdutos.handle);
 Rotas.get("/Usuarios", VerificaUsuario, buscaUsuarios.handle);
 Rotas.get("/Contatos", VerificaUsuario, listaContatos.handle);
-Rotas.get("/PerfilCardapio/:codigo", buscaPerfilCardapio.handle);
 Rotas.get("/Sistemas", VerificaUsuario, consultaSistemas.handle);
 Rotas.get("/Suportes", VerificaUsuario, consultaSuportes.handle);
 Rotas.get("/Contrato/:seq", VerificaUsuario, consContrato.handle);

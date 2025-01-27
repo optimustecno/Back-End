@@ -3,12 +3,10 @@ import { ConsultaPerfil } from "../../services/ServiceCardapio";
 
 class ControleBuscaPerfilCardapio {
     async handle(request: Request, response: Response) {
-        const codigo_Cli = request.params.codigo;
-        
+        const codigo_Cli = request.opt_cod_cliente;
         const ConsPerfil = new ConsultaPerfil();
 
         const Perfil = await ConsPerfil.execute({opt_cod_cliente: codigo_Cli});
-
         return response.json(Perfil);
     }
 }

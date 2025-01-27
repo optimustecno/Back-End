@@ -36,22 +36,22 @@ export async function AutIFood(request: Request, response: Response, next: NextF
     segundos = segundos.substring(iLen, iLen - 2);
     const MomentoH = `${horas}:${minutos}:${segundos}`;
     //
-    var responseJson = await JSON.parse(payload);
-    if (responseJson.fullCode != "KEEPALIVE") {
-        console.log(responseJson.merchantId);
-        const _log = await CriaLog.execute({
-            opt_payload: payload,
-            opt_data: MomentoD,
-            opt_hora: MomentoH,
-            opt_origem: `IFood-${testeIFood}`,
-        });
-    } else {
-        return response
-            .status(202)
-            .json({ error: "Pedido Não Pertence a Nenhum Cliente Vinculado" });
-    }
-
     if (testeIFood) {
+        var responseJson = await JSON.parse(payload);
+        if (responseJson.fullCode != "KEEPALIVE") {
+            console.log(responseJson.merchantId);
+            const _log = await CriaLog.execute({
+                opt_payload: payload,
+                opt_data: MomentoD,
+                opt_hora: MomentoH,
+                opt_origem: `IFood-${testeIFood}`,
+            });
+        } else {
+            return response
+                .status(202)
+                .json({ error: "Pedido Não Pertence a Nenhum Cliente Vinculado" });
+        }
+
         const appRep = getCustomRepository(AppRep);
         console.log(`Teste de ID ${responseJson.merchantId}`);
         const app = await appRep.findOne({

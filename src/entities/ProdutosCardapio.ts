@@ -1,6 +1,6 @@
-import { Entity, PrimaryColumn, Column, ManyToOne, JoinColumn } from "typeorm";
 import { GrupoProdutos } from "./GrupoProdutos";
 import { ViewGruposProdutos } from "./ViewGrupos";
+import { Entity, PrimaryColumn, Column, ManyToOne, JoinColumn } from "typeorm";
 
 @Entity("opt_produtos_cardapio")
 class ProdutosCardapio {

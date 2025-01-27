@@ -18,6 +18,8 @@ class CardapioClientes {
     logo_svg: string;
     @Column()
     cor_botao: string;
+    @Column()
+    opt_uid_cli: string;
 }
 
 export { CardapioClientes };

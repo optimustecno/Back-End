@@ -16,7 +16,7 @@ class ConsultaPerfil {
 
         const perfilRep = getCustomRepository(CardapioCliRep);
 
-        const Perfil = await perfilRep.findOne({ opt_cod_cliente });
+        const Perfil = await perfilRep.findOne({  opt_cod_cliente });
         return Perfil;
     }
 }

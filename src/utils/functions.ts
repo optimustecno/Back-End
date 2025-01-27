@@ -21,7 +21,6 @@ class removeEmojis {
 class ValidaCardapio {
     async execute({ opt_cod_cliente }: iCardapio) {
         const ClienteRep = getCustomRepository(ClientesRep);
-        
         const _Cliente = await ClienteRep.findOne({ opt_cod_cliente });
         if (!_Cliente) {
             return false;

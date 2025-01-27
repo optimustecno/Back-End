@@ -3,7 +3,7 @@ import { ConsultaGrupos } from "../../services/ServiceCardapio";
 
 class ControleBuscaGruposProdutos {
     async handle(request: Request, response: Response) {
-        const codigo_Cli = request.params.codigo;
+        const codigo_Cli = request.opt_cod_cliente;
         
         const ConsGrupos = new ConsultaGrupos();
 

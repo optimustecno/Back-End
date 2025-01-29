@@ -19,9 +19,11 @@ class ConsultaProdutos {
         const Prods = await prodsRep.find({
             where: {
                 opt_cod_cliente,
+                exibir: "1"
             },
             order: {
                 grupo: "ASC",
+                ordem: "ASC",
                 produto: "ASC"
             },
         });

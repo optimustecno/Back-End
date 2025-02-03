@@ -60,7 +60,7 @@ import { ControleCriaContrato } from "./Controller/ControleContrato";
 import { ControleConsContrato } from "./Controller/ControleContrato";
 import { ControleDeleteSuporte } from "./Controller/ControleSuporte";
 import { ControleUpdateCliente } from "./Controller/ControleCliente";
-import { ControleBuscaAdicionais, ControleCriaProdutos } from "./Controller/ControleCardapio";
+import { ControleBuscaAdicionais, ControleBuscaGruposAdicionais, ControleCriaProdutos } from "./Controller/ControleCardapio";
 import { ControleBuscaContato } from "./Controller/ControleContatos";
 import {
     ControleAdmListaVinculos,
@@ -272,6 +272,7 @@ const grupoPersonaDev = new ControleGrupoPersonalizacaoDev();
 const buscaPerfilCardapio = new ControleBuscaPerfilCardapio();
 const buscaNaoLinkadas = new ControleBuscaEmpresasNaoLinkadas();
 const atualizaDadosViaFood = new ControleUpdateClienteViaFood();
+const buscaGrupoAdicionais = new ControleBuscaGruposAdicionais();
 const personalizacoesDev = new ControleBuscaPersonalizacoesDev();
 const buscaEmpresasLinkadas = new ControleBuscaEmpresasLinkadas();
 const consultaTodasOcorrencias = new ControleTodasConsOcorrencias();
@@ -283,8 +284,9 @@ Rotas.get("/Teste", controleTeste.handle);
 Rotas.get("/GruposProd/:codigo", ConverteUID, buscaGrupos.handle);
 Rotas.get("/ProdutosCardapio/:codigo", ConverteUID, buscaProdutos.handle);
 Rotas.get("/PerfilCardapio/:codigo", ConverteUID, buscaPerfilCardapio.handle);
-Rotas.get("/AdicionaisCardapio/:codigo/:cod_grupo", ConverteUID, buscaAddCardapio.handle)
-// 
+Rotas.get("/GruposAddCardapio/:codigo/:cod_grupo", ConverteUID, buscaGrupoAdicionais.handle)
+Rotas.get("/AdicionaisCardapio/:codigo/:cod_grupo_add", ConverteUID, buscaAddCardapio.handle);
+//
 Rotas.get("/Apps", VerificaUsuario, listaApps.handle);
 Rotas.get("/Notas", VerificaUsuario, listaNotas.handle);
 Rotas.get("/App/:seq", VerificaUsuario, buscaApp.handle);

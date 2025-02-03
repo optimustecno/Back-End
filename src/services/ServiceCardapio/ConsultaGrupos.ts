@@ -4,10 +4,11 @@ import { ViewGruposProdRep } from "../../repositories/ViewGrupoProdRep";
 
 interface iCliProds {
     opt_cod_cliente: string;
+    uid_cliente: string;
 }
 
 class ConsultaGrupos {
-    async execute({ opt_cod_cliente }: iCliProds) {
+    async execute({ opt_cod_cliente, uid_cliente }: iCliProds) {
         const Valida = new ValidaCardapio();
         const bUsaCardapio = await Valida.execute({ opt_cod_cliente });
         if (!bUsaCardapio) {
@@ -17,7 +18,7 @@ class ConsultaGrupos {
         const gruposRep = getCustomRepository(ViewGruposProdRep);
 
         const Grupos = await gruposRep.find({
-            where: { id_cliente: opt_cod_cliente },
+            where: { id_cliente: uid_cliente, exibir:"1" },
             order: { nome_grupo: "ASC" },
         });
 
